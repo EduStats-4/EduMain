@@ -1,22 +1,61 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <title>Hello, World!</title>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8" /> 
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ÉduStats</title>
     <link rel="stylesheet" href="styles.css" />
-  </head>
-  <body>
-      <h1 class="title">Hello World! </h1>
-      <div class="content-wrapper">
-        <h3 id="currentTime"></h3>
-        <script src="script.js"></script>
+    <link rel="icon" type="image/x-icon" href="https://assets.onecompiler.app/43abr36kz/43h34s5qw/EduStats.png">
+    <link href='https://fonts.googleapis.com/css?family=Caveat' rel='stylesheet'>
+</head>
+<body>
+  <label class="menu">
+    <input type="checkbox" />
+  </label>
+    <aside class="sidebar">
+      <nav>
+        <div><a href="de.html">Jeu de dé</a></div><br /><br />
+        <div><a href="flashcard.html">Jeu de Flashcards</a></div><br /><br />
+        <div><a href="trivia.html">Jeu d'anecdotes</a></div><br /><br />
+        <div><a href="math.html">Jeu de maths</a></div><br /><br />
+      </nav>
+    </aside>
+    <div class="logo">
+      <img src="https://assets.onecompiler.app/43abr36kz/43h34s5qw/EduStats.png">
+    </div>
+    <div class="row">
+        <h3>DDAK's : </h3>
+      <div class="column">
+        <div>
+          <h3 class="scoreboard" id="score">0</h3>
+        </div>
       </div>
-      <div class="content-wrapper">
-        <label for="nom">Nom : </label>
-        <input type="text" id="nom">
-        <button type="submit" onclick="nomDisplay()">Soumettre</button>
+    </div>
+    <div class="main-page">
+      <div class="column">
+        <h2 style="text-align:center;">Jeu de Dé</h2>
+        <a href="de.html">
+          <img src="https://assets.onecompiler.app/43abr36kz/43h34s5qw/ChatGPT%20Image%20May%2012,%202025,%2009_29_38%20AM.png">
+        </a>
       </div>
-      <div class="nameJS">
-        <h5 id="nomDisplay"></h5>
+      <div class="column">
+        <h2 style="text-align:center;">Flashcards</h2>
+        <a href="flashcard.html">
+          <img src="https://assets.onecompiler.app/43abr36kz/43h34s5qw/ChatGPT%20Image%20May%2012,%202025,%2009_29_38%20AM.png">
+        </a>
       </div>
-  </body>
+      <div class="column">
+        <h2 style="text-align:center;">Anecdotes</h2>
+        <a href="trivia.html">
+          <img src="https://assets.onecompiler.app/43abr36kz/43h34s5qw/ChatGPT%20Image%20May%2012,%202025,%2009_29_38%20AM.png">
+        </a>
+      </div>
+      <div class="column">
+        <h2 style="text-align:center;">Maths</h2>
+        <a href="math.html">
+          <img src="https://assets.onecompiler.app/43abr36kz/43h34s5qw/ChatGPT%20Image%20May%2012,%202025,%2009_29_38%20AM.png">
+        </a>
+      </div>
+    </div>
+</body>
 </html>
