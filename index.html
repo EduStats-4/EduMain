@@ -58,5 +58,9 @@
         </a>
       </div>
     </div>
+  <script>
+    const daks = parseInt(localStorage.getItem("daks")) || 100;
+    document.getElementById("score").textContent = daks;
+  </script>
 </body>
 </html>
