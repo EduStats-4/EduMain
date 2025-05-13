@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" /> 
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ÉduStats</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="icon" type="image/x-icon" href="https://assets.onecompiler.app/43abr36kz/43h34s5qw/EduStats.png">
+  <link href='https://fonts.googleapis.com/css?family=Caveat' rel='stylesheet'>
+  <style>
+    .boiteJeu {
+      background-color: #303030;
+      padding: 25px;
+      border-radius: 25px;
+      border: white 5px solid;
+      width: 90%;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    button {
+      font-size: 24px;
+      padding: 12px 20px;
+      background-color: #FFD700;
+      color: black;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: 0.3s ease;
+      margin-top: 10px;
+    }
+
+    button:hover {
+      background-color: #daa520;
+      box-shadow: 0 0 15px 6px rgba(255, 215, 0, 0.6);
+    }
+
+    input[type="number"] {
+      font-size: 26px;
+      padding: 10px;
+      width: 120px;
+      text-align: center;
+      border: 5px solid white;
+      border-radius: 25px;
+      margin-bottom: 15px;
+      background-color: #222;
+      color: white;
+    }
+
+    #resultat {
+      margin-top: 30px;
+      font-size: 26px;
+    }
+
+    #de1, #de2 {
+      width: 100px;
+      height: 100px;
+    }
+
+    label {
+      display: block;
+      margin-top: 20px;
+      font-size: 24px;
+    }
+
+    #boiteDe {
+      margin-top: 20px;
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+    }
+
+    .de-img {
+      width: 100px;
+      height: 100px;
+    }
+    .form-group {
+      text-align: center;
+    }
+
+  </style>
+</head>
+<body>
+  <label class="menu">
+    <input type="checkbox" />
+  </label>
+  <aside class="sidebar">
+    <nav>
+      <div><a href="index.html">Index</a></div><br /><br />
+      <div><a href="flashcard.html">Jeu de Flashcards</a></div><br /><br />
+      <div><a href="trivia.html">Jeu d'Anecdotes</a></div><br /><br />
+      <div><a href="math.html">Jeu de Dé</a></div><br /><br />
+    </nav>
+  </aside>
+
+  <div class="row">
+    <h3>DDAK's : </h3>
+    <div class="column">
+      <div>
+        <h3 class="scoreboard" id="score">100</h3>
+      </div>
+    </div>
+  </div>
+
+  <div class="main-page">
+    <div class="boiteJeu">
+      <h2 style="text-align: center;">Devine la somme des dés (2 à 12)</h2>
+
+      <div class="form-group">
+        <label>Votre mise (DAKs) :</label><br />
+        <input type="number" id="mise" min="1" /><br /><br />
+      
+        <label>Votre devinette :</label><br />
+        <input type="number" id="deviner" min="2" max="12" />
+      </div>
+
+      <div id="boiteDe">
+        <img id="de1" src="https://assets.onecompiler.app/43aeytn9j/43hkbnrr9/dice-six-faces-one.png" alt="Dé 1" class="de-img">
+        <img id="de2" src="https://assets.onecompiler.app/43aeytn9j/43hkbnrr9/dice-six-faces-one.png" alt="Dé 2" class="de-img">
+      </div>
+
+      <div id="resultat"></div>
+
+      <button onclick="lancerDes()">Lancer les Dés</button>
+    </div>
+  </div>
+
+  <script>
+    imagesDes = [
+      "https://assets.onecompiler.app/43aeytn9j/43hkbnrr9/dice-six-faces-one.png",
+      "https://assets.onecompiler.app/43aeytn9j/43hkbnrr9/dice-six-faces-two.png",
+      "https://assets.onecompiler.app/43aeytn9j/43hkbnrr9/dice-six-faces-three.png",
+      "https://assets.onecompiler.app/43aeytn9j/43hkbnrr9/dice-six-faces-four.png",
+      "https://assets.onecompiler.app/43aeytn9j/43hkbnrr9/dice-six-faces-five.png",
+      "https://assets.onecompiler.app/43aeytn9j/43hkbnrr9/dice-six-faces-six.png"
+    ];
+
+    daks = 100
+
+    function lancerDes() {
+      const mise = parseInt(document.getElementById("mise").value)
+      const deviner = parseInt(document.getElementById("deviner").value)
+      const resultat = document.getElementById("resultat")
+
+      if (isNaN(mise) || isNaN(deviner) || deviner < 2 || deviner > 12) {
+        resultat.textContent = "Entrez une mise valide et une devinette entre 2 et 12."
+        return
+      }
+
+      if (mise > daks) {
+        resultat.textContent = "Vous n'avez pas assez de DAKs."
+        return
+      }
+
+      de1 = Math.floor(Math.random() * 6) + 1
+      de2 = Math.floor(Math.random() * 6) + 1
+      somme = de1 + de2
+
+      document.getElementById("de1").src = imagesDes[de1 - 1]
+      document.getElementById("de2").src = imagesDes[de2 - 1]
+
+      if (deviner === somme) {
+        daks += mise
+        resultat.textContent = `Bravo ! Vous avez deviné ${deviner} et la somme est ${somme}. Vous gagnez ${mise} DAKs.`
+      } else {
+        daks -= mise
+        resultat.textContent = `Dommage... Vous avez deviné ${deviner} mais la somme est ${somme}. Vous perdez ${mise} DAKs.`
+      }
+
+      document.getElementById("score").textContent = daks
+    }
+  </script>
+</body>
+</html>
