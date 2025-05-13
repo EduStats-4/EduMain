@@ -126,7 +126,7 @@
   </div>
 
   <script>
-    storedDaks = localStorage.getItem("daks")
+    storedDaks = sessionStorage.getItem("daks")
     daks = storedDaks !== null ? parseInt(storedDaks) : 100
     document.getElementById("score").textContent = daks
     document.getElementById("score").textContent = daks
