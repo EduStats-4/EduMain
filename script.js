@@ -13,4 +13,3 @@ function addDdaks(points) {
     setTimeout(() => scoreElement.classList.remove("grow"), 200);
   }
 }
-addDdaks(10)
