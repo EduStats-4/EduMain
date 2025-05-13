@@ -126,6 +126,8 @@
   </div>
 
   <script>
+    daks = parseInt(localStorage.getItem("daks")) || 100
+    document.getElementById("score").textContent = daks
     imagesDes = [
       "https://assets.onecompiler.app/43aeytn9j/43hkbnrr9/dice-six-faces-one.png",
       "https://assets.onecompiler.app/43aeytn9j/43hkbnrr9/dice-six-faces-two.png",
@@ -134,8 +136,6 @@
       "https://assets.onecompiler.app/43aeytn9j/43hkbnrr9/dice-six-faces-five.png",
       "https://assets.onecompiler.app/43aeytn9j/43hkbnrr9/dice-six-faces-six.png"
     ];
-
-    daks = 100
 
     function lancerDes() {
       const mise = parseInt(document.getElementById("mise").value)
@@ -168,6 +168,7 @@
       }
 
       document.getElementById("score").textContent = daks
+      localStorage.setItem("daks", daks)
     }
   </script>
 </body>
