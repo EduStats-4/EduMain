@@ -1,5 +1,5 @@
 function addDdaks(points) {
-  let current = parseInt(sessionStorage.getItem("ddaks") || "0", 10);
+  let current = parseInt(sessionStorage.getItem("ddaks") || "100", 10);
   
   current += points;
 
