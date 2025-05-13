@@ -13,3 +13,11 @@ function addDdaks(points) {
     setTimeout(() => scoreElement.classList.remove("grow"), 200);
   }
 }
+
+storedDaks = sessionStorage.getItem("ddaks")
+ddaks = storedDaks !== null ? parseInt(storedDaks) : 100
+document.getElementById("score").textContent = ddaks
+document.getElementById("score").textContent = ddaks
+
+document.getElementById("score").textContent = ddaks
+sessionStorage.setItem("ddaks", ddaks)
