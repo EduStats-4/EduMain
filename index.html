@@ -27,7 +27,12 @@
         <h3>DDAK's : </h3>
       <div class="column">
         <div>
-            <script src="script.js"></script>
+            <script src="script.js">
+                storedDaks = sessionStorage.getItem("daks")
+                daks = storedDaks !== null ? parseInt(storedDaks) : 100
+                document.getElementById("score").textContent = daks
+                document.getElementById("score").textContent = daks
+            </script>
           <h3 class="scoreboard" id="score">100</h3>
         </div>
       </div>
