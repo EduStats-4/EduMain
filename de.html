@@ -126,7 +126,9 @@
   </div>
 
   <script>
-    daks = parseInt(localStorage.getItem("daks")) || 100
+    storedDaks = localStorage.getItem("daks")
+    daks = storedDaks !== null ? parseInt(storedDaks) : 100
+    document.getElementById("score").textContent = daks
     document.getElementById("score").textContent = daks
     imagesDes = [
       "https://assets.onecompiler.app/43aeytn9j/43hkbnrr9/dice-six-faces-one.png",
