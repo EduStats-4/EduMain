@@ -162,13 +162,15 @@
       document.getElementById("de2").src = imagesDes[de2 - 1]
 
       if (deviner === somme) {
-        addDdaks(mise)
+        daks += mise
         resultat.textContent = `Bravo ! Vous avez deviné ${deviner} et la somme est ${somme}. Vous gagnez ${mise} DAKs.`
       } else {
-        addDdaks(-mise)
+        daks -= mise
         resultat.textContent = `Dommage... Vous avez deviné ${deviner} mais la somme est ${somme}. Vous perdez ${mise} DAKs.`
       }
 
+      document.getElementById("score").textContent = daks
+      localStorage.setItem("daks", daks)
     }
   </script>
 </body>
