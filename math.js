@@ -2,6 +2,19 @@ let reponse
 let essais = 0
 let indiceReponse = ""
 
+function addDdaks(points) {
+  let current = parseInt(sessionStorage.getItem("ddaks") || "100", 10);
+  current += points;
+  sessionStorage.setItem("ddaks", current);
+
+  const scoreElement = document.getElementById("score");
+  if (scoreElement) {
+    scoreElement.textContent = current;
+    scoreElement.classList.add("grow");
+    setTimeout(() => scoreElement.classList.remove("grow"), 200);
+  }
+}
+
 function numRandom() {
   reponse = Math.floor(Math.random() * 100 + 1)
   essais = 0
