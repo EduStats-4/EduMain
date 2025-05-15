@@ -127,16 +127,17 @@
     }
 
     function verReponse() {
-      reponse = document.getElementById("reponse").value.toLowerCase().trim();
-      if (reponse === actuelMot.mot) {
-        pts += 50;
-        document.getElementById("message").textContent = "Correcte, vous avez gagné 50 DDAK's";
+      const userAnswer = document.getElementById("reponse").value.toLowerCase().trim();
+      const message = document.getElementById("message");
+    
+      if (userAnswer === actuelMot.mot) {
+        message.textContent = "Bravo ! Bonne réponse.";
+        addDdaks(10); // reward 10 DDAKs
+        setTimeout(choisiNewMot, 1500);
       } else {
-        pts -= 50;
-        document.getElementById("message").textContent = "Incorrecte, vous avez perdu 50 DDAK's";
+        message.textContent = "Incorrect... Réessayez.";
+        addDdaks(-5); // optional: penalty
       }
-      document.getElementById("pts").textContent = pts;
-      setTimeout(choisiNewMot, 2500);
     }
 
     choisiNewMot();
