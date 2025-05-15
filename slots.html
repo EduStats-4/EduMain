@@ -114,42 +114,46 @@
     <div class="pts">DDAK's: <span id="pts">100</span></div>
   </div>
 
-  <script>
-     mots = [
-      { mot: "guerre", categorie: "Histoire" },
-      { mot: "canada", categorie: "Géographie" },
-      { mot: "puberté", categorie: "Santé" },
-    ];
+<script>
+  const mots = [
+    { mot: "guerre", categorie: "Histoire" },
+    { mot: "canada", categorie: "Géographie" },
+    { mot: "puberté", categorie: "Santé" },
+  ];
 
-    let actuelMot = {};
-    let pts = 100;
+  let actuelMot = {};
 
-    function scramble(mot) {
-      return mot.split('').sort(() => Math.random() - 0.5).join('');
+  let storedPts = sessionStorage.getItem("ddaks");
+  let pts = storedPts !== null ? parseInt(storedPts) : 100;
+  document.getElementById("pts").textContent = pts;
+
+  function scramble(mot) {
+    return mot.split('').sort(() => Math.random() - 0.5).join('');
+  }
+
+  function choisiNewMot() {
+    actuelMot = mots[Math.floor(Math.random() * mots.length)];
+    document.getElementById("scrambled").textContent = scramble(actuelMot.mot);
+    document.getElementById("categorie").innerHTML = `Catégorie: <b>${actuelMot.categorie}</b>`;
+    document.getElementById("reponse").value = "";
+    document.getElementById("message").textContent = "";
+  }
+
+  function verReponse() {
+    const reponse = document.getElementById("reponse").value.toLowerCase().trim();
+    if (reponse === actuelMot.mot) {
+      pts += 50;
+      document.getElementById("message").textContent = "Correcte, vous avez gagné 50 DDAK's";
+    } else {
+      pts -= 50;
+      document.getElementById("message").textContent = "Incorrecte, vous avez perdu 50 DDAK's";
     }
+    document.getElementById("pts").textContent = pts;
+    sessionStorage.setItem("ddaks", pts);
+    setTimeout(choisiNewMot, 1000);
+  }
 
-    function choisiNewMot() {
-      actuelMot = mots[Math.floor(Math.random() * mots.length)];
-      document.getElementById("scrambled").textContent = scramble(actuelMot.mot);
-      document.getElementById("categorie").innerHTML = `Catégorie: <b>${actuelMot.categorie}</b>`;
-      document.getElementById("reponse").value = "";
-      document.getElementById("message").textContent = "";
-    }
-
-    function verReponse() {
-      reponse = document.getElementById("reponse").value.toLowerCase().trim();
-      if (reponse === actuelMot.mot) {
-        pts += 50;
-        document.getElementById("message").textContent = "Correcte, vous avez gagné 50 DDAK's";
-      } else {
-        pts -= 50;
-        document.getElementById("message").textContent = "Incorrecte, vous avez perdu 50 DDAK's";
-      }
-      document.getElementById("pts").textContent = pts;
-      setTimeout(choisiNewMot, 2500);
-    }
-
-    choisiNewMot();
-  </script>
+  window.onload = choisiNewMot;
+</script>
 </body>
 </html>
