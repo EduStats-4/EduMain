@@ -7,7 +7,7 @@
   <script src="scripts.js"></script>
   <title>Mot Brouillé</title>
 </head>
-<style>
+ <style>
     body {
       background: radial-gradient(circle at center, #303030, black);
       min-height: 100vh;
@@ -93,37 +93,8 @@
       color: #ffd700;
       text-shadow: 0 1px 4px #b71c1c;
     }
-    .pts {
-      font-size: 1.2em;
-      color: #D4AF37;
-      font-weight: bold;
-      margin-top: 10px;
-      border-top: 2px solid #ffd70044;
-      padding-top: 12px;
-    }
-
-</style>
+  </style>
 <body>
-    <label class="menu">
-    <input type="checkbox" />
-  </label>
-  <aside class="sidebar">
-    <nav>
-      <div><a href="index.html">Index</a></div><br /><br />
-      <div><a href="flashcard.html">Jeu de Flashcards</a></div><br /><br />
-      <div><a href="trivia.html">Jeu d'Anecdotes</a></div><br /><br />
-      <div><a href="math.html">Jeu de Dé</a></div><br /><br />
-    </nav>
-  </aside>
-
-  <div class="row">
-    <h3>DDAK's : </h3>
-    <div class="column">
-      <div>
-        <h3 class="scoreboard" id="score">100</h3>
-      </div>
-    </div>
-  </div>
   <div class="container">
     <div class="title">Mot Brouillé</div>
     <div id="categorie"></div>
@@ -134,13 +105,14 @@
   </div>
 
   <script>
-    const mots = [
+     mots = [
       { mot: "guerre", categorie: "Histoire" },
       { mot: "canada", categorie: "Géographie" },
       { mot: "puberté", categorie: "Santé" },
     ];
 
     let actuelMot = {};
+    let pts = 0;
 
     function scramble(mot) {
       return mot.split('').sort(() => Math.random() - 0.5).join('');
@@ -155,15 +127,15 @@
     }
 
     function verReponse() {
-      const reponse = document.getElementById("reponse").value.toLowerCase().trim();
+      reponse = document.getElementById("reponse").value.toLowerCase().trim();
       if (reponse === actuelMot.mot) {
-        score += 50;
+        pts += 50;
         document.getElementById("message").textContent = "Correcte, vous avez gagné 50 DDAK's";
       } else {
-        score -= 50;
+        pts -= 50;
         document.getElementById("message").textContent = "Incorrecte, vous avez perdu 50 DDAK's";
       }
-      document.getElementById("score").textContent = pts;
+      document.getElementById("pts").textContent = pts;
       setTimeout(choisiNewMot, 2500);
     }
 
