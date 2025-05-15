@@ -130,7 +130,6 @@
     <input type="text" id="reponse" placeholder="Votre devinette..." />
     <button onclick="verReponse()">Soumettre</button>
     <div class="message" id="message"></div>
-    <div class="pts">DDAK's: <span id="pts">0</span></div>
   </div>
 
   <script>
@@ -158,13 +157,13 @@
     function verReponse() {
       const reponse = document.getElementById("reponse").value.toLowerCase().trim();
       if (reponse === actuelMot.mot) {
-        pts += 50;
+        score += 50;
         document.getElementById("message").textContent = "Correcte, vous avez gagné 50 DDAK's";
       } else {
-        pts -= 50;
+        score -= 50;
         document.getElementById("message").textContent = "Incorrecte, vous avez perdu 50 DDAK's";
       }
-      document.getElementById("pts").textContent = pts;
+      document.getElementById("score").textContent = pts;
       setTimeout(choisiNewMot, 2500);
     }
 
