@@ -122,7 +122,7 @@
   ];
 
   actuelMot = {};
-  pts = sessionStorage.getItem("pts") ? parseInt(sessionStorage.getItem("pts")) : 100;
+  pts = sessionStorage.getItem("pts") ? parseInt(sessionStorage.getItem("pts"));
 
   function scramble(mot) {
     return mot.split('').sort(() => Math.random() - 0.5).join('');
