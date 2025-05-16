@@ -110,7 +110,7 @@ function checkGuess() {
 
   message.textContent = "Ce n'est pas le bon nombre ! Essaie encore."
 
-  if (essais % 2 != 0) {
+  if !(essais % 2 === 0) {
     if (entree < reponse) {
       indiceFinale += `Le nombre est plus grand que ${entree}. `
     } else {
