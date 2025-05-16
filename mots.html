@@ -165,12 +165,14 @@
     
       function verReponse() {
         const reponse = document.getElementById("reponse").value.toLowerCase().trim();
-        if (reponse === actuelMot.mot) {
+        if (reponse === actuelMot.mot && pts >= 50) {
           pts += 50;
           document.getElementById("message").textContent = "Correcte, vous avez gagné 50 DDAK's";
-        } else {
+        } else if (pts >= 50 && reponse != actuelMot.mot){
           pts -= 50;
           document.getElementById("message").textContent = "Incorrecte, vous avez perdu 50 DDAK's";
+        } else {
+          document.getElementById("message").textContent = "Vous navez pas assez de Ddaks pour déviner !"
         }
         document.getElementById("pts").textContent = pts;
         sessionStorage.setItem("ddaks", pts);
