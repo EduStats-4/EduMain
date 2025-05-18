@@ -92,11 +92,12 @@ function checkGuess() {
   let indiceFinale = ""
 
   if (entree === reponse) {
+    reponse = -1
     message.textContent = `Bravo ! Tu as trouvé en ${essais} essai(s) !`
     indice.textContent = ""
     addToHistory(essais, entree, "Bonne réponse !")
     addDdaks(parseInt((100 / essais)*4))
-    numRandom()
+    setTimeout(numRandom, 1000)
     return
   }
 
