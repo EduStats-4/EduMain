@@ -93,11 +93,11 @@ function checkGuess() {
 
   if (entree === reponse) {
     reponse = -1
-    message.textContent = `Bravo ! Tu as trouvé en ${essais} essai(s) !`
+    message.textContent = `Bravo ! Tu as trouvé en ${essais} essai(s) et tu as gagné ` + parseInt((100 / essais)*4) + " Ddaks!"
     indice.textContent = ""
     addToHistory(essais, entree, "Bonne réponse !")
     addDdaks(parseInt((100 / essais)*4))
-    message.textContent = "Clique sur 'Nouveau nombre' pour commencer une partie."
+    indice.textContent = "Clique sur 'Nouveau nombre' pour commencer une partie."
     return
   }
 
