@@ -97,7 +97,7 @@ function checkGuess() {
     indice.textContent = ""
     addToHistory(essais, entree, "Bonne réponse !")
     addDdaks(parseInt((100 / essais)*4))
-    setTimeout(numRandom, 1000)
+    message.textContent = "Clique sur 'Nouveau nombre' pour commencer une partie."
     return
   }
 
