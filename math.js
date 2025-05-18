@@ -96,10 +96,7 @@ function checkGuess() {
     indice.textContent = ""
     addToHistory(essais, entree, "Bonne réponse !")
     addDdaks(parseInt((100 / essais)*4))
-    indice.textContent = ""
-    addToHistory(essais, entree, "Fin de partie.")
-    essais = 0
-    reponse = undefined
+    numRandom()
     return
   }
 
