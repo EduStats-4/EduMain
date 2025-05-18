@@ -95,7 +95,7 @@ function checkGuess() {
     message.textContent = `Bravo ! Tu as trouvé en ${essais} essai(s) !`
     indice.textContent = ""
     addToHistory(essais, entree, "Bonne réponse !")
-    addDdaks(parseInt(100 / essais))
+    addDdaks(parseInt((100 / essais)*4))
     return
   }
 
@@ -110,7 +110,7 @@ function checkGuess() {
 
   message.textContent = "Ce n'est pas le bon nombre ! Essaie encore."
 
-  if !(essais % 2 === 0) {
+  if (!(essais % 2 === 0)) {
     if (entree < reponse) {
       indiceFinale += `Le nombre est plus grand que ${entree}. `
     } else {
@@ -146,4 +146,3 @@ function addToHistory(essai, guess, clue) {
 
   tbody.appendChild(row)
 }
-
