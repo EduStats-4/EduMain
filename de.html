@@ -1,405 +1,470 @@
 <!DOCTYPE html>
 <html lang="fr">
-  <head>
+<head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>ÉduStats</title>
-    <!-- Lien vers le fichier CSS externe pour le style -->
-    <link rel="stylesheet" href="styles.css" />
-    <!-- Icône de l'onglet (favicon) -->
-    <link rel="icon" type="image/x-icon" href="https://assets.onecompiler.app/43abr36kz/43h34s5qw/EduStats.png">
-    <!-- Police personnalisée depuis Google Fonts -->
-    <link href='https://fonts.googleapis.com/css?family=Caveat' rel='stylesheet'>
+    <title>Devine la somme des dés</title>
     <style>
-      body {
-        background-image: url(https://sdmntprsouthcentralus.oaiusercontent.com/files/00000000-604c-61f7-8807-932305f790df/raw?se=2025-05-19T02%3A00%3A54Z&sp=r&sv=2024-08-04&sr=b&scid=00000000-0000-0000-0000-000000000000&skoid=24a7dec3-38fc-4904-b888-8abe0855c442&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2025-05-18T23%3A31%3A00Z&ske=2025-05-19T23%3A31%3A00Z&sks=b&skv=2024-08-04&sig=lTS7CSUs%2B%2BdocXv%2Bm3%2B7Paokz6LMBJitlKbT0GS7FvY%3D);
-        background-size: cover;
-        background-position: center;
-        background-repeat: no-repeat;
-      }
+    /* ===== MODERN NAVBAR STYLES ===== */
+.game-navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 70px;
+  background: linear-gradient(135deg, #1a1a1a 0%, #111 100%);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+  border-bottom: 1px solid rgba(231, 76, 60, 0.3);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+}
 
-      /* Style de la boîte principale du jeu */
-      .boiteJeu {
-        background-color: #303030;
-        padding: 25px;
-        border-radius: 25px;
-        border: white 5px solid;
-        width: 90%;
-        max-width: 600px;
-        margin: auto;
-        margin-bottom: 25px;
-      }
+.nav-content {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
 
-      /* Style du bouton de jeu */
-      button {
-        font-size: 24px;
-        padding: 12px 20px;
-        background-color: #FFD700;
-        color: black;
-        border: none;
-        border-radius: 8px;
-        cursor: pointer;
-        transition: 0.3s ease;
-        margin: 10px auto;
-        display: block;
-      }
+.nav-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
 
-      /* Effet quand on passe la souris sur le bouton */
-      button:hover {
-        background-color: #daa520;
-        box-shadow: 0 0 15px 6px rgba(255, 215, 0, 0.6);
-      }
+.logo-icon {
+  color: #e74c3c;
+  font-size: 1.8rem;
+}
 
-      /* Style des champs de saisie (mise et devinette) */
-      input[type="number"] {
-        font-size: 26px;
-        padding: 10px;
-        width: 120px;
-        text-align: center;
-        border: 5px solid white;
-        border-radius: 25px;
-        margin-bottom: 15px;
-        background-color: #222;
-        color: white;
-      }
+.logo-text {
+  font-family: 'Arial Black', sans-serif;
+  font-size: 1.5rem;
+  color: white;
+  margin: 0;
+}
 
-      /* Style pour le résultat du jeu */
-      #resultat {
-        margin-top: 30px;
-        font-size: 26px;
-      }
+.logo-text span {
+  color: #e74c3c;
+}
 
-      /* Taille des images des dés */
-      #de1,
-      #de2 {
-        width: 100px;
-        height: 100px;
-      }
+.nav-games {
+  display: flex;
+  gap: 15px;
+}
 
-      /* Style pour les étiquettes de texte */
-      label {
-        display: block;
-        margin-top: 20px;
-        font-size: 24px;
-        color: white;
-      }
+.nav-link {
+  color: #aaa;
+  text-decoration: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+  padding: 8px 12px;
+  border-radius: 6px;
+}
 
-      /* Alignement horizontal des images des dés */
-      #boiteDe {
-        margin-top: 20px;
-        display: flex;
-        justify-content: center;
-        gap: 15px;
-      }
+.nav-link:hover {
+  background: rgba(231, 76, 60, 0.1);
+  color: white;
+}
 
-      /* Taille des images des dés */
-      .de-img {
-        width: 100px;
-        height: 100px;
-      }
+.nav-link i {
+  font-size: 1.2rem;
+  margin-bottom: 3px;
+}
 
-      .form-group {
-        text-align: center;
-      }
+.link-text {
+  font-family: 'Arial', sans-serif;
+}
 
-      .centered {
-        text-align: center;
-        color: white;
-      }
+.ddak-display {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
 
-      table {
-        margin: 0 auto;
-        /* Centre horizontalement */
-        width: 80%;
-        /* Ajustez la largeur à votre convenance */
-        border-collapse: collapse;
-        text-align: center;
-        font-size: 20px;
-      }
+.ddak-chip {
+  background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+  width: 60px;  /* Slightly wider */
+  height: 50px;
+  border-radius: 25px;  /* Now pill-shaped instead of circle */
+  display: flex;
+  align-items: center;
+  justify-content: space-between;  /* Better spacing */
+  padding: 0 12px;  /* Internal padding */
+  box-shadow: 0 3px 6px rgba(0,0,0,0.2);
+  position: relative;
+  border: 2px solid #f1c40f;
+}
 
-      table thead th,
-      table tbody th {
-        background-color: black;
-      }
+.chip-icon {
+  color: rgba(255,255,255,0.9);
+  font-size: 1.2rem;
+  margin-right: 5px;  /* Added spacing between icon and number */
+}
 
-      table th,
-      table td {
-        border: 2px solid white;
-        padding: 12px;
-        color: white;
-      }
+.ddak-amount {
+  color: white;
+  font-weight: bold;
+  font-size: 1.1rem;
+  /* Removed absolute positioning */
+}
 
-      .highlight {
-        background-color: #FFD700;
-        color: black;
-        font-weight: bold;
-      }
-    </style>
-  </head>
-  <body>
-    <!-- Menu latéral avec les liens vers les autres pages -->
-    <label class="menu">
-      <input type="checkbox" />
-    </label>
-    <aside class="sidebar">
-      <nav>
-        <div>
-          <a href="index.html">Index</a>
-        </div>
-        <br />
-        <br />
-        <div>
-          <a href="flashcard.html">Jeu de Flashcards</a>
-        </div>
-        <br />
-        <br />
-        <div>
-          <a href="mots.html">Mot Broulliée</a>
-        </div>
-        <br />
-        <br />
-        <div>
-          <a href="math.html">Jeu de Dé</a>
-        </div>
-        <br />
-        <br />
-      </nav>
-    </aside>
-    <div class="row">
-      <h3>DDAK's : </h3>
-      <div class="column">
-        <div>
-          <!-- Affiche les DDAKs actuels -->
-          <h3 class="scoreboard" id="score">100</h3>
-        </div>
-      </div>
-    </div>
-    <div class="main-page">
-      <div class="boiteJeu">
-        <h2 style="text-align: center;">Devine la somme des dés (2 à 12)</h2>
-        <div class="form-group">
-          <!-- Entrée pour la mise -->
-          <label>Votre mise (DDAKs) :</label>
-          <br />
-          <input type="number" id="mise" min="1" />
-          <br />
-          <br />
-          <!-- Entrée pour la devinette -->
-          <label>Votre devinette :</label>
-          <br />
-          <input type="number" id="deviner" min="2" max="12" />
-        </div>
-        <!-- Images des deux dés -->
-        <div id="boiteDe">
-          <img id="de1" src="https://assets.onecompiler.app/43aeytn9j/43hkbnrr9/dice-six-faces-one.png" alt="Dé 1" class="de-img">
-          <img id="de2" src="https://assets.onecompiler.app/43aeytn9j/43hkbnrr9/dice-six-faces-one.png" alt="Dé 2" class="de-img">
-        </div>
-        <!-- Zone pour afficher le résultat du jeu -->
-        <div id="resultat" class="centered"></div>
-        <!-- Bouton pour lancer les dés -->
-        <button onclick="lancerDes()">Lancer les Dés</button>
-      </div>
-    </div>
-    <div class="boiteJeu">
-      <h2 class="centered">Pourquoi la somme 7 est la plus probable ?</h2>
-      <p class="centered"> Lorsque vous lancez deux dés, certaines sommes sont plus faciles à obtenir que d'autres. Voici un tableau montrant toutes les combinaisons possibles : </p>
-      <table>
-        <thead>
-          <tr>
-            <th>🎲</th>
-            <th>1</th>
-            <th>2</th>
-            <th>3</th>
-            <th>4</th>
-            <th>5</th>
-            <th>6</th>
-          </tr>
-        </thead>
-        <tbody>
-          <!-- Ligne 1 -->
-          <tr>
-            <th>1</th>
-            <td>2</td>
-            <td>3</td>
-            <td>4</td>
-            <td>5</td>
-            <td>6</td>
-            <td class="highlight">7</td>
-          </tr>
-          <!-- Ligne 2 -->
-          <tr>
-            <th>2</th>
-            <td>3</td>
-            <td>4</td>
-            <td>5</td>
-            <td>6</td>
-            <td class="highlight">7</td>
-            <td>8</td>
-          </tr>
-          <!-- Ligne 3 -->
-          <tr>
-            <th>3</th>
-            <td>4</td>
-            <td>5</td>
-            <td>6</td>
-            <td class="highlight">7</td>
-            <td>8</td>
-            <td>9</td>
-          </tr>
-          <!-- Ligne 4 -->
-          <tr>
-            <th>4</th>
-            <td>5</td>
-            <td>6</td>
-            <td class="highlight">7</td>
-            <td>8</td>
-            <td>9</td>
-            <td>10</td>
-          </tr>
-          <!-- Ligne 5 -->
-          <tr>
-            <th>5</th>
-            <td>6</td>
-            <td class="highlight">7</td>
-            <td>8</td>
-            <td>9</td>
-            <td>10</td>
-            <td>11</td>
-          </tr>
-          <!-- Ligne 6 -->
-          <tr>
-            <th>6</th>
-            <td class="highlight">7</td>
-            <td>8</td>
-            <td>9</td>
-            <td>10</td>
-            <td>11</td>
-            <td>12</td>
-          </tr>
-        </tbody>
-      </table>
-      <p class="centered"> Il y a 36 combinaisons possibles, mais <strong>7 peut être obtenu de 6 façons différentes</strong> ! <br /> C'est pourquoi elle est la somme la plus fréquente. </p>
-    </div>
-    <div class="boiteJeu" style="margin-top: 30px;">
-      <h2 class="centered">Espérance mathématique d'un lancer de dé</h2>
-      <table>
-        <thead>
-          <tr>
-            <th>Valeur possible (x)</th>
-            <th>Probabilité P(x)</th>
-            <th>x × P(x) (Contribution)</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>1</td>
-            <td>1/6</td>
-            <td>0.1667</td>
-          </tr>
-          <tr>
-            <td>2</td>
-            <td>1/6</td>
-            <td>0.3333</td>
-          </tr>
-          <tr>
-            <td>3</td>
-            <td>1/6</td>
-            <td>0.5</td>
-          </tr>
-          <tr>
-            <td>4</td>
-            <td>1/6</td>
-            <td>0.6667</td>
-          </tr>
-          <tr>
-            <td>5</td>
-            <td>1/6</td>
-            <td>0.8333</td>
-          </tr>
-          <tr>
-            <td>6</td>
-            <td>1/6</td>
-            <td>1</td>
-          </tr>
-          <tr style="font-weight: bold;">
-            <td colspan="2">Espérance E(X)</td>
-            <td>3.5</td>
-          </tr>
-        </tbody>
-      </table>
-      <p class="centered" style="margin-top: 20px; font-size: 18px; color: white; max-width: 600px; margin-left: auto; margin-right: auto;"> L'espérance mathématique (ou moyenne) d'un lancer de dé est la valeur moyenne que l'on peut attendre sur un grand nombre de lancers. Ici, elle est de <strong>3.5</strong>, ce qui signifie que si l'on lance le dé un très grand nombre de fois, la moyenne des résultats sera proche de 3.5. </p>
-    </div>
-    <br>
-    <script>
-      // Récupère les DDAKs enregistrés ou commence à 100
-      storedDdaks = sessionStorage.getItem("ddaks")
-      ddaks = storedDdaks !== null ? parseInt(storedDdaks) : 100
-      document.getElementById("score").textContent = ddaks
-      // Images des dés de 1 à 6
-      imagesDes = ["https://assets.onecompiler.app/43aeytn9j/43hkbnrr9/dice-six-faces-one.png", "https://assets.onecompiler.app/43aeytn9j/43hkbnrr9/dice-six-faces-two.png", "https://assets.onecompiler.app/43aeytn9j/43hkbnrr9/dice-six-faces-three.png", "https://assets.onecompiler.app/43aeytn9j/43hkbnrr9/dice-six-faces-four.png", "https://assets.onecompiler.app/43aeytn9j/43hkbnrr9/dice-six-faces-five.png", "https://assets.onecompiler.app/43aeytn9j/43hkbnrr9/dice-six-faces-six.png"]
-      // Multiplie les gains selon la somme devinée
-      multiplicateurs = {
-        2: 4.0,
-        3: 3.5,
-        4: 3.0,
-        5: 2.5,
-        6: 2.0,
-        7: 1.5,
-        8: 2.0,
-        9: 2.5,
-        10: 3.0,
-        11: 3.5,
-        12: 4.0
-      };
+.ddak-label {
+  color: #aaa;
+  font-size: 0.9rem;
+  font-family: 'Arial', sans-serif;
+}
 
-      function lancerDes() {
-        // Récupère la mise et la devinette de l'utilisateur
-        var mise = parseInt(document.getElementById("mise").value)
-        var deviner = parseInt(document.getElementById("deviner").value)
-        var resultat = document.getElementById("resultat")
-        // Vérifie les entrées de l'utilisateur
-        if (isNaN(mise) || isNaN(deviner) || deviner < 2 || deviner > 12) {
-          resultat.textContent = "Entrez une mise valide et une devinette entre 2 et 12."
-          return
+/* Animation for DDAK updates */
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+  100% { transform: scale(1); }
+}
+
+.grow {
+  animation: pulse 0.3s ease;
+}
+
+/* Add body padding to prevent content hiding */
+body {
+  padding-top: 80px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .nav-games {
+    gap: 8px;
+  }
+  
+  .nav-link {
+    padding: 6px 8px;
+    font-size: 0.8rem;
+  }
+  
+  .ddak-chip {
+    width: 40px;
+    height: 40px;
+  }
+  
+  .ddak-label {
+    display: none;
+  }
+}
+        :root {
+            --primary-color: #000000;
+            --secondary-color: #333333;
+            --accent-color: #e74c3c;
+            --accent-dark: #c0392b;
+            --background-color: #111111;
+            --container-background: #1a1a1a;
+            --text-color: #ffffff;
+            --text-muted: #aaaaaa;
+            --shadow-soft: 0 8px 24px rgba(0, 0, 0, 0.5);
+            --shadow-glow: 0 0 15px rgba(231, 76, 60, 0.5);
+            --border-radius: 8px;
+            --transition-default: all 0.3s ease;
+            --font-primary: 'Georgia', serif;
+            --font-accent: 'Arial Black', sans-serif;
         }
-        // Vérifie si l'utilisateur a assez de DDAKs
-        if (mise > ddaks) {
-          resultat.textContent = "Vous n'avez pas assez de DDAKs."
-          return
+
+        body {
+            font-family: var(--font-primary);
+            background-color: var(--background-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(231, 76, 60, 0.1) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(231, 76, 60, 0.1) 0%, transparent 20%);
         }
-        var roulements = 0
-        var roulementMax = 10
-        // Anime les dés pendant un court moment
-        var intervalId = setInterval(function() {
-          var temp1 = Math.floor(Math.random() * 6) + 1
-          var temp2 = Math.floor(Math.random() * 6) + 1
-          document.getElementById("de1").src = imagesDes[temp1 - 1]
-          document.getElementById("de2").src = imagesDes[temp2 - 1]
-          roulements = roulements + 1
-          if (roulements >= roulementMax) {
-            clearInterval(intervalId)
-            // Lance les dés pour de vrai et calcule la somme
-            var de1 = Math.floor(Math.random() * 6) + 1
-            var de2 = Math.floor(Math.random() * 6) + 1
-            var somme = de1 + de2
-            document.getElementById("de1").src = imagesDes[de1 - 1]
-            document.getElementById("de2").src = imagesDes[de2 - 1]
-            // Si la devinette est correcte, on gagne des DDAKs
-            if (deviner === somme) {
-              const gain = Math.floor(mise * multiplicateurs[somme])
-              ddaks += gain
-              resultat.textContent = `Bravo ! Vous avez deviné ${deviner} et la somme est ${somme}. Vous gagnez ${gain} DDAKs (multiplicateur : ${multiplicateurs[somme]}x).`
-            } else {
-              // Sinon, on perd la mise
-              ddaks -= mise
-              resultat.textContent = `Dommage... Vous avez deviné ${deviner} mais la somme est ${somme}. Vous perdez ${mise} DDAKs.`
+
+        .game-container {
+            width: 90%;
+            max-width: 600px;
+            background: var(--container-background);
+            padding: 30px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow-soft);
+            border: 1px solid rgba(255,255,255,0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .game-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--accent-color), var(--accent-dark));
+        }
+
+        h2 {
+            color: var(--accent-color);
+            font-family: var(--font-accent);
+            text-align: center;
+            margin-top: 0;
+            font-size: 1.8rem;
+            text-transform: uppercase;
+        }
+
+        .input-group {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: var(--text-muted);
+        }
+
+        input[type="number"] {
+            width: 100%;
+            padding: 12px;
+            background: rgba(0,0,0,0.5);
+            border: 1px solid var(--accent-color);
+            border-radius: var(--border-radius);
+            color: white;
+            font-size: 1rem;
+            margin-bottom: 15px;
+        }
+
+        #dice-box {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin: 30px 0;
+        }
+
+        #dice-box img {
+            width: 80px;
+            height: 80px;
+            object-fit: contain;
+            filter: drop-shadow(0 5px 10px rgba(0,0,0,0.5));
+            transition: transform 0.3s ease;
+        }
+
+        #rollButton {
+            width: 100%;
+            padding: 15px;
+            background: var(--accent-color);
+            color: white;
+            border: none;
+            border-radius: var(--border-radius);
+            font-family: var(--font-accent);
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: var(--transition-default);
+            margin: 20px 0;
+        }
+
+        #rollButton:hover {
+            background: var(--accent-dark);
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-glow);
+        }
+
+        #rollButton:disabled {
+            background: #666;
+            transform: none;
+            box-shadow: none;
+            cursor: not-allowed;
+        }
+
+        #result {
+            padding: 15px;
+            background: rgba(0,0,0,0.3);
+            border-radius: var(--border-radius);
+            border-left: 4px solid var(--accent-color);
+            margin: 20px 0;
+            font-size: 1.1rem;
+            line-height: 1.5;
+            min-height: 60px;
+        }
+
+        .win-message {
+            color: #2ecc71;
+            animation: pulse 0.5s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        @media (max-width: 480px) {
+            .game-container {
+                padding: 20px;
             }
-            // Met à jour l'affichage et sauvegarde les DDAKs
-            document.getElementById("score").textContent = ddaks
-            sessionStorage.setItem("ddaks", ddaks)
-          }
-        }, 100)
-      }
-    </script>
-  </body>
+
+            h2 {
+                font-size: 1.5rem;
+            }
+
+            #dice-box img {
+                width: 60px;
+                height: 60px;
+            }
+        }
+    </style>
+</head>
+<body>
+  <!-- Add this RIGHT AFTER the <body> tag in each HTML file -->
+<nav class="game-navbar">
+  <div class="nav-content">
+    <div class="nav-brand">
+      <i class="fas fa-dice logo-icon"></i>
+      <h1 class="logo-text">Édu<span>Stats</span></h1>
+    </div>
+    
+    <div class="nav-games">
+      <a href="de.html" class="nav-link">
+        <i class="fas fa-dice-six"></i>
+        <span class="link-text">Dés</span>
+      </a>
+      <a href="quiz.html" class="nav-link">
+        <i class="fas fa-question"></i>
+        <span class="link-text">Quiz</span>
+      </a>
+      <a href="mots.html" class="nav-link">
+        <i class="fas fa-font"></i>
+        <span class="link-text">Mots</span>
+      </a>
+      <a href="math.html" class="nav-link">
+        <i class="fas fa-square-root-alt"></i>
+        <span class="link-text">Maths</span>
+      </a>
+    </div>
+    
+    <div class="ddak-display">
+      <div class="ddak-chip">
+        <i class="fas fa-coins chip-icon"></i>
+        <span id="nav-score" class="ddak-amount">100</span>
+      </div>
+      <span class="ddak-label">DDAKs</span>
+    </div>
+  </div>
+</nav>
+    <div class="game-container">
+        <h2>Devine la somme des dés (2 à 12)</h2>
+        <div class="input-group">
+            <label for="mise">Votre mise (DDAKs) :</label>
+            <input type="number" id="mise" min="1" required>
+            
+            <label for="deviner">Votre devinette :</label>
+            <input type="number" id="deviner" min="2" max="12" required>
+        </div>
+        
+        <div id="dice-box">
+            <img id="dice1" src="https://assets.onecompiler.app/43aeytn9j/43hkbnrr9/dice-six-faces-one.png" alt="Dé 1">
+            <img id="dice2" src="https://assets.onecompiler.app/43aeytn9j/43hkbnrr9/dice-six-faces-one.png" alt="Dé 2">
+        </div>
+        
+        <div id="result"></div>
+        <button id="rollButton">Lancer les Dés</button>
+    </div>
+
+    <script src="script.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const diceImages = [
+            "https://assets.onecompiler.app/43aeytn9j/43hkbnrr9/dice-six-faces-one.png",
+            "https://assets.onecompiler.app/43aeytn9j/43hkbnrr9/dice-six-faces-two.png",
+            "https://assets.onecompiler.app/43aeytn9j/43hkbnrr9/dice-six-faces-three.png",
+            "https://assets.onecompiler.app/43aeytn9j/43hkbnrr9/dice-six-faces-four.png",
+            "https://assets.onecompiler.app/43aeytn9j/43hkbnrr9/dice-six-faces-five.png",
+            "https://assets.onecompiler.app/43aeytn9j/43hkbnrr9/dice-six-faces-six.png"
+        ];
+
+        const multipliers = {
+            2: 4.0, 3: 3.5, 4: 3.0, 5: 2.5, 6: 2.0,
+            7: 1.5, 8: 2.0, 9: 2.5, 10: 3.0, 11: 3.5, 12: 4.0
+        };
+
+        const rollButton = document.getElementById('rollButton');
+        const resultDiv = document.getElementById('result');
+        const dice1 = document.getElementById('dice1');
+        const dice2 = document.getElementById('dice2');
+        const betInput = document.getElementById('mise');
+        const guessInput = document.getElementById('deviner');
+
+        rollButton.addEventListener('click', function() {
+            const bet = parseInt(betInput.value);
+            const guess = parseInt(guessInput.value);
+            const currentDdaks = parseInt(sessionStorage.getItem("ddaks")) || 100;
+
+            if (isNaN(bet)) {
+                resultDiv.textContent = "Veuillez entrer une mise valide.";
+                return;
+            }
+
+            if (isNaN(guess) || guess < 2 || guess > 12) {
+                resultDiv.textContent = "Veuillez entrer une devinette entre 2 et 12.";
+                return;
+            }
+
+            if (bet > currentDdaks) {
+                resultDiv.textContent = "Vous n'avez pas assez de DDAKs.";
+                return;
+            }
+
+            rollButton.disabled = true;
+            resultDiv.textContent = "Les dés roulent...";
+            resultDiv.classList.remove("win-message");
+
+            let rolls = 0;
+            const maxRolls = 15;
+            const rollInterval = setInterval(() => {
+                const temp1 = Math.floor(Math.random() * 6);
+                const temp2 = Math.floor(Math.random() * 6);
+                dice1.src = diceImages[temp1];
+                dice2.src = diceImages[temp2];
+                rolls++;
+
+                if (rolls >= maxRolls) {
+                    clearInterval(rollInterval);
+
+                    const dice1Value = Math.floor(Math.random() * 6) + 1;
+                    const dice2Value = Math.floor(Math.random() * 6) + 1;
+                    const sum = dice1Value + dice2Value;
+
+                    dice1.src = diceImages[dice1Value - 1];
+                    dice2.src = diceImages[dice2Value - 1];
+
+                    if (guess === sum) {
+                        const winnings = Math.floor(bet * multipliers[sum]);
+                        addDdaks(winnings);
+                        resultDiv.innerHTML = `Bravo ! Vous avez deviné ${guess} et la somme est ${sum}.<br>Vous gagnez ${winnings} DDAKs (×${multipliers[sum]}) !`;
+                        resultDiv.classList.add("win-message");
+                    } else {
+                        addDdaks(-bet);
+                        resultDiv.innerHTML = `Dommage... Vous avez deviné ${guess} mais la somme est ${sum}.<br>Vous perdez ${bet} DDAKs.`;
+                    }
+
+                    rollButton.disabled = false;
+                }
+            }, 100);
+        });
+    });
+</script>
+</body>
 </html>
