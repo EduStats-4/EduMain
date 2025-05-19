@@ -124,7 +124,7 @@
       <div class="column">
         <div>
             <script src="script.js"></script>
-          <h3 class="scoreboard" id="score">100</h3>
+          <h3 class="scoreboard" id="pts">100</h3>
         </div>
       </div>
     </div>
@@ -139,47 +139,48 @@
       </div>
     
     <script>
-      const mots = [
+      mots = [
         { mot: "guerre", categorie: "Histoire" },
         { mot: "canada", categorie: "Géographie" },
         { mot: "puberté", categorie: "Santé" },
       ];
     
-      let actuelMot = {};
+      actuelMot = {};
     
-      let storedPts = sessionStorage.getItem("ddaks");
-      let pts = storedPts !== null ? parseInt(storedPts) : 100;
-      document.getElementById("pts").textContent = pts;
+      storedPts = sessionStorage.getItem("ddaks")
+      pts = storedPts !== null ? parseInt(storedPts) : 100
+      document.getElementById("pts").textContent = pts
     
       function scramble(mot) {
-        return mot.split('').sort(() => Math.random() - 0.5).join('');
+        return mot.split('').sort(() => Math.random() - 0.5).join('')
       }
     
       function choisiNewMot() {
-        actuelMot = mots[Math.floor(Math.random() * mots.length)];
-        document.getElementById("scrambled").textContent = scramble(actuelMot.mot);
-        document.getElementById("categorie").innerHTML = `Catégorie: <b>${actuelMot.categorie}</b>`;
-        document.getElementById("reponse").value = "";
-        document.getElementById("message").textContent = "";
+        actuelMot = mots[Math.floor(Math.random() * mots.length)]
+        document.getElementById("scrambled").textContent = scramble(actuelMot.mot)
+        document.getElementById("categorie").innerHTML = `Catégorie: <b>${actuelMot.categorie}</b>`
+        document.getElementById("reponse").value = ""
+        document.getElementById("message").textContent = ""
       }
     
       function verReponse() {
-        const reponse = document.getElementById("reponse").value.toLowerCase().trim();
+        if (document.getElementById("message").textContent !== "") return
+        reponse = document.getElementById("reponse").value.toLowerCase().trim()
         if (reponse === actuelMot.mot && pts >= 50) {
           pts += 50;
-          document.getElementById("message").textContent = "Correcte, vous avez gagné 50 DDAK's";
+          document.getElementById("message").textContent = "Correcte, vous avez gagné 50 DDAK's"
         } else if (pts >= 50 && reponse != actuelMot.mot){
-          pts -= 50;
-          document.getElementById("message").textContent = "Incorrecte, vous avez perdu 50 DDAK's";
+          pts -= 50
+          document.getElementById("message").textContent = "Incorrecte, vous avez perdu 50 DDAK's"
         } else {
           document.getElementById("message").textContent = "Vous navez pas assez de Ddaks pour déviner !"
         }
-        document.getElementById("pts").textContent = pts;
-        sessionStorage.setItem("ddaks", pts);
-        setTimeout(choisiNewMot, 1000);
+        document.getElementById("pts").textContent = pts
+        sessionStorage.setItem("ddaks", pts)
+        setTimeout(choisiNewMot, 1000)
       }
     
-      window.onload = choisiNewMot;
+      window.onload = choisiNewMot
     </script>
     </div>
 </body>
