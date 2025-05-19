@@ -7,12 +7,8 @@ function addDdaks(points) {
   current += points;
   sessionStorage.setItem("ddaks", current);
 
-  const scoreElement = document.getElementById("score");
-  if (scoreElement) {
-    scoreElement.textContent = current;
-    scoreElement.classList.add("grow");
-    setTimeout(() => scoreElement.classList.remove("grow"), 200);
-  }
+  updateAllScoreDisplays(current);
+  return current;
 }
 
 function numRandom() {
