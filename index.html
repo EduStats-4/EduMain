@@ -1,62 +1,70 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8" /> 
+    <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>ÉduStats</title>
-    <link rel="stylesheet" href="styles.css" />
-    <link rel="icon" type="image/x-icon" href="https://assets.onecompiler.app/43abr36kz/43h34s5qw/EduStats.png">
-    <link href='https://fonts.googleapis.com/css?family=Caveat' rel='stylesheet'>
+    <title>ÉduStats - Casino Pédagogique</title>
+    <link rel="stylesheet" href="home.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <style>
+        /* Add this to adjust for fixed navbar */
+        body {
+            padding-top: 80px;
+        }
+    </style>
 </head>
 <body>
-  <label class="menu">
-    <input type="checkbox" />
-  </label>
-    <aside class="sidebar">
-      <nav>
-        <div><a href="de.html">Jeu de dé</a></div><br /><br />
-        <div><a href="quiz.html">Jeu de Flashcards</a></div><br /><br />
-        <div><a href="mots.html">Jeu de Mot Brouillé</a></div><br /><br />
-        <div><a href="math.html">Jeu de maths</a></div><br /><br />
-      </nav>
-    </aside>
-    <div class="logo">
-      <img src="https://assets.onecompiler.app/43abr36kz/43h34s5qw/EduStats.png">
-    </div>
-    <div class="row">
-        <h3>DDAK's : </h3>
-      <div class="column">
-        <div>
-            <script src="script.js"></script>
-          <h3 class="scoreboard" id="score">100</h3>
+
+    <div class="content">
+        <!-- Header with logo -->
+        <header class="game-header">
+            <div class="logo">
+                <span class="logo-icon"><i class="fas fa-dice"></i></span>
+                <h1>Édu<span>Stats</span></h1>
+            </div>
+        </header>
+
+        <!-- Score display with progress bar -->
+        <div class="score-container">
+            <div class="score-display">
+                <span class="score-label">DDAK's :</span>
+                <span id="score">100</span>
+            </div>
         </div>
-      </div>
+
+        <!-- Main game links -->
+        <div class="game-grid">
+            <a href="de.html" class="game-card dice-game">
+                <div class="game-icon"><i class="fas fa-dice-six"></i></div>
+                <h3>Jeu de Dé</h3>
+                <p>Testez vos connaissances avec des défis aléatoires</p>
+                <span class="high-score">Meilleur score: 850</span>
+            </a>
+            
+            <a href="quiz.html" class="game-card quiz-game">
+                <div class="game-icon"><i class="fas fa-question"></i></div>
+                <h3>Flashcards</h3>
+                <p>Mémorisez les concepts clés</p>
+                <span class="high-score">Meilleur score: 1200</span>
+            </a>
+            
+            <a href="mots.html" class="game-card word-game">
+                <div class="game-icon"><i class="fas fa-font"></i></div>
+                <h3>Mot Brouillé</h3>
+                <p>Déchiffrez les termes académiques</p>
+                <span class="high-score">Meilleur score: 950</span>
+            </a>
+            
+            <a href="math.html" class="game-card math-game">
+                <div class="game-icon"><i class="fas fa-square-root-alt"></i></div>
+                <h3>Maths</h3>
+                <p>Résolvez des problèmes contre la montre</p>
+                <span class="high-score">Meilleur score: 1500</span>
+            </a>
+        </div>
     </div>
-    <div class="main-page">
-      <div class="column">
-        <h2 style="text-align:center;">Jeu de Dé</h2>
-        <a href="de.html">
-          <img src="https://assets.onecompiler.app/43abr36kz/43h34s5qw/ChatGPT%20Image%20May%2012,%202025,%2009_29_38%20AM.png">
-        </a>
-      </div>
-      <div class="column">
-        <h2 style="text-align:center;">Flashcards</h2>
-        <a href="quiz.html">
-          <img src="https://assets.onecompiler.app/43abr36kz/43h34s5qw/ChatGPT%20Image%20May%2012,%202025,%2009_29_38%20AM.png">
-        </a>
-      </div>
-      <div class="column">
-        <h2 style="text-align:center;">Mot Brouillé</h2>
-        <a href="mots.html">
-          <img src="https://assets.onecompiler.app/43abr36kz/43h34s5qw/ChatGPT%20Image%20May%2012,%202025,%2009_29_38%20AM.png">
-        </a>
-      </div>
-      <div class="column">
-        <h2 style="text-align:center;">Maths</h2>
-        <a href="math.html">
-          <img src="https://assets.onecompiler.app/43abr36kz/43h34s5qw/ChatGPT%20Image%20May%2012,%202025,%2009_29_38%20AM.png">
-        </a>
-      </div>
-    </div>
+
+    <!-- Include the central DDAK management script -->
+    <script src="script.js"></script>
 </body>
 </html>
