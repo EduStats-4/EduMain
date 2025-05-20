@@ -1,4 +1,155 @@
-/* ===== MODERN THEME VARIABLES ===== */
+.game-navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 70px;
+  background: linear-gradient(135deg, #1a1a1a 0%, #111 100%);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+  border-bottom: 1px solid rgba(231, 76, 60, 0.3);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+}
+
+.nav-content {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.nav-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.logo-icon {
+  color: #e74c3c;
+  font-size: 1.8rem;
+}
+
+.logo-text {
+  font-family: 'Arial Black', sans-serif;
+  font-size: 1.5rem;
+  color: white;
+  margin: 0;
+}
+
+.logo-text span {
+  color: #e74c3c;
+}
+
+.nav-games {
+  display: flex;
+  gap: 15px;
+}
+
+.nav-link {
+  color: #aaa;
+  text-decoration: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+  padding: 8px 12px;
+  border-radius: 6px;
+}
+
+.nav-link:hover {
+  background: rgba(231, 76, 60, 0.1);
+  color: white;
+}
+
+.nav-link i {
+  font-size: 1.2rem;
+  margin-bottom: 3px;
+}
+
+.link-text {
+  font-family: 'Arial', sans-serif;
+}
+
+.ddak-display {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.ddak-chip {
+  background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+  width: 60px;  /* Slightly wider */
+  height: 50px;
+  border-radius: 25px;  /* Now pill-shaped instead of circle */
+  display: flex;
+  align-items: center;
+  justify-content: space-between;  /* Better spacing */
+  padding: 0 12px;  /* Internal padding */
+  box-shadow: 0 3px 6px rgba(0,0,0,0.2);
+  position: relative;
+  border: 2px solid #f1c40f;
+}
+
+.chip-icon {
+  color: rgba(255,255,255,0.9);
+  font-size: 1.2rem;
+  margin-right: 5px;  /* Added spacing between icon and number */
+}
+
+.ddak-amount {
+  color: white;
+  font-weight: bold;
+  font-size: 1.1rem;
+  /* Removed absolute positioning */
+}
+
+.ddak-label {
+  color: #aaa;
+  font-size: 0.9rem;
+  font-family: 'Arial', sans-serif;
+}
+
+/* Animation for DDAK updates */
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+  100% { transform: scale(1); }
+}
+
+.grow {
+  animation: pulse 0.3s ease;
+}
+
+/* Add body padding to prevent content hiding */
+body {
+  padding-top: 80px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .nav-games {
+    gap: 8px;
+  }
+  
+  .nav-link {
+    padding: 6px 8px;
+    font-size: 0.8rem;
+  }
+  
+  .ddak-chip {
+    width: 40px;
+    height: 40px;
+  }
+  
+  .ddak-label {
+    display: none;
+  }
+}/* ===== MODERN THEME VARIABLES ===== */
 :root {
     --primary-color: #1a1a1a;
     --secondary-color: #333333;
