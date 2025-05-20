@@ -1,12 +1,10 @@
 
-
 // Typing animation
 function typeWord() {
     const element = document.getElementById('animated-name');
     const cursor = document.querySelector('.typing-cursor');
     const text = "quiz";
-    element.textContent = ''; // Clear initial text
-
+    element.textContent = '';
     let index = 0;
     cursor.style.opacity = '1';
 
@@ -19,10 +17,8 @@ function typeWord() {
             cursor.classList.add('visible');
         }
     }
-
     type();
 }
-
 window.addEventListener('load', typeWord);
 
 // Quiz data and logic
@@ -563,7 +559,6 @@ let quizQuestions = [];
 let currentQuestionIndex = 0;
 let timerInterval;
 let timeLeft = 10;
-let points = 0;
 let correctAnswers = 0;
 let wrongAnswers = 0;
 let timedOutQuestions = 0;
@@ -592,12 +587,8 @@ const pointsEarnedElement = document.getElementById("points-earned");
 topicCards.forEach(card => {
     card.addEventListener("click", () => {
         card.classList.toggle("selected");
-        const topic = card.getAttribute("data-topic");
-        
-        // Update selectedTopics array
         selectedTopics = Array.from(document.querySelectorAll('.nav-card.selected'))
             .map(selectedCard => selectedCard.getAttribute('data-topic'));
-        
         startQuizBtn.disabled = selectedTopics.length === 0;
     });
 });
@@ -610,10 +601,9 @@ startQuizBtn.addEventListener("click", () => {
 });
 
 function startQuiz() {
-    // Create quiz questions by combining selected topics
     quizQuestions = [];
     selectedTopics.forEach(topic => {
-        if (topics[topic]) { // Check if topic exists
+        if (topics[topic]) {
             quizQuestions.push(...topics[topic].map(q => ({ ...q, topic })));
         }
     });
@@ -622,17 +612,17 @@ function startQuiz() {
         alert("Please select at least one topic with questions");
         return;
     }
-
-    // Shuffle questions
     shuffleArray(quizQuestions);
 
-    // Reset quiz state
     currentQuestionIndex = 0;
-    points = 0;
     correctAnswers = 0;
     wrongAnswers = 0;
     timedOutQuestions = 0;
-    scoreElement.textContent = points;
+
+    // Show current DDAK score
+    let currentDdaks = parseInt(sessionStorage.getItem("ddaks"), 10);
+    if (isNaN(currentDdaks)) currentDdaks = 100;
+    updateAllScoreDisplays(currentDdaks);
 
     // Update UI
     topicSelection.style.display = "none";
@@ -652,7 +642,6 @@ function startQuiz() {
 function showQuestion() {
     const currentQuestion = quizQuestions[currentQuestionIndex];
     answered = false;
-
     questionElement.textContent = currentQuestion.question;
     answersElement.innerHTML = "";
     feedbackElement.textContent = "";
@@ -669,15 +658,11 @@ function showQuestion() {
     });
 }
 
-// [Previous code remains the same until the selectAnswer function]
-
 function selectAnswer(index) {
     if (answered) return;
     answered = true;
-
     clearInterval(timerInterval);
     const currentQuestion = quizQuestions[currentQuestionIndex];
-
     const buttons = document.querySelectorAll(".answer-btn");
     buttons.forEach((btn, i) => {
         btn.disabled = true;
@@ -688,20 +673,18 @@ function selectAnswer(index) {
         }
     });
 
-  
-
     if (index === currentQuestion.correct) {
         feedbackElement.innerHTML = `
-    <div class="feedback-line">Correct! <span class="points-badge">+10 points</span></div>
-`;
+            <div class="feedback-line">Correct! <span class="points-badge">+10 DDAKs</span></div>
+        `;
         feedbackElement.className = "feedback-correct";
         nextQuestionBtn.style.borderLeft = "none";
         nextQuestionBtn.style.background = "linear-gradient(135deg, #e8f5e9, #c8e6c9)";
-        points += 10;
+        addDdaks(10); // Add 10 DDAKs for correct answer
         correctAnswers++;
     } else {
         feedbackElement.innerHTML = `
-            <div class="feedback-line">Incorrect! <span class="points-badge">0 points</span></div>
+            <div class="feedback-line">Incorrect! <span class="points-badge">0 DDAK</span></div>
             <div class="correct-answer">Correct answer: ${currentQuestion.answers[currentQuestion.correct]}</div>
         `;
         feedbackElement.className = "feedback-incorrect";
@@ -710,11 +693,10 @@ function selectAnswer(index) {
         wrongAnswers++;
     }
 
-    scoreElement.textContent = points;
+    // Update score displays to show new DDAK total
+    updateAllScoreDisplays(parseInt(sessionStorage.getItem("ddaks"), 10));
     nextQuestionBtn.style.display = "block";
 }
-
-// [Rest of the code remains the same]
 
 function timeUp() {
     if (answered) return;
@@ -723,7 +705,7 @@ function timeUp() {
     const currentQuestion = quizQuestions[currentQuestionIndex];
 
     feedbackElement.innerHTML = `
-        <div class="feedback-line">Time's up! <span class="points-badge">0 points</span></div>
+        <div class="feedback-line">Time's up! <span class="points-badge">0 DDAK</span></div>
         <div class="correct-answer">Correct answer: ${currentQuestion.answers[currentQuestion.correct]}</div>
     `;
     feedbackElement.className = "feedback-incorrect";
@@ -746,20 +728,16 @@ function startTimer() {
     timeLeft = 10;
     progressBar.style.width = "100%";
     progressBar.className = "";
-
     clearInterval(timerInterval);
     timerInterval = setInterval(() => {
         timeLeft -= 0.1;
         progressBar.style.width = `${(timeLeft / 10) * 100}%`;
-
         if (timeLeft <= 5) {
             progressBar.className = "warning";
         }
-
         if (timeLeft <= 2) {
             progressBar.className = "danger";
         }
-
         if (timeLeft <= 0) {
             clearInterval(timerInterval);
             timeUp();
@@ -782,29 +760,29 @@ function showResults() {
     quizContainer.style.display = "none";
     resultsContainer.style.display = "block";
 
-    finalScoreElement.textContent = points;
+    // Display current ddaks (not quiz-local points)
+    let currentDdaks = parseInt(sessionStorage.getItem("ddaks"), 10);
+    if (isNaN(currentDdaks)) currentDdaks = 100;
+    finalScoreElement.textContent = currentDdaks;
     possibleScoreElement.textContent = quizQuestions.length * 10;
 
     // Update statistics
-    pointsEarnedElement.textContent = points;
+    pointsEarnedElement.textContent = correctAnswers * 10;
     document.getElementById("correct-answers").textContent = correctAnswers;
     document.getElementById("total-questions").textContent = quizQuestions.length;
     document.getElementById("wrong-answers").textContent = wrongAnswers;
     document.getElementById("timed-out").textContent = timedOutQuestions;
 
     const accuracy = ((correctAnswers / quizQuestions.length) * 100).toFixed(1);
-    const averageTimePerQuestion = (timeLeft / quizQuestions.length).toFixed(1);
+    const averageTimePerQuestion = (10 - timeLeft / quizQuestions.length).toFixed(1);
 
     document.getElementById("accuracy").textContent = accuracy;
     document.getElementById("avg-time").textContent = averageTimePerQuestion;
 
-    // Trigger confetti if accuracy is 90% or above
+    // Confetti if accuracy is 90% or above (unchanged)
     if (accuracy >= 90) {
-        // Start confetti from the top of the results container
         const resultsTop = resultsContainer.getBoundingClientRect().top;
         confetti.start(resultsTop);
-        
-        // Add celebratory message
         const congrats = document.createElement('div');
         congrats.innerHTML = '🎉 Excellent! 🎉';
         congrats.style.cssText = `
