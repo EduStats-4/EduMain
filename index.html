@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="fr">
-<head>
+  <head>
     <!-- métadonnées de base pour le document html -->
     <meta charset="UTF-8" />
     <!-- configuration pour le responsive design -->
@@ -12,72 +12,76 @@
     <!-- lien vers la librairie d'icônes font awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
     <style>
-        /* ajustement pour compenser la barre de navigation fixe */
-        body {
-            padding-top: 80px;
-        }
+      /* ajustement pour compenser la barre de navigation fixe */
+      body {
+        padding-top: 80px;
+      }
     </style>
-</head>
-<body>
-
+  </head>
+  <body>
     <!-- conteneur principal du contenu -->
     <div class="content">
-        <!-- en-tête avec le logo -->
-        <header class="game-header">
-            <div class="logo">
-                <!-- icône du logo -->
-                <span class="logo-icon"><i class="fas fa-dice"></i></span>
-                <!-- texte du logo avec partie colorée -->
-                <h1>édu<span>stats</span></h1>
-            </div>
-        </header>
-
-        <!-- affichage du score avec barre de progression -->
-        <div class="score-container">
-            <div class="score-display">
-                <!-- libellé du score -->
-                <span class="score-label">ddak's :</span>
-                <!-- valeur actuelle du score -->
-                <span id="score">100</span>
-            </div>
+      <!-- en-tête avec le logo -->
+      <header class="game-header">
+        <div class="logo">
+          <!-- icône du logo -->
+          <span class="logo-icon">
+            <i class="fas fa-dice"></i>
+          </span>
+          <!-- texte du logo avec partie colorée -->
+          <h1>édu <span>stats</span>
+          </h1>
         </div>
-
-        <!-- grille des jeux disponibles -->
-        <div class="game-grid">
-            <!-- carte du jeu de dés -->
-            <a href="de.html" class="game-card dice-game">
-                <!-- icône du jeu -->
-                <div class="game-icon"><i class="fas fa-dice-six"></i></div>
-                <!-- titre du jeu -->
-                <h3>jeu de dé</h3>
-                <!-- meilleur score enregistré -->
-                <span class="high-score">meilleur score: 850</span>
-            </a>
-            
-            <!-- carte du jeu de quiz -->
-            <a href="quiz.html" class="game-card quiz-game">
-                <div class="game-icon"><i class="fas fa-question"></i></div>
-                <h3>quiz</h3>
-                <span class="high-score">meilleur score: 1200</span>
-            </a>
-            
-            <!-- carte du jeu de mots -->
-            <a href="mots.html" class="game-card word-game">
-                <div class="game-icon"><i class="fas fa-font"></i></div>
-                <h3>mot brouillé</h3>
-                <span class="high-score">meilleur score: 950</span>
-            </a>
-            
-            <!-- carte du jeu de maths -->
-            <a href="math.html" class="game-card math-game">
-                <div class="game-icon"><i class="fas fa-square-root-alt"></i></div>
-                <h3>maths</h3>
-                <span class="high-score">meilleur score: 1500</span>
-            </a>
+      </header>
+      <!-- affichage du score avec barre de progression -->
+      <div class="score-container">
+        <div class="score-display">
+          <!-- libellé du score -->
+          <span class="score-label">ddak's :</span>
+          <!-- valeur actuelle du score -->
+          <span id="score">100</span>
         </div>
+      </div>
+      <!-- grille des jeux disponibles -->
+      <div class="game-grid">
+        <!-- carte du jeu de dés -->
+        <a href="de.html" class="game-card dice-game">
+          <!-- icône du jeu -->
+          <div class="game-icon">
+            <i class="fas fa-dice-six"></i>
+          </div>
+          <!-- titre du jeu -->
+          <h3>jeu de dé</h3>
+          <!-- meilleur score enregistré -->
+          <span class="high-score">meilleur score: 850</span>
+        </a>
+        <!-- carte du jeu de quiz -->
+        <a href="quiz.html" class="game-card quiz-game">
+          <div class="game-icon">
+            <i class="fas fa-question"></i>
+          </div>
+          <h3>quiz</h3>
+          <span class="high-score">meilleur score: 1200</span>
+        </a>
+        <!-- carte du jeu de mots -->
+        <a href="mots.html" class="game-card word-game">
+          <div class="game-icon">
+            <i class="fas fa-font"></i>
+          </div>
+          <h3>mot brouillé</h3>
+          <span class="high-score">meilleur score: 950</span>
+        </a>
+        <!-- carte du jeu de maths -->
+        <a href="math.html" class="game-card math-game">
+          <div class="game-icon">
+            <i class="fas fa-square-root-alt"></i>
+          </div>
+          <h3>maths</h3>
+          <span class="high-score">meilleur score: 1500</span>
+        </a>
+      </div>
     </div>
-
     <!-- inclusion du script principal de gestion des ddak -->
     <script src="script.js"></script>
-</body>
+  </body>
 </html>
