@@ -1,78 +1,109 @@
 <!DOCTYPE html>
+<!-- déclaration du type de document -->
 <html lang="fr">
-<head>
+  <!-- langue française -->
+  <head>
+    <!-- encodage des caractères en utf-8 -->
     <meta charset="UTF-8" />
+    <!-- configuration du viewport pour le responsive -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Jeu de Devinette</title></head>
-    <link rel="stylesheet" href=" math.css" />
+    <!-- titre de la page dans l'onglet -->
+    <title>jeu de devinette</title>
+    <!-- lien vers la feuille de style -->
+    <link rel="stylesheet" href="math.css" />
+    <!-- lien vers les icônes font awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-</head>
-<body>
-  <nav class="game-navbar">
-  <div class="nav-content">
-   <div class="nav-brand">
-  <a href="index.html" class="nav-home-link" style="display: flex; align-items: center; gap: 12px; text-decoration: none;">
-    <i class="fas fa-dice logo-icon"></i>
-    <h1 class="logo-text">Édu<span>Stats</span></h1>
-  </a>
-</div>
-    
-    <div class="nav-games">
-      <a href="de.html" class="nav-link">
-        <i class="fas fa-dice-six"></i>
-        <span class="link-text">Dés</span>
-      </a>
-      <a href="quiz.html" class="nav-link">
-        <i class="fas fa-question"></i>
-        <span class="link-text">Quiz</span>
-      </a>
-      <a href="mots.html" class="nav-link">
-        <i class="fas fa-font"></i>
-        <span class="link-text">Mots</span>
-      </a>
-      <a href="math.html" class="nav-link">
-        <i class="fas fa-square-root-alt"></i>
-        <span class="link-text">Maths</span>
-      </a>
-    </div>
-    
-    <div class="ddak-display">
-      <div class="ddak-chip">
-        <i class="fas fa-coins chip-icon"></i>
-        <span id="nav-score" class="ddak-amount">100</span>
+  </head>
+  <body>
+    <!-- barre de navigation -->
+    <nav class="game-navbar">
+      <div class="nav-content">
+        <!-- logo et nom du site -->
+        <div class="nav-brand">
+          <a href="index.html" class="nav-home-link" style="display: flex; align-items: center; gap: 12px; text-decoration: none;">
+            <!-- icône du logo -->
+            <i class="fas fa-dice logo-icon"></i>
+            <!-- texte du logo -->
+            <h1 class="logo-text">édu <span>stats</span>
+            </h1>
+          </a>
+        </div>
+        <!-- liens vers les différents jeux -->
+        <div class="nav-games">
+          <!-- lien vers le jeu de dés -->
+          <a href="de.html" class="nav-link">
+            <i class="fas fa-dice-six"></i>
+            <span class="link-text">dés</span>
+          </a>
+          <!-- lien vers le quiz -->
+          <a href="quiz.html" class="nav-link">
+            <i class="fas fa-question"></i>
+            <span class="link-text">quiz</span>
+          </a>
+          <!-- lien vers le jeu de mots -->
+          <a href="mots.html" class="nav-link">
+            <i class="fas fa-font"></i>
+            <span class="link-text">mots</span>
+          </a>
+          <!-- lien vers le jeu de maths -->
+          <a href="math.html" class="nav-link">
+            <i class="fas fa-square-root-alt"></i>
+            <span class="link-text">maths</span>
+          </a>
+        </div>
+        <!-- affichage du score -->
+        <div class="ddak-display">
+          <div class="ddak-chip">
+            <!-- icône des points -->
+            <i class="fas fa-coins chip-icon"></i>
+            <!-- montant des points -->
+            <span id="nav-score" class="ddak-amount">100</span>
+          </div>
+          <!-- libellé des points -->
+          <span class="ddak-label">ddaks</span>
+        </div>
       </div>
-      <span class="ddak-label">DDAKs</span>
+    </nav>
+    <!-- contenu principal du jeu -->
+    <div id="game">
+      <!-- titre du jeu -->
+      <h1>jeu de devinette</h1>
+      <!-- bouton pour générer un nouveau nombre -->
+      <input type="button" onclick="numrandom()" value="nouveau nombre">
+      <!-- formulaire de devinette -->
+      <p>
+        <label for="guess">devine un nombre (1-100):</label>
+        <!-- champ de saisie -->
+        <input type="number" id="guess" min="1" max="100">
+        <!-- bouton de validation -->
+        <input type="button" onclick="checkguess()" value="devine">
+      </p>
+      <!-- message de résultat -->
+      <p id="message"></p>
+      <!-- message d'indice -->
+      <p id="indice"></p>
     </div>
-  </div>
-</nav>
-        <div id="game">
-            <h1>Jeu de Devinette</h1>
-            <input type="button" onclick="numRandom()" value="Nouveau nombre">
-            <p>
-                <label for="guess">Devine un nombre (1-100):</label>
-                <input type="number" id="guess" min="1" max="100">
-                <input type="button" onclick="checkGuess()" value="Devine">
-            </p>
-            <p id="message"></p>
-            <p id="indice"></p>
-        </div>
-        
-        <div id="history">
-            <h2>Historique</h2>
-            <table id="guessTable">
-                <thead>
-                    <tr>
-                        <th>Essai</th>
-                        <th>Nombre</th>
-                        <th>Indice</th>
-                    </tr>
-                </thead>
-                <tbody></tbody>
-            </table>
-        </div>
+    <!-- section historique des tentatives -->
+    <div id="history">
+      <h2>historique</h2>
+      <!-- tableau des essais -->
+      <table id="guesstable">
+        <thead>
+          <tr>
+            <!-- en-tête des colonnes -->
+            <th>essai</th>
+            <th>nombre</th>
+            <th>indice</th>
+          </tr>
+        </thead>
+        <!-- corps du tableau (rempli par javascript) -->
+        <tbody></tbody>
+      </table>
     </div>
-
+    <!-- scripts javascript -->
+    <!-- script spécifique au jeu de maths -->
     <script src="math.js"></script>
+    <!-- script général -->
     <script src="script.js"></script>
-</body>
+  </body>
 </html>
