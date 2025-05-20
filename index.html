@@ -1,13 +1,18 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
+    <!-- métadonnées de base pour le document html -->
     <meta charset="UTF-8" />
+    <!-- configuration pour le responsive design -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>ÉduStats - Casino Pédagogique</title>
+    <!-- titre de la page dans l'onglet du navigateur -->
+    <title>édustats - casino pédagogique</title>
+    <!-- lien vers la feuille de style principale -->
     <link rel="stylesheet" href="home.css" />
+    <!-- lien vers la librairie d'icônes font awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
     <style>
-        /* Add this to adjust for fixed navbar */
+        /* ajustement pour compenser la barre de navigation fixe */
         body {
             padding-top: 80px;
         }
@@ -15,52 +20,64 @@
 </head>
 <body>
 
+    <!-- conteneur principal du contenu -->
     <div class="content">
-        <!-- Header with logo -->
+        <!-- en-tête avec le logo -->
         <header class="game-header">
             <div class="logo">
+                <!-- icône du logo -->
                 <span class="logo-icon"><i class="fas fa-dice"></i></span>
-                <h1>Édu<span>Stats</span></h1>
+                <!-- texte du logo avec partie colorée -->
+                <h1>édu<span>stats</span></h1>
             </div>
         </header>
 
-        <!-- Score display with progress bar -->
+        <!-- affichage du score avec barre de progression -->
         <div class="score-container">
             <div class="score-display">
-                <span class="score-label">DDAK's :</span>
+                <!-- libellé du score -->
+                <span class="score-label">ddak's :</span>
+                <!-- valeur actuelle du score -->
                 <span id="score">100</span>
             </div>
         </div>
 
-        <!-- Main game links -->
+        <!-- grille des jeux disponibles -->
         <div class="game-grid">
+            <!-- carte du jeu de dés -->
             <a href="de.html" class="game-card dice-game">
+                <!-- icône du jeu -->
                 <div class="game-icon"><i class="fas fa-dice-six"></i></div>
-                <h3>Jeu de Dé</h3>
-                <span class="high-score">Meilleur score: 850</span>
+                <!-- titre du jeu -->
+                <h3>jeu de dé</h3>
+                <!-- meilleur score enregistré -->
+                <span class="high-score">meilleur score: 850</span>
             </a>
             
+            <!-- carte du jeu de quiz -->
             <a href="quiz.html" class="game-card quiz-game">
                 <div class="game-icon"><i class="fas fa-question"></i></div>
-                <h3>Quiz</h3>
-                <span class="high-score">Meilleur score: 1200</span>
+                <h3>quiz</h3>
+                <span class="high-score">meilleur score: 1200</span>
             </a>
             
+            <!-- carte du jeu de mots -->
             <a href="mots.html" class="game-card word-game">
                 <div class="game-icon"><i class="fas fa-font"></i></div>
-                <h3>Mot Brouillé</h3>
-                <span class="high-score">Meilleur score: 950</span>
+                <h3>mot brouillé</h3>
+                <span class="high-score">meilleur score: 950</span>
             </a>
             
+            <!-- carte du jeu de maths -->
             <a href="math.html" class="game-card math-game">
                 <div class="game-icon"><i class="fas fa-square-root-alt"></i></div>
-                <h3>Maths</h3>
-                <span class="high-score">Meilleur score: 1500</span>
+                <h3>maths</h3>
+                <span class="high-score">meilleur score: 1500</span>
             </a>
         </div>
     </div>
 
-    <!-- Include the central DDAK management script -->
+    <!-- inclusion du script principal de gestion des ddak -->
     <script src="script.js"></script>
 </body>
 </html>
