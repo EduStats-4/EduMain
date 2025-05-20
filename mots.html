@@ -423,6 +423,7 @@ body {
 
         // Check answer
         function checkAnswer() {
+            if (submitBtn.disabled) return; submitBtn.disabled = true;
             const answer = answerInput.value.toLowerCase().trim();
             
             if (!answer) {
