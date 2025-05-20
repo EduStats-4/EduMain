@@ -1,492 +1,710 @@
-
 <!DOCTYPE html>
 <html lang="fr">
-<head>
+  <head>
+    <!-- métadonnées de base -->
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Mot Brouillé - Casino Pédagogique</title>
+    <title>mot brouillé - casino pédagogique</title>
+    <!-- inclusion des icônes font awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-
     <style>
-    /* ===== MODERN NAVBAR STYLES ===== */
-.game-navbar {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 70px;
-  background: linear-gradient(135deg, #1a1a1a 0%, #111 100%);
-  box-shadow: 0 4px 20px rgba(0,0,0,0.4);
-  border-bottom: 1px solid rgba(231, 76, 60, 0.3);
-  z-index: 1000;
-  display: flex;
-  align-items: center;
-}
+      /* ===== styles modernes de la barre de navigation ===== */
+      .game-navbar {
+        position: fixed;
+        /* position fixe en haut */
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 70px;
+        /* hauteur fixe */
+        /* dégradé de fond */
+        background: linear-gradient(135deg, #1a1a1a 0%, #111 100%);
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+        /* ombre portée */
+        border-bottom: 1px solid rgba(231, 76, 60, 0.3);
+        /* bordure colorée */
+        z-index: 1000;
+        /* au-dessus des autres éléments */
+        display: flex;
+        align-items: center;
+        /* centrage vertical */
+      }
 
-.nav-content {
-  width: 100%;
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 20px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
+      /* conteneur du contenu de la nav */
+      .nav-content {
+        width: 100%;
+        max-width: 1200px;
+        /* largeur maximale */
+        margin: 0 auto;
+        /* centrage horizontal */
+        padding: 0 20px;
+        /* espacement latéral */
+        display: flex;
+        justify-content: space-between;
+        /* espacement entre éléments */
+        align-items: center;
+      }
 
-.nav-brand {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
+      /* conteneur du logo */
+      .nav-brand {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        /* espacement entre éléments */
+      }
 
-.logo-icon {
-  color: #e74c3c;
-  font-size: 1.8rem;
-}
+      /* icône du logo */
+      .logo-icon {
+        color: #e74c3c;
+        /* couleur rouge */
+        font-size: 1.8rem;
+      }
 
-.logo-text {
-  font-family: 'Arial Black', sans-serif;
-  font-size: 1.5rem;
-  color: white;
-  margin: 0;
-}
+      /* texte du logo */
+      .logo-text {
+        font-family: 'Arial Black', sans-serif;
+        font-size: 1.5rem;
+        color: white;
+        margin: 0;
+      }
 
-.logo-text span {
-  color: #e74c3c;
-}
+      /* partie colorée du logo */
+      .logo-text span {
+        color: #e74c3c;
+      }
 
-.nav-games {
-  display: flex;
-  gap: 15px;
-}
+      /* conteneur des liens de jeux */
+      .nav-games {
+        display: flex;
+        gap: 15px;
+        /* espacement entre liens */
+      }
 
-.nav-link {
-  color: #aaa;
-  text-decoration: none;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  font-size: 0.9rem;
-  transition: all 0.3s ease;
-  padding: 8px 12px;
-  border-radius: 6px;
-}
+      /* style des liens */
+      .nav-link {
+        color: #aaa;
+        /* couleur grise */
+        text-decoration: none;
+        /* pas de soulignement */
+        display: flex;
+        flex-direction: column;
+        /* disposition verticale */
+        align-items: center;
+        font-size: 0.9rem;
+        transition: all 0.3s ease;
+        /* transition fluide */
+        padding: 8px 12px;
+        border-radius: 6px;
+        /* coins arrondis */
+      }
 
-.nav-link:hover {
-  background: rgba(231, 76, 60, 0.1);
-  color: white;
-}
+      /* effet au survol */
+      .nav-link:hover {
+        background: rgba(231, 76, 60, 0.1);
+        /* fond légèrement rouge */
+        color: white;
+      }
 
-.nav-link i {
-  font-size: 1.2rem;
-  margin-bottom: 3px;
-}
+      /* style des icônes */
+      .nav-link i {
+        font-size: 1.2rem;
+        margin-bottom: 3px;
+        /* espace sous l'icône */
+      }
 
-.link-text {
-  font-family: 'Arial', sans-serif;
-}
+      /* texte des liens */
+      .link-text {
+        font-family: 'Arial', sans-serif;
+      }
 
-.ddak-display {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
+      /* conteneur du score */
+      .ddak-display {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        /* espacement entre éléments */
+      }
 
-.ddak-chip {
-  background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
-  width: 60px;  /* Slightly wider */
-  height: 50px;
-  border-radius: 25px;  /* Now pill-shaped instead of circle */
-  display: flex;
-  align-items: center;
-  justify-content: space-between;  /* Better spacing */
-  padding: 0 12px;  /* Internal padding */
-  box-shadow: 0 3px 6px rgba(0,0,0,0.2);
-  position: relative;
-  border: 2px solid #f1c40f;
-}
+      /* style du jeton de score */
+      .ddak-chip {
+        /* dégradé de fond */
+        background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+        width: 60px;
+        /* largeur */
+        height: 50px;
+        /* hauteur */
+        border-radius: 25px;
+        /* forme de pilule */
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        /* espacement interne */
+        padding: 0 12px;
+        box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
+        /* ombre portée */
+        position: relative;
+        border: 2px solid #f1c40f;
+        /* bordure dorée */
+      }
 
-.chip-icon {
-  color: rgba(255,255,255,0.9);
-  font-size: 1.2rem;
-  margin-right: 5px;  /* Added spacing between icon and number */
-}
+      /* icône du jeton */
+      .chip-icon {
+        color: rgba(255, 255, 255, 0.9);
+        /* blanc légèrement transparent */
+        font-size: 1.2rem;
+        margin-right: 5px;
+        /* espace à droite */
+      }
 
-.ddak-amount {
-  color: white;
-  font-weight: bold;
-  font-size: 1.1rem;
-  /* Removed absolute positioning */
-}
+      /* montant du score */
+      .ddak-amount {
+        color: white;
+        font-weight: bold;
+        font-size: 1.1rem;
+      }
 
-.ddak-label {
-  color: #aaa;
-  font-size: 0.9rem;
-  font-family: 'Arial', sans-serif;
-}
+      /* libellé du score */
+      .ddak-label {
+        color: #aaa;
+        font-size: 0.9rem;
+        font-family: 'Arial', sans-serif;
+      }
 
-/* Animation for DDAK updates */
-@keyframes pulse {
-  0% { transform: scale(1); }
-  50% { transform: scale(1.1); }
-  100% { transform: scale(1); }
-}
-
-.grow {
-  animation: pulse 0.3s ease;
-}
-
-/* Add body padding to prevent content hiding */
-body {
-  padding-top: 80px;
-}
-
-/* Responsive adjustments */
-@media (max-width: 768px) {
-  .nav-games {
-    gap: 8px;
-  }
-  
-  .nav-link {
-    padding: 6px 8px;
-    font-size: 0.8rem;
-  }
-  
-  .ddak-chip {
-    width: 40px;
-    height: 40px;
-  }
-  
-  .ddak-label {
-    display: none;
-  }
-}
-        :root {
-            --primary-color: #000000;
-            --secondary-color: #333333;
-            --accent-color: #e74c3c;
-            --accent-dark: #c0392b;
-            --background-color: #111111;
-            --container-background: #1a1a1a;
-            --text-color: #ffffff;
-            --text-muted: #aaaaaa;
-            --shadow-soft: 0 8px 24px rgba(0, 0, 0, 0.5);
-            --shadow-glow: 0 0 15px rgba(231, 76, 60, 0.5);
-            --border-radius: 8px;
-            --transition-default: all 0.3s ease;
-            --font-primary: 'Georgia', serif;
-            --font-accent: 'Arial Black', sans-serif;
+      /* animation pour les mises à jour de score */
+      @keyframes pulse {
+        0% {
+          transform: scale(1);
         }
 
-        body {
-            font-family: var(--font-primary);
-            background-color: var(--background-color);
-            color: var(--text-color);
-            line-height: 1.6;
-            margin: 0;
-            padding: 20px;
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background-image: 
-                radial-gradient(circle at 10% 20%, rgba(231, 76, 60, 0.1) 0%, transparent 20%),
-                radial-gradient(circle at 90% 80%, rgba(231, 76, 60, 0.1) 0%, transparent 20%);
+        50% {
+          transform: scale(1.1);
         }
 
+        100% {
+          transform: scale(1);
+        }
+      }
+
+      /* classe pour l'animation */
+      .grow {
+        animation: pulse 0.3s ease;
+      }
+
+      /* espace pour la navbar fixe */
+      body {
+        padding-top: 80px;
+      }
+
+      /* adaptations pour tablettes */
+      @media (max-width: 768px) {
+        .nav-games {
+          gap: 8px;
+          /* espacement réduit */
+        }
+
+        .nav-link {
+          padding: 6px 8px;
+          /* espacement réduit */
+          font-size: 0.8rem;
+          /* texte plus petit */
+        }
+
+        .ddak-chip {
+          width: 40px;
+          /* largeur réduite */
+          height: 40px;
+          /* hauteur réduite */
+        }
+
+        .ddak-label {
+          display: none;
+          /* masquage du libellé */
+        }
+      }
+
+      /* variables css */
+      :root {
+        --primary-color: #000000;
+        --secondary-color: #333333;
+        --accent-color: #e74c3c;
+        /* rouge */
+        --accent-dark: #c0392b;
+        /* rouge foncé */
+        --background-color: #111111;
+        /* fond très sombre */
+        --container-background: #1a1a1a;
+        /* fond sombre */
+        --text-color: #ffffff;
+        /* texte blanc */
+        --text-muted: #aaaaaa;
+        /* texte gris */
+        --shadow-soft: 0 8px 24px rgba(0, 0, 0, 0.5);
+        /* ombre douce */
+        --shadow-glow: 0 0 15px rgba(231, 76, 60, 0.5);
+        /* lueur rouge */
+        --border-radius: 8px;
+        /* coins arrondis */
+        --transition-default: all 0.3s ease;
+        /* transition par défaut */
+        --font-primary: 'Georgia', serif;
+        /* police principale */
+        --font-accent: 'Arial Black', sans-serif;
+        /* police d'accent */
+      }
+
+      /* styles de base */
+      body {
+        font-family: var(--font-primary);
+        background-color: var(--background-color);
+        color: var(--text-color);
+        line-height: 1.6;
+        /* interligne */
+        margin: 0;
+        padding: 20px;
+        min-height: 100vh;
+        /* hauteur minimale */
+        display: flex;
+        justify-content: center;
+        /* centrage horizontal */
+        align-items: center;
+        /* centrage vertical */
+        /* dégradés radiaux décoratifs */
+        background-image:
+          radial-gradient(circle at 10% 20%, rgba(231, 76, 60, 0.1) 0%, transparent 20%),
+          radial-gradient(circle at 90% 80%, rgba(231, 76, 60, 0.1) 0%, transparent 20%);
+      }
+
+      /* conteneur principal du jeu */
+      .game-container {
+        width: 90%;
+        max-width: 600px;
+        /* largeur maximale */
+        background: var(--container-background);
+        padding: 30px;
+        border-radius: var(--border-radius);
+        box-shadow: var(--shadow-soft);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        /* bordure subtile */
+        position: relative;
+        overflow: hidden;
+        text-align: center;
+        /* centrage du texte */
+      }
+
+      /* bordure supérieure colorée */
+      .game-container::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        /* dégradé linéaire */
+        background: linear-gradient(90deg, var(--accent-color), var(--accent-dark));
+      }
+
+      /* style du titre */
+      .title {
+        font-family: var(--font-accent);
+        color: var(--accent-color);
+        font-size: 2rem;
+        margin-bottom: 20px;
+        text-transform: uppercase;
+        /* majuscules */
+        letter-spacing: 2px;
+        /* espacement des lettres */
+      }
+
+      /* style de la catégorie */
+      #categorie {
+        font-size: 1.2rem;
+        color: var(--text-muted);
+        /* texte gris */
+        margin-bottom: 10px;
+      }
+
+      /* style du mot brouillé */
+      .scrambled-word {
+        font-size: 2.5rem;
+        letter-spacing: 10px;
+        /* grand espacement */
+        margin: 30px 0;
+        padding: 20px;
+        background: rgba(0, 0, 0, 0.3);
+        /* fond semi-transparent */
+        border-radius: var(--border-radius);
+        font-family: var(--font-accent);
+        text-transform: uppercase;
+        min-height: 80px;
+        /* hauteur minimale */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      /* style du champ de réponse */
+      input[type="text"] {
+        width: 80%;
+        padding: 15px;
+        margin: 20px 0;
+        background: rgba(0, 0, 0, 0.5);
+        /* fond sombre */
+        border: 1px solid var(--accent-color);
+        /* bordure rouge */
+        border-radius: var(--border-radius);
+        color: white;
+        font-size: 1.2rem;
+        text-align: center;
+        transition: var(--transition-default);
+      }
+
+      /* effet de focus */
+      input[type="text"]:focus {
+        outline: none;
+        border-color: var(--accent-dark);
+        /* bordure rouge foncé */
+        box-shadow: var(--shadow-glow);
+        /* lueur rouge */
+      }
+
+      /* style du bouton */
+      button {
+        width: 80%;
+        padding: 15px;
+        background: var(--accent-color);
+        /* fond rouge */
+        color: white;
+        border: none;
+        border-radius: var(--border-radius);
+        font-family: var(--font-accent);
+        font-size: 1.2rem;
+        text-transform: uppercase;
+        cursor: pointer;
+        /* curseur main */
+        transition: var(--transition-default);
+        margin: 20px 0;
+      }
+
+      /* effet au survol */
+      button:hover {
+        background: var(--accent-dark);
+        /* fond rouge foncé */
+        transform: translateY(-3px);
+        /* léger déplacement */
+        box-shadow: var(--shadow-glow);
+        /* lueur rouge */
+      }
+
+      /* style des messages */
+      #message {
+        font-size: 1.2rem;
+        margin: 20px 0;
+        min-height: 30px;
+        /* hauteur minimale */
+        padding: 10px;
+        border-radius: var(--border-radius);
+      }
+
+      /* style des messages corrects */
+      .correct {
+        color: #2ecc71;
+        /* vert */
+        animation: pulse 0.5s;
+        /* animation */
+      }
+
+      /* style des messages incorrects */
+      .incorrect {
+        color: #e74c3c;
+        /* rouge */
+      }
+
+      /* style des points */
+      .points {
+        font-size: 1.3rem;
+        font-family: var(--font-accent);
+        margin-top: 20px;
+        color: var(--accent-color);
+        /* rouge */
+      }
+
+      /* animation de pulsation */
+      @keyframes pulse {
+        0% {
+          transform: scale(1);
+        }
+
+        50% {
+          transform: scale(1.1);
+        }
+
+        100% {
+          transform: scale(1);
+        }
+      }
+
+      /* adaptations pour mobiles */
+      @media (max-width: 480px) {
         .game-container {
-            width: 90%;
-            max-width: 600px;
-            background: var(--container-background);
-            padding: 30px;
-            border-radius: var(--border-radius);
-            box-shadow: var(--shadow-soft);
-            border: 1px solid rgba(255,255,255,0.1);
-            position: relative;
-            overflow: hidden;
-            text-align: center;
-        }
-
-        .game-container::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 4px;
-            background: linear-gradient(90deg, var(--accent-color), var(--accent-dark));
+          padding: 20px;
+          /* espacement réduit */
         }
 
         .title {
-            font-family: var(--font-accent);
-            color: var(--accent-color);
-            font-size: 2rem;
-            margin-bottom: 20px;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-        }
-
-        #categorie {
-            font-size: 1.2rem;
-            color: var(--text-muted);
-            margin-bottom: 10px;
+          font-size: 1.5rem;
+          /* texte plus petit */
         }
 
         .scrambled-word {
-            font-size: 2.5rem;
-            letter-spacing: 10px;
-            margin: 30px 0;
-            padding: 20px;
-            background: rgba(0,0,0,0.3);
-            border-radius: var(--border-radius);
-            font-family: var(--font-accent);
-            text-transform: uppercase;
-            min-height: 80px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+          font-size: 1.8rem;
+          /* texte plus petit */
+          letter-spacing: 5px;
+          /* espacement réduit */
+          padding: 15px;
+          /* espacement réduit */
         }
 
-        input[type="text"] {
-            width: 80%;
-            padding: 15px;
-            margin: 20px 0;
-            background: rgba(0,0,0,0.5);
-            border: 1px solid var(--accent-color);
-            border-radius: var(--border-radius);
-            color: white;
-            font-size: 1.2rem;
-            text-align: center;
-            transition: var(--transition-default);
-        }
-
-        input[type="text"]:focus {
-            outline: none;
-            border-color: var(--accent-dark);
-            box-shadow: var(--shadow-glow);
-        }
-
+        input[type="text"],
         button {
-            width: 80%;
-            padding: 15px;
-            background: var(--accent-color);
-            color: white;
-            border: none;
-            border-radius: var(--border-radius);
-            font-family: var(--font-accent);
-            font-size: 1.2rem;
-            text-transform: uppercase;
-            cursor: pointer;
-            transition: var(--transition-default);
-            margin: 20px 0;
+          width: 90%;
+          /* largeur augmentée */
         }
-
-        button:hover {
-            background: var(--accent-dark);
-            transform: translateY(-3px);
-            box-shadow: var(--shadow-glow);
-        }
-
-        #message {
-            font-size: 1.2rem;
-            margin: 20px 0;
-            min-height: 30px;
-            padding: 10px;
-            border-radius: var(--border-radius);
-        }
-
-        .correct {
-            color: #2ecc71;
-            animation: pulse 0.5s;
-        }
-
-        .incorrect {
-            color: #e74c3c;
-        }
-
-        .points {
-            font-size: 1.3rem;
-            font-family: var(--font-accent);
-            margin-top: 20px;
-            color: var(--accent-color);
-        }
-
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.1); }
-            100% { transform: scale(1); }
-        }
-
-        @media (max-width: 480px) {
-            .game-container {
-                padding: 20px;
-            }
-            
-            .title {
-                font-size: 1.5rem;
-            }
-            
-            .scrambled-word {
-                font-size: 1.8rem;
-                letter-spacing: 5px;
-                padding: 15px;
-            }
-            
-            input[type="text"], button {
-                width: 90%;
-            }
-        }
+      }
     </style>
-</head>
-<body>
-  <!-- Add this RIGHT AFTER the <body> tag in each HTML file -->
-<nav class="game-navbar">
-  <div class="nav-content">
-    <div class="nav-brand">
-  <a href="index.html" class="nav-home-link" style="display: flex; align-items: center; gap: 12px; text-decoration: none;">
-    <i class="fas fa-dice logo-icon"></i>
-    <h1 class="logo-text">Édu<span>Stats</span></h1>
-  </a>
-</div>
-    
-    <div class="nav-games">
-      <a href="de.html" class="nav-link">
-        <i class="fas fa-dice-six"></i>
-        <span class="link-text">Dés</span>
-      </a>
-      <a href="quiz.html" class="nav-link">
-        <i class="fas fa-question"></i>
-        <span class="link-text">Quiz</span>
-      </a>
-      <a href="mots.html" class="nav-link">
-        <i class="fas fa-font"></i>
-        <span class="link-text">Mots</span>
-      </a>
-      <a href="math.html" class="nav-link">
-        <i class="fas fa-square-root-alt"></i>
-        <span class="link-text">Maths</span>
-      </a>
-    </div>
-    
-    <div class="ddak-display">
-      <div class="ddak-chip">
-        <i class="fas fa-coins chip-icon"></i>
-        <span id="nav-score" class="ddak-amount">100</span>
+  </head>
+  <body>
+    <!-- barre de navigation -->
+    <nav class="game-navbar">
+      <div class="nav-content">
+        <!-- logo et nom du site -->
+        <div class="nav-brand">
+          <a href="index.html" class="nav-home-link" style="display: flex; align-items: center; gap: 12px; text-decoration: none;">
+            <i class="fas fa-dice logo-icon"></i>
+            <h1 class="logo-text">édu <span>stats</span>
+            </h1>
+          </a>
+        </div>
+        <!-- liens vers les différents jeux -->
+        <div class="nav-games">
+          <!-- jeu de dés -->
+          <a href="de.html" class="nav-link">
+            <i class="fas fa-dice-six"></i>
+            <span class="link-text">dés</span>
+          </a>
+          <!-- quiz -->
+          <a href="quiz.html" class="nav-link">
+            <i class="fas fa-question"></i>
+            <span class="link-text">quiz</span>
+          </a>
+          <!-- jeu de mots -->
+          <a href="mots.html" class="nav-link">
+            <i class="fas fa-font"></i>
+            <span class="link-text">mots</span>
+          </a>
+          <!-- jeu de maths -->
+          <a href="math.html" class="nav-link">
+            <i class="fas fa-square-root-alt"></i>
+            <span class="link-text">maths</span>
+          </a>
+        </div>
+        <!-- affichage du score -->
+        <div class="ddak-display">
+          <div class="ddak-chip">
+            <i class="fas fa-coins chip-icon"></i>
+            <span id="nav-score" class="ddak-amount">100</span>
+          </div>
+          <span class="ddak-label">ddaks</span>
+        </div>
       </div>
-      <span class="ddak-label">DDAKs</span>
-    </div>
-  </div>
-</nav>
+    </nav>
+    <!-- contenu principal du jeu -->
     <div class="game-container">
-        <div class="title">Mot Brouillé</div>
-        <div id="categorie"></div>
-        <div id="scrambled" class="scrambled-word"></div>
-        <input type="text" id="answer" placeholder="Votre réponse..." autocomplete="off" />
-        <button id="submitBtn">Soumettre</button>
-        <div id="message"></div>
-        <div class="points" id="points">DDAKs: 100</div>
+      <!-- titre du jeu -->
+      <div class="title">mot brouillé</div>
+      <!-- affichage de la catégorie -->
+      <div id="categorie"></div>
+      <!-- mot brouillé à deviner -->
+      <div id="scrambled" class="scrambled-word"></div>
+      <!-- champ de saisie de la réponse -->
+      <input type="text" id="answer" placeholder="votre réponse..." autocomplete="off" />
+      <!-- bouton de soumission -->
+      <button id="submitBtn">soumettre</button>
+      <!-- zone de message -->
+      <div id="message"></div>
+      <!-- affichage des points -->
+      <div class="points" id="points">ddaks: 100</div>
     </div>
-
- <script src="script.js"></script>
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const words = [
-            { word: "guerre", category: "Histoire" },
-{ word: "canada", category: "Géographie" },
-{ word: "puberté", category: "Santé" },
-{ word: "shakespeare", category: "Littérature" },
-{ word: "napoléon", category: "Histoire" },
-{ word: "amazonie", category: "Géographie" },
-{ word: "vaccin", category: "Santé" },
-{ word: "baudelaire", category: "Littérature" },
-{ word: "révolution", category: "Histoire" },
-{ word: "sahara", category: "Géographie" },
-{ word: "diabète", category: "Santé" },
-{ word: "molière", category: "Littérature" },
-{ word: "moyen âge", category: "Histoire" },
-{ word: "everest", category: "Géographie" },
-{ word: "antibiotique", category: "Santé" },
-{ word: "dante", category: "Littérature" },
-{ word: "renaissance", category: "Histoire" },
-{ word: "italie", category: "Géographie" },
-{ word: "stress", category: "Santé" },
-{ word: "hugo", category: "Littérature" },
-{ word: "réforme", category: "Histoire" },
-{ word: "japon", category: "Géographie" },
-{ word: "allergie", category: "Santé" },
-{ word: "zola", category: "Littérature" },
-{ word: "colonisation", category: "Histoire" },
-{ word: "himalaya", category: "Géographie" },
-{ word: "hygiène", category: "Santé" },
-{ word: "camus", category: "Littérature" },
-{ word: "traité", category: "Histoire" },
-{ word: "désert", category: "Géographie" },
-{ word: "fatigue", category: "Santé" },
-{ word: "voltaire", category: "Littérature" }
-
-
-        ];
-
-        let currentWord = {};
-        const scrambledElement = document.getElementById("scrambled");
-        const categoryElement = document.getElementById("categorie");
-        const answerInput = document.getElementById("answer");
-        const messageElement = document.getElementById("message");
-        const pointsElement = document.getElementById("points");
-        const submitBtn = document.getElementById("submitBtn");
-
-        // Initialize game
+    <!-- scripts javascript -->
+    <script src="script.js"></script>
+    <script>
+      // initialisation lorsque le dom est chargé
+      document.addEventListener('DOMContentLoaded', function() {
+        // liste des mots et catégories
+        const words = [{
+          word: "guerre",
+          category: "histoire"
+        }, {
+          word: "canada",
+          category: "géographie"
+        }, {
+          word: "puberté",
+          category: "santé"
+        }, {
+          word: "shakespeare",
+          category: "littérature"
+        }, {
+          word: "napoléon",
+          category: "histoire"
+        }, {
+          word: "amazonie",
+          category: "géographie"
+        }, {
+          word: "vaccin",
+          category: "santé"
+        }, {
+          word: "baudelaire",
+          category: "littérature"
+        }, {
+          word: "révolution",
+          category: "histoire"
+        }, {
+          word: "sahara",
+          category: "géographie"
+        }, {
+          word: "diabète",
+          category: "santé"
+        }, {
+          word: "molière",
+          category: "littérature"
+        }, {
+          word: "moyen âge",
+          category: "histoire"
+        }, {
+          word: "everest",
+          category: "géographie"
+        }, {
+          word: "antibiotique",
+          category: "santé"
+        }, {
+          word: "dante",
+          category: "littérature"
+        }, {
+          word: "renaissance",
+          category: "histoire"
+        }, {
+          word: "italie",
+          category: "géographie"
+        }, {
+          word: "stress",
+          category: "santé"
+        }, {
+          word: "hugo",
+          category: "littérature"
+        }, {
+          word: "réforme",
+          category: "histoire"
+        }, {
+          word: "japon",
+          category: "géographie"
+        }, {
+          word: "allergie",
+          category: "santé"
+        }, {
+          word: "zola",
+          category: "littérature"
+        }, {
+          word: "colonisation",
+          category: "histoire"
+        }, {
+          word: "himalaya",
+          category: "géographie"
+        }, {
+          word: "hygiène",
+          category: "santé"
+        }, {
+          word: "camus",
+          category: "littérature"
+        }, {
+          word: "traité",
+          category: "histoire"
+        }, {
+          word: "désert",
+          category: "géographie"
+        }, {
+          word: "fatigue",
+          category: "santé"
+        }, {
+          word: "voltaire",
+          category: "littérature"
+        }];
+        // variables du jeu
+        let currentWord = {}; // mot actuel à deviner
+        const scrambledElement = document.getElementById("scrambled"); // élément du mot brouillé
+        const categoryElement = document.getElementById("categorie"); // élément de la catégorie
+        const answerInput = document.getElementById("answer"); // champ de réponse
+        const messageElement = document.getElementById("message"); // zone de message
+        const pointsElement = document.getElementById("points"); // affichage des points
+        const submitBtn = document.getElementById("submitBtn"); // bouton de soumission
+        // initialisation du jeu
         chooseNewWord();
-
-        // Scramble word function
+        // fonction pour brouiller un mot
         function scramble(word) {
-            return word.split('').sort(() => Math.random() - 0.5).join('');
+          return word.split('').sort(() => Math.random() - 0.5).join('');
         }
-
-        // Choose new random word
+        // choisir un nouveau mot aléatoire
         function chooseNewWord() {
-            currentWord = words[Math.floor(Math.random() * words.length)];
-            scrambledElement.textContent = scramble(currentWord.word);
-            categoryElement.textContent = `Catégorie: ${currentWord.category}`;
-            answerInput.value = "";
-            messageElement.textContent = "";
-            answerInput.focus();
-            submitBtn.disabled = false;
+          // sélection aléatoire dans la liste
+          currentWord = words[Math.floor(Math.random() * words.length)];
+          // affichage du mot brouillé
+          scrambledElement.textContent = scramble(currentWord.word);
+          // affichage de la catégorie
+          categoryElement.textContent = `catégorie: ${currentWord.category}`;
+          // réinitialisation du champ de réponse
+          answerInput.value = "";
+          // effacement des messages
+          messageElement.textContent = "";
+          // focus sur le champ de réponse
+          answerInput.focus();
+          // activation du bouton
+          submitBtn.disabled = false;
         }
-
-        // Check answer
+        // vérification de la réponse
         function checkAnswer() {
-            submitBtn.disabled = true;
-            const answer = answerInput.value.toLowerCase().trim();
-            
-            if (!answer) {
-                messageElement.textContent = "Veuillez entrer une réponse";
-                messageElement.className = "incorrect";
-                return;
-            }
-
-            if (answer === currentWord.word) {
-                addDdaks(50);
-                messageElement.textContent = "Correct! +50 DDAKs";
-                messageElement.className = "correct";
-            } else {
-                addDdaks(-50);
-                messageElement.textContent = `Incorrect! -50 DDAKs (Le mot était: ${currentWord.word})`;
-                messageElement.className = "incorrect";
-            }
-
-            setTimeout(chooseNewWord, 2000);
+          // désactivation du bouton pendant le traitement
+          submitBtn.disabled = true;
+          // récupération et nettoyage de la réponse
+          const answer = answerInput.value.toLowerCase().trim();
+          // vérification si le champ est vide
+          if (!answer) {
+            messageElement.textContent = "veuillez entrer une réponse";
+            messageElement.className = "incorrect";
+            return;
+          }
+          // vérification si la réponse est correcte
+          if (answer === currentWord.word) {
+            // ajout de points
+            addDdaks(50);
+            messageElement.textContent = "correct! +50 ddaks";
+            messageElement.className = "correct";
+          } else {
+            // retrait de points
+            addDdaks(-50);
+            messageElement.textContent = `incorrect! -50 ddaks (le mot était: ${currentWord.word})`;
+            messageElement.className = "incorrect";
+          }
+          // choix d'un nouveau mot après 2 secondes
+          setTimeout(chooseNewWord, 2000);
         }
-
-        // Event listeners
+        // écouteurs d'événements
+        // clic sur le bouton
         submitBtn.addEventListener('click', checkAnswer);
-        
+        // touche entrée dans le champ de texte
         answerInput.addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') {
-                checkAnswer();
-            }
+          if (e.key === 'Enter') {
+            checkAnswer();
+          }
         });
-    });
-</script>
-</body>
+      });
+    </script>
+  </body>
 </html>
