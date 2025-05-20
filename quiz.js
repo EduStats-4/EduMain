@@ -1,4 +1,3 @@
-
 // Typing animation
 function typeWord() {
     const element = document.getElementById('animated-name');
@@ -563,6 +562,8 @@ let correctAnswers = 0;
 let wrongAnswers = 0;
 let timedOutQuestions = 0;
 let answered = false;
+let ddakAtStart = 0;
+let totalTimeSpent = 0;
 
 // DOM Elements
 const topicCards = document.querySelectorAll(".nav-card");
@@ -618,13 +619,14 @@ function startQuiz() {
     correctAnswers = 0;
     wrongAnswers = 0;
     timedOutQuestions = 0;
+    totalTimeSpent = 0;
 
-    // Show current DDAK score
-    let currentDdaks = parseInt(sessionStorage.getItem("ddaks"), 10);
-    if (isNaN(currentDdaks)) currentDdaks = 100;
-    updateAllScoreDisplays(currentDdaks);
+    // Record starting DDAK balance
+    ddakAtStart = parseInt(sessionStorage.getItem("ddaks"), 10);
+    if (isNaN(ddakAtStart)) ddakAtStart = 100;
+    updateAllScoreDisplays(ddakAtStart);
 
-    // Update UI
+    // Update UI as before...
     topicSelection.style.display = "none";
     quizContainer.style.display = "block";
     resultsContainer.style.display = "none";
@@ -662,6 +664,10 @@ function selectAnswer(index) {
     if (answered) return;
     answered = true;
     clearInterval(timerInterval);
+
+    // Record time spent for this question
+    totalTimeSpent += (10 - timeLeft);
+
     const currentQuestion = quizQuestions[currentQuestionIndex];
     const buttons = document.querySelectorAll(".answer-btn");
     buttons.forEach((btn, i) => {
@@ -701,6 +707,9 @@ function selectAnswer(index) {
 function timeUp() {
     if (answered) return;
     answered = true;
+
+    // Record time spent for this question (max 10s if timed out)
+    totalTimeSpent += 10;
 
     const currentQuestion = quizQuestions[currentQuestionIndex];
 
@@ -746,6 +755,9 @@ function startTimer() {
 }
 
 function goToNextQuestion() {
+    // If last question, also add time spent (either answered or timed out)
+    if (!answered) totalTimeSpent += (10 - timeLeft);
+
     currentQuestionIndex++;
     if (currentQuestionIndex < quizQuestions.length) {
         timeLeft = 10;
@@ -760,26 +772,28 @@ function showResults() {
     quizContainer.style.display = "none";
     resultsContainer.style.display = "block";
 
-    // Display current ddaks (not quiz-local points)
+    // DDAK logic
     let currentDdaks = parseInt(sessionStorage.getItem("ddaks"), 10);
     if (isNaN(currentDdaks)) currentDdaks = 100;
+    let pointsEarned = currentDdaks - ddakAtStart;
+
+    // Correct stats, based on quiz session
     finalScoreElement.textContent = currentDdaks;
     possibleScoreElement.textContent = quizQuestions.length * 10;
+    pointsEarnedElement.textContent = pointsEarned;
 
-    // Update statistics
-    pointsEarnedElement.textContent = correctAnswers * 10;
     document.getElementById("correct-answers").textContent = correctAnswers;
     document.getElementById("total-questions").textContent = quizQuestions.length;
     document.getElementById("wrong-answers").textContent = wrongAnswers;
     document.getElementById("timed-out").textContent = timedOutQuestions;
 
-    const accuracy = ((correctAnswers / quizQuestions.length) * 100).toFixed(1);
-    const averageTimePerQuestion = (10 - timeLeft / quizQuestions.length).toFixed(1);
+    const accuracy = quizQuestions.length > 0 ? ((correctAnswers / quizQuestions.length) * 100).toFixed(1) : "0";
+    const avgTime = quizQuestions.length > 0 ? (totalTimeSpent / quizQuestions.length).toFixed(1) : "0";
 
     document.getElementById("accuracy").textContent = accuracy;
-    document.getElementById("avg-time").textContent = averageTimePerQuestion;
+    document.getElementById("avg-time").textContent = avgTime;
 
-    // Confetti if accuracy is 90% or above (unchanged)
+    // Confetti logic unchanged
     if (accuracy >= 90) {
         const resultsTop = resultsContainer.getBoundingClientRect().top;
         confetti.start(resultsTop);
