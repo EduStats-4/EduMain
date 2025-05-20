@@ -419,11 +419,12 @@ body {
             answerInput.value = "";
             messageElement.textContent = "";
             answerInput.focus();
+            submitBtn.disabled = false;
         }
 
         // Check answer
         function checkAnswer() {
-            if (submitBtn.disabled) return; submitBtn.disabled = true;
+            submitBtn.disabled = true;
             const answer = answerInput.value.toLowerCase().trim();
             
             if (!answer) {
