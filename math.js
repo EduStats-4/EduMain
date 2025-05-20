@@ -178,14 +178,3 @@ function addToHistory(essai, guess, clue) {
     // ajoute la ligne au tableau
     tbody.appendChild(row)
 }
-
-window.onload = function() {
-    numRandom();
-    // Initialize score display
-    updateAllScoreDisplays(parseInt(sessionStorage.getItem("ddaks") || "100", 10));
-};
-
-
-function addToHistory(essai, guess, clue) {
-    const tbody = document.querySelector("#guesstable tbody");
-}
