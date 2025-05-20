@@ -1,240 +1,253 @@
 /* définition des variables css globales */
 :root {
-    --primary-color: #000000; /* couleur principale noire */
-    --secondary-color: #333333; /* couleur secondaire gris foncé */
-    --accent-color: #e74c3c; /* couleur d'accent rouge */
-    --accent-dark: #c0392b; /* version plus sombre de la couleur d'accent */
-    --background-color: #111111; /* couleur de fond de la page */
-    --container-background: #1a1a1a; /* couleur de fond des conteneurs */
-    --text-color: #ffffff; /* couleur du texte principal */
-    --text-muted: #aaaaaa; /* couleur du texte secondaire */
-    --progress-fill: #e74c3c; /* couleur de remplissage des barres de progression */
-    --progress-bg: #333333; /* couleur de fond des barres de progression */
-    --shadow-soft: 0 8px 24px rgba(0, 0, 0, 0.5); /* ombre douce */
-    --shadow-glow: 0 0 15px rgba(231, 76, 60, 0.5); /* ombre lumineuse */
-    --border-radius: 8px; /* rayon des bordures arrondies */
-    --transition-default: all 0.3s ease; /* transition par défaut */
-    --font-primary: 'Georgia', serif; /* police principale */
-    --font-accent: 'Arial Black', sans-serif; /* police d'accentuation */
-} 
+  --primary-color: #000000; /* couleur principale noire */
+  --secondary-color: #333333; /* couleur secondaire gris foncé */
+  --accent-color: #e74c3c; /* couleur d'accent rouge */
+  --accent-dark: #c0392b; /* version plus sombre de la couleur d'accent */
+  --background-color: #111111; /* couleur de fond de la page */
+  --container-background: #1a1a1a; /* couleur de fond des conteneurs */
+  --text-color: #ffffff; /* couleur du texte principal */
+  --text-muted: #aaaaaa; /* couleur du texte secondaire */
+  --progress-fill: #e74c3c; /* couleur de remplissage des barres de progression */
+  --progress-bg: #333333; /* couleur de fond des barres de progression */
+  --shadow-soft: 0 8px 24px rgba(0, 0, 0, 0.5); /* ombre douce */
+  --shadow-glow: 0 0 15px rgba(231, 76, 60, 0.5); /* ombre lumineuse */
+  --border-radius: 8px; /* rayon des bordures arrondies */
+  --transition-default: all 0.3s ease; /* transition par défaut */
+  --font-primary: "Georgia", serif; /* police principale */
+  --font-accent: "Arial Black", sans-serif; /* police d'accentuation */
+}
 
 /* styles de base pour le corps de la page */
 body {
-    font-family: var(--font-primary); /* application de la police principale */
-    background-color: var(--background-color); /* couleur de fond */
-    color: var(--text-color); /* couleur du texte */
-    line-height: 1.6; /* hauteur de ligne */
-    margin: 0; /* suppression des marges */
-    padding: 20px; /* espacement intérieur */
-    min-height: 100vh; /* hauteur minimale de la vue */
-    display: flex; /* utilisation de flexbox */
-    justify-content: center; /* centrage horizontal */
-    align-items: center; /* centrage vertical */
-    /* dégradés radiaux pour l'arrière-plan */
-    background-image: 
-        radial-gradient(circle at 10% 20%, rgba(231, 76, 60, 0.1) 0%, transparent 20%),
-        radial-gradient(circle at 90% 80%, rgba(231, 76, 60, 0.1) 0%, transparent 20%);
+  font-family: var(--font-primary); /* application de la police principale */
+  background-color: var(--background-color); /* couleur de fond */
+  color: var(--text-color); /* couleur du texte */
+  line-height: 1.6; /* hauteur de ligne */
+  margin: 0; /* suppression des marges */
+  padding: 20px; /* espacement intérieur */
+  min-height: 100vh; /* hauteur minimale de la vue */
+  display: flex; /* utilisation de flexbox */
+  justify-content: center; /* centrage horizontal */
+  align-items: center; /* centrage vertical */
+  /* dégradés radiaux pour l'arrière-plan */
+  background-image: radial-gradient(
+      circle at 10% 20%,
+      rgba(231, 76, 60, 0.1) 0%,
+      transparent 20%
+    ),
+    radial-gradient(
+      circle at 90% 80%,
+      rgba(231, 76, 60, 0.1) 0%,
+      transparent 20%
+    );
 }
 
 /* conteneur principal du contenu */
 .content {
-    width: 90%; /* largeur relative */
-    max-width: 900px; /* largeur maximale */
-    margin: auto; /* centrage automatique */
-    background: var(--container-background); /* couleur de fond */
-    padding: 30px; /* espacement intérieur */
-    border-radius: var(--border-radius); /* bords arrondis */
-    box-shadow: var(--shadow-soft); /* ombre portée */
-    transition: var(--transition-default); /* transition */
-    position: relative; /* position relative */
-    border: 1px solid rgba(255,255,255,0.1); /* bordure subtile */
-    overflow: hidden; /* masquage du débordement */
+  width: 90%; /* largeur relative */
+  max-width: 900px; /* largeur maximale */
+  margin: auto; /* centrage automatique */
+  background: var(--container-background); /* couleur de fond */
+  padding: 30px; /* espacement intérieur */
+  border-radius: var(--border-radius); /* bords arrondis */
+  box-shadow: var(--shadow-soft); /* ombre portée */
+  transition: var(--transition-default); /* transition */
+  position: relative; /* position relative */
+  border: 1px solid rgba(255, 255, 255, 0.1); /* bordure subtile */
+  overflow: hidden; /* masquage du débordement */
 }
 
 /* pseudo-élément pour la bordure supérieure colorée */
 .content::before {
-    content: ''; /* contenu vide */
-    position: absolute; /* position absolue */
-    top: 0; /* alignement en haut */
-    left: 0; /* alignement à gauche */
-    right: 0; /* alignement à droite */
-    height: 4px; /* hauteur de la bordure */
-    /* dégradé linéaire pour la couleur */
-    background: linear-gradient(90deg, var(--accent-color), var(--accent-dark));
+  content: ""; /* contenu vide */
+  position: absolute; /* position absolue */
+  top: 0; /* alignement en haut */
+  left: 0; /* alignement à gauche */
+  right: 0; /* alignement à droite */
+  height: 4px; /* hauteur de la bordure */
+  /* dégradé linéaire pour la couleur */
+  background: linear-gradient(90deg, var(--accent-color), var(--accent-dark));
 }
 
 /* styles pour l'en-tête */
 .game-header {
-    margin-bottom: 30px; /* marge inférieure */
-    padding-bottom: 20px; /* espacement intérieur inférieur */
-    border-bottom: 1px solid rgba(255,255,255,0.1); /* bordure inférieure */
-    text-align: center; /* centrage du texte */
+  margin-bottom: 30px; /* marge inférieure */
+  padding-bottom: 20px; /* espacement intérieur inférieur */
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1); /* bordure inférieure */
+  text-align: center; /* centrage du texte */
 }
 
 /* styles pour le logo */
 .logo {
-    display: flex; /* utilisation de flexbox */
-    align-items: center; /* alignement vertical */
-    justify-content: center; /* centrage horizontal */
-    gap: 15px; /* espacement entre les éléments */
+  display: flex; /* utilisation de flexbox */
+  align-items: center; /* alignement vertical */
+  justify-content: center; /* centrage horizontal */
+  gap: 15px; /* espacement entre les éléments */
 }
 
 /* styles pour l'icône du logo */
 .logo-icon {
-    font-size: 2.5rem; /* taille de l'icône */
-    color: var(--accent-color); /* couleur d'accent */
+  font-size: 2.5rem; /* taille de l'icône */
+  color: var(--accent-color); /* couleur d'accent */
 }
 
 /* styles pour le texte du logo */
 .logo h1 {
-    margin: 0; /* suppression des marges */
-    font-size: 2rem; /* taille de police */
-    font-family: var(--font-accent); /* police spéciale */
-    text-transform: uppercase; /* texte en majuscules */
+  margin: 0; /* suppression des marges */
+  font-size: 2rem; /* taille de police */
+  font-family: var(--font-accent); /* police spéciale */
+  text-transform: uppercase; /* texte en majuscules */
 }
 
 /* partie colorée du texte du logo */
 .logo h1 span {
-    color: var(--accent-color); /* couleur d'accent */
+  color: var(--accent-color); /* couleur d'accent */
 }
 
 /* conteneur du score */
 .score-container {
-    background: rgba(0,0,0,0.3); /* fond semi-transparent */
-    padding: 15px; /* espacement intérieur */
-    border-radius: var(--border-radius); /* bords arrondis */
-    margin-bottom: 30px; /* marge inférieure */
-    border: 1px solid var(--accent-color); /* bordure colorée */
-    text-align: center; /* centrage du texte */
+  background: rgba(0, 0, 0, 0.3); /* fond semi-transparent */
+  padding: 15px; /* espacement intérieur */
+  border-radius: var(--border-radius); /* bords arrondis */
+  margin-bottom: 30px; /* marge inférieure */
+  border: 1px solid var(--accent-color); /* bordure colorée */
+  text-align: center; /* centrage du texte */
 }
 
 /* affichage du score */
 .score-display {
-    display: flex; /* utilisation de flexbox */
-    flex-direction: column; /* disposition en colonne */
-    align-items: center; /* centrage horizontal */
-    gap: 10px; /* espacement entre les éléments */
+  display: flex; /* utilisation de flexbox */
+  flex-direction: column; /* disposition en colonne */
+  align-items: center; /* centrage horizontal */
+  gap: 10px; /* espacement entre les éléments */
 }
 
 /* libellé du score */
 .score-label {
-    color: var(--text-muted); /* couleur de texte secondaire */
-    font-size: 0.9rem; /* taille de police */
+  color: var(--text-muted); /* couleur de texte secondaire */
+  font-size: 0.9rem; /* taille de police */
 }
 
 /* valeur numérique du score */
 #score {
-    font-size: 1.8rem; /* grande taille de police */
-    font-weight: bold; /* texte en gras */
-    font-family: var(--font-accent); /* police spéciale */
-    color: white; /* couleur blanche */
-    text-shadow: 0 0 5px rgba(255,255,255,0.5); /* ombre de texte */
+  font-size: 1.8rem; /* grande taille de police */
+  font-weight: bold; /* texte en gras */
+  font-family: var(--font-accent); /* police spéciale */
+  color: white; /* couleur blanche */
+  text-shadow: 0 0 5px rgba(255, 255, 255, 0.5); /* ombre de texte */
 }
 
 /* grille des jeux */
 .game-grid {
-    display: grid; /* utilisation de grid */
-    grid-template-columns: repeat(2, 1fr); /* 2 colonnes de largeur égale */
-    gap: 20px; /* espacement entre les cartes */
+  display: grid; /* utilisation de grid */
+  grid-template-columns: repeat(2, 1fr); /* 2 colonnes de largeur égale */
+  gap: 20px; /* espacement entre les cartes */
 }
 
 /* styles pour les cartes de jeu */
 .game-card {
-    /* dégradé pour le fond */
-    background: linear-gradient(145deg, #222222, #1a1a1a);
-    color: white; /* couleur du texte */
-    border: 1px solid rgba(231, 76, 60, 0.3); /* bordure subtile */
-    border-radius: var(--border-radius); /* bords arrondis */
-    padding: 25px; /* espacement intérieur */
-    text-decoration: none; /* pas de soulignement */
-    transition: all 0.3s ease; /* transition */
-    position: relative; /* position relative */
-    overflow: hidden; /* masquage du débordement */
-    display: flex; /* utilisation de flexbox */
-    flex-direction: column; /* disposition en colonne */
-    align-items: center; /* centrage horizontal */
-    text-align: center; /* centrage du texte */
+  /* dégradé pour le fond */
+  background: linear-gradient(145deg, #222222, #1a1a1a);
+  color: white; /* couleur du texte */
+  border: 1px solid rgba(231, 76, 60, 0.3); /* bordure subtile */
+  border-radius: var(--border-radius); /* bords arrondis */
+  padding: 25px; /* espacement intérieur */
+  text-decoration: none; /* pas de soulignement */
+  transition: all 0.3s ease; /* transition */
+  position: relative; /* position relative */
+  overflow: hidden; /* masquage du débordement */
+  display: flex; /* utilisation de flexbox */
+  flex-direction: column; /* disposition en colonne */
+  align-items: center; /* centrage horizontal */
+  text-align: center; /* centrage du texte */
 }
 
 /* effet au survol des cartes */
 .game-card:hover {
-    transform: translateY(-5px); /* léger déplacement vers le haut */
-    box-shadow: 0 8px 25px rgba(0,0,0,0.5), var(--shadow-glow); /* ombres */
-    border-color: var(--accent-color); /* bordure colorée */
+  transform: translateY(-5px); /* léger déplacement vers le haut */
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5), var(--shadow-glow); /* ombres */
+  border-color: var(--accent-color); /* bordure colorée */
 }
 
 /* icône des jeux */
 .game-icon {
-    font-size: 2.5rem; /* grande taille */
-    margin-bottom: 15px; /* marge inférieure */
-    color: var(--accent-color); /* couleur d'accent */
+  font-size: 2.5rem; /* grande taille */
+  margin-bottom: 15px; /* marge inférieure */
+  color: var(--accent-color); /* couleur d'accent */
 }
 
 /* titre des cartes de jeu */
 .game-card h3 {
-    margin: 0 0 10px 0; /* marges */
-    font-size: 1.3rem; /* taille de police */
-    font-family: var(--font-accent); /* police spéciale */
+  margin: 0 0 10px 0; /* marges */
+  font-size: 1.3rem; /* taille de police */
+  font-family: var(--font-accent); /* police spéciale */
 }
 
 /* texte descriptif des cartes */
 .game-card p {
-    margin: 0 0 15px 0; /* marges */
-    color: var(--text-muted); /* couleur de texte secondaire */
-    font-size: 0.9rem; /* petite taille de police */
+  margin: 0 0 15px 0; /* marges */
+  color: var(--text-muted); /* couleur de texte secondaire */
+  font-size: 0.9rem; /* petite taille de police */
 }
 
 /* affichage du meilleur score */
 .high-score {
-    font-size: 0.8rem; /* très petite taille */
-    color: var(--accent-color); /* couleur d'accent */
-    font-weight: bold; /* texte en gras */
-    margin-top: auto; /* pousse vers le bas */
+  font-size: 0.8rem; /* très petite taille */
+  color: var(--accent-color); /* couleur d'accent */
+  font-weight: bold; /* texte en gras */
+  margin-top: auto; /* pousse vers le bas */
 }
 
 /* couleurs spécifiques pour chaque type de jeu */
 .dice-game {
-    border-bottom: 3px solid #e74c3c; /* rouge */
+  border-bottom: 3px solid #e74c3c; /* rouge */
 }
 
 .quiz-game {
-    border-bottom: 3px solid #3498db; /* bleu */
+  border-bottom: 3px solid #3498db; /* bleu */
 }
 
 .word-game {
-    border-bottom: 3px solid #2ecc71; /* vert */
+  border-bottom: 3px solid #2ecc71; /* vert */
 }
 
 .math-game {
-    border-bottom: 3px solid #9b59b6; /* violet */
+  border-bottom: 3px solid #9b59b6; /* violet */
 }
 
 /* adaptations pour tablettes */
 @media (max-width: 768px) {
-    .game-grid {
-        grid-template-columns: 1fr; /* une seule colonne */
-    }
+  .game-grid {
+    grid-template-columns: 1fr; /* une seule colonne */
+  }
 }
 
 /* adaptations pour mobiles */
 @media (max-width: 480px) {
-    .content {
-        padding: 20px; /* moins d'espacement */
-    }
-    
-    .game-card {
-        padding: 20px; /* moins d'espacement */
-    }
+  .content {
+    padding: 20px; /* moins d'espacement */
+  }
+
+  .game-card {
+    padding: 20px; /* moins d'espacement */
+  }
 }
 
 /* animation pour les mises à jour de score */
 @keyframes scorePulse {
-    0% { transform: scale(1); } /* taille normale */
-    50% { transform: scale(1.1); } /* légèrement agrandi */
-    100% { transform: scale(1); } /* retour à la normale */
+  0% {
+    transform: scale(1);
+  } /* taille normale */
+  50% {
+    transform: scale(1.1);
+  } /* légèrement agrandi */
+  100% {
+    transform: scale(1);
+  } /* retour à la normale */
 }
 
 /* classe pour appliquer l'animation */
 .score-update {
-    animation: scorePulse 0.5s ease; /* application de l'animation */
+  animation: scorePulse 0.5s ease; /* application de l'animation */
 }
