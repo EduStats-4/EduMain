@@ -20,6 +20,13 @@
 
 /* styles de base pour le corps de la page */
 body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+.content {
+  flex: 1;
+}
   font-family: var(--font-primary); /* application de la police principale */
   background-color: var(--background-color); /* couleur de fond */
   color: var(--text-color); /* couleur du texte */
