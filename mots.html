@@ -625,18 +625,27 @@
           categoryEl.textContent = "Catégorie : " + random.category;
           answerEl.value = "";
           messageEl.textContent = "";
+          submitBtn.disabled = false; // réactiver le bouton pour le nouveau mot
         }
 
         function updateScore(change) {
           score += change;
+          if (score < 0) score = 0; // ne pas descendre en dessous de 0
           navScoreEl.textContent = score;
           pointsEl.textContent = "ddaks: " + score;
           navScoreEl.classList.add("grow");
           setTimeout(() => navScoreEl.classList.remove("grow"), 300);
         }
         submitBtn.addEventListener("click", () => {
+          if (submitBtn.disabled) return; // ignore clics si déjà traité
+          submitBtn.disabled = true; // désactive bouton pour éviter spam
           const userAnswer = answerEl.value.trim().toLowerCase();
-          if (!userAnswer) return;
+          if (!userAnswer) {
+            messageEl.textContent = "Veuillez entrer une réponse.";
+            messageEl.className = "incorrect";
+            submitBtn.disabled = false; // on peut resoumettre si vide
+            return;
+          }
           if (userAnswer === currentWord.replace(/\s/g, '')) {
             messageEl.textContent = "Bravo ! C'est correct.";
             messageEl.className = "correct";
