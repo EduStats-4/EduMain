@@ -1,3 +1,5 @@
+window.updateAllScoreDisplays = mettreAJourAffichageScore;
+
 // animation d'écriture pour le titre
 function typeWord() {
     const element = document.getElementById('animated-name');
