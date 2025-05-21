@@ -1,5 +1,4 @@
 window.updateAllScoreDisplays = mettreAJourAffichageScore;
-window.ajouterDdaks = ajouterDdaks;
 window.updateAllScoreDisplays = mettreAJourAffichageScore; // 
 window.addDdaks = ajouterDdaks; //abdakckka
 window.preparerBoutonsDdak = preparerBoutonsDdak;
