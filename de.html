@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html>
 <html lang="fr">
   <head>
@@ -344,6 +342,7 @@
           height: 60px;
         }
       }
+
       .distribution-info {
         background-color: rgba(255, 255, 255, 0.03);
         border: 1px solid rgba(255, 255, 255, 0.1);
@@ -358,7 +357,7 @@
         font-family: var(--font-primary);
         box-shadow: var(--shadow-soft);
       }
-      
+
       .distribution-info h3 {
         font-family: var(--font-accent);
         color: var(--accent-color);
@@ -366,13 +365,13 @@
         margin-bottom: 15px;
         text-transform: uppercase;
       }
-      
+
       .distribution-info p {
         margin-bottom: 12px;
         font-size: 1rem;
         color: var(--text-muted);
       }
-      
+
       .distribution-image {
         display: block;
         max-width: 100%;
@@ -381,7 +380,6 @@
         border-radius: 8px;
         box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
       }
-
     </style>
   </head>
   <body>
@@ -438,12 +436,8 @@
     </div>
     <section class="distribution-info">
       <h3>Probabilité et distribution normale</h3>
-      <p>
-        Lorsque deux dés sont lancés, certaines sommes sont plus probables que d'autres. Par exemple, 7 est la somme la plus fréquente car il existe plusieurs combinaisons (1+6, 2+5, 3+4, etc.) qui donnent ce total. À l'inverse, 2 et 12 sont les moins probables car une seule combinaison les produit.
-      </p>
-      <p>
-        Cela crée une distribution en cloche (distribution normale discrète), comme illustré ci-dessous :
-      </p>
+      <p> Lorsque deux dés sont lancés, certaines sommes sont plus probables que d'autres. Par exemple, 7 est la somme la plus fréquente car il existe plusieurs combinaisons (1+6, 2+5, 3+4, etc.) qui donnent ce total. À l'inverse, 2 et 12 sont les moins probables car une seule combinaison les produit. </p>
+      <p> Cela crée une distribution en cloche (distribution normale discrète), comme illustré ci-dessous : </p>
       <img src="https://assets.onecompiler.app/43aeytn9j/43jca9cgk/DNhaf-removebg-preview.jpg" alt="Distribution des sommes de deux dés" class="distribution-image">
     </section>
     <script src="script.js"></script>
@@ -451,9 +445,9 @@
       /* initialisation du jeu lorsque le document est chargé */
       document.addEventListener('DOMContentLoaded', function() {
         /* images des dés */
-        const diceImages = ["https://assets.onecompiler.app/43aeytn9j/43hkbnrr9/dice-six-faces-one.png", "https://assets.onecompiler.app/43aeytn9j/43hkbnrr9/dice-six-faces-two.png", "https://assets.onecompiler.app/43aeytn9j/43hkbnrr9/dice-six-faces-three.png", "https://assets.onecompiler.app/43aeytn9j/43hkbnrr9/dice-six-faces-four.png", "https://assets.onecompiler.app/43aeytn9j/43hkbnrr9/dice-six-faces-five.png", "https://assets.onecompiler.app/43aeytn9j/43hkbnrr9/dice-six-faces-six.png"];
+        imagesDes = ["https://assets.onecompiler.app/43aeytn9j/43hkbnrr9/dice-six-faces-one.png", "https://assets.onecompiler.app/43aeytn9j/43hkbnrr9/dice-six-faces-two.png", "https://assets.onecompiler.app/43aeytn9j/43hkbnrr9/dice-six-faces-three.png", "https://assets.onecompiler.app/43aeytn9j/43hkbnrr9/dice-six-faces-four.png", "https://assets.onecompiler.app/43aeytn9j/43hkbnrr9/dice-six-faces-five.png", "https://assets.onecompiler.app/43aeytn9j/43hkbnrr9/dice-six-faces-six.png"]
         /* multiplicateurs pour chaque somme possible */
-        const multipliers = {
+        multiplicateurs = {
           2: 4.0,
           3: 3.5,
           4: 3.0,
@@ -465,75 +459,89 @@
           10: 3.0,
           11: 3.5,
           12: 4.0
-        };
+        }
         /* éléments du dom */
-        const rollButton = document.getElementById('rollButton');
-        const resultDiv = document.getElementById('result');
-        const dice1 = document.getElementById('dice1');
-        const dice2 = document.getElementById('dice2');
-        const betInput = document.getElementById('mise');
-        const guessInput = document.getElementById('deviner');
+        boutonLancer = document.getElementById('rollButton')
+        divResultat = document.getElementById('result')
+        de1 = document.getElementById('dice1')
+        de2 = document.getElementById('dice2')
+        champMise = document.getElementById('mise')
+        champDeviner = document.getElementById('deviner')
         /* gestion du clic sur le bouton de lancer */
-        rollButton.addEventListener('click', function() {
-          const bet = parseInt(betInput.value);
-          const guess = parseInt(guessInput.value);
-          const currentDdaks = parseInt(sessionStorage.getItem("ddaks")) || 100;
+        boutonLancer.addEventListener('click', function() {
+          mise = parseInt(champMise.value)
+          devinette = parseInt(champDeviner.value)
+          ddaksActuels = parseInt(sessionStorage.getItem("ddaks")) || 100
           /* validation de la mise */
-          if (isNaN(bet) || bet<=0) {
-            resultDiv.textContent = "veuillez entrer une mise valide.";
-            return;
+          if (isNaN(mise) || mise <= 0) {
+            divResultat.textContent = "veuillez entrer une mise valide."
+            return
           }
           /* validation de la devinette */
-          if (isNaN(guess) || guess < 2 || guess > 12) {
-            resultDiv.textContent = "veuillez entrer une devinette entre 2 et 12.";
-            return;
+          if (isNaN(devinette) || devinette < 2 || devinette > 12) {
+            divResultat.textContent = "veuillez entrer une devinette entre 2 et 12."
+            return
           }
           /* vérification du solde */
-          if (bet > currentDdaks) {
-            resultDiv.textContent = "vous n'avez pas assez de ddaks.";
-            return;
+          if (mise > ddaksActuels) {
+            divResultat.textContent = "vous n'avez pas assez de ddaks."
+            return
           }
           /* désactivation du bouton pendant le lancer */
-          rollButton.disabled = true;
-          resultDiv.textContent = "les dés roulent...";
-          resultDiv.classList.remove("win-message");
+          boutonLancer.disabled = true
+          divResultat.textContent = "les dés roulent..."
+          divResultat.classList.remove("win-message")
           /* animation de lancer de dés */
-          let rolls = 0;
-          const maxRolls = 15;
-          const rollInterval = setInterval(() => {
-            const temp1 = Math.floor(Math.random() * 6);
-            const temp2 = Math.floor(Math.random() * 6);
-            dice1.src = diceImages[temp1];
-            dice2.src = diceImages[temp2];
-            rolls++;
+          nombreLancers = 0
+          maxLancers = 15
+          intervalLancer = setInterval(() => {
+            temp1 = Math.floor(Math.random() * 6)
+            temp2 = Math.floor(Math.random() * 6)
+            de1.src = imagesDes[temp1]
+            de2.src = imagesDes[temp2]
+            nombreLancers++
             /* fin de l'animation */
-            if (rolls >= maxRolls) {
-              clearInterval(rollInterval);
+            if (nombreLancers >= maxLancers) {
+              clearInterval(intervalLancer)
               /* calcul du résultat */
-              const dice1Value = Math.floor(Math.random() * 6) + 1;
-              const dice2Value = Math.floor(Math.random() * 6) + 1;
-              const sum = dice1Value + dice2Value;
+              valeurDe1 = Math.floor(Math.random() * 6) + 1
+              valeurDe2 = Math.floor(Math.random() * 6) + 1
+              somme = valeurDe1 + valeurDe2
               /* affichage des dés finaux */
-              dice1.src = diceImages[dice1Value - 1];
-              dice2.src = diceImages[dice2Value - 1];
+              de1.src = imagesDes[valeurDe1 - 1]
+              de2.src = imagesDes[valeurDe2 - 1]
               /* vérification du résultat */
-              if (guess === sum) {
-                const winnings = Math.floor(bet * multipliers[sum]);
-                addDdaks(winnings);
-                resultDiv.innerHTML = `bravo ! vous avez deviné ${guess} et la somme est ${sum}.
-							<br>vous gagnez ${winnings} ddaks (×${multipliers[sum]}) !`;
-                resultDiv.classList.add("win-message");
+              if (devinette === somme) {
+                gains = Math.floor(mise * multiplicateurs[somme])
+                ajouterDdaks(gains)
+                divResultat.innerHTML = `bravo ! vous avez deviné ${devinette} et la somme est ${somme}.
+          
+								<br>vous gagnez ${gains} ddaks (×${multiplicateurs[somme]}) !`
+                divResultat.classList.add("win-message")
               } else {
-                addDdaks(-bet);
-                resultDiv.innerHTML = `dommage... vous avez deviné ${guess} mais la somme est ${sum}.
-								<br>vous perdez ${bet} ddaks.`;
+                ajouterDdaks(-mise)
+                divResultat.innerHTML = `dommage... vous avez deviné ${devinette} mais la somme est ${somme}.
+          
+									<br>vous perdez ${mise} ddaks.`
               }
               /* réactivation du bouton */
-              rollButton.disabled = false;
+              boutonLancer.disabled = false
             }
-          }, 100);
-        });
-      });
+          }, 100)
+        })
+      })
+      /* fonction pour ajouter/soustraire des ddaks */
+      function ajouterDdaks(montant) {
+        ddaksActuels = parseInt(sessionStorage.getItem("ddaks")) || 100
+        nouveauDdaks = ddaksActuels + montant
+        sessionStorage.setItem("ddaks", nouveauDdaks)
+        document.getElementById("nav-score").textContent = nouveauDdaks
+        if (montant > 0) {
+          navScore = document.getElementById("nav-score")
+          navScore.classList.add("grow")
+          setTimeout(() => navScore.classList.remove("grow"), 300)
+        }
+      }
     </script>
   </body>
 </html>
