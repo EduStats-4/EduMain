@@ -688,17 +688,17 @@ function selectAnswer(index) {
         nextQuestionBtn.style.background = "linear-gradient(135deg, #e8f5e9, #c8e6c9)";
         addDdaks(10); // Add 10 DDAKs for correct answer
         correctAnswers++;
-    } else {
+       } else {
         feedbackElement.innerHTML = `
-            <div class="feedback-line">Incorrect! <span class="points-badge">0 DDAK</span></div>
+            <div class="feedback-line">Incorrect! <span class="points-badge">-5 DDAKs</span></div>
             <div class="correct-answer">Correct answer: ${currentQuestion.answers[currentQuestion.correct]}</div>
         `;
         feedbackElement.className = "feedback-incorrect";
         nextQuestionBtn.style.borderLeft = "none";
         nextQuestionBtn.style.background = "linear-gradient(135deg, #ffebee, #ffcdd2)";
+        addDdaks(-5); // Subtract 5 DDAKs for wrong answer
         wrongAnswers++;
     }
-
     // Update score displays to show new DDAK total
     updateAllScoreDisplays(parseInt(sessionStorage.getItem("ddaks"), 10));
     nextQuestionBtn.style.display = "block";
@@ -713,12 +713,13 @@ function timeUp() {
 
     const currentQuestion = quizQuestions[currentQuestionIndex];
 
-    feedbackElement.innerHTML = `
-        <div class="feedback-line">Time's up! <span class="points-badge">0 DDAK</span></div>
+  feedbackElement.innerHTML = `
+        <div class="feedback-line">Time's up! <span class="points-badge">-5 DDAKs</span></div>
         <div class="correct-answer">Correct answer: ${currentQuestion.answers[currentQuestion.correct]}</div>
     `;
     feedbackElement.className = "feedback-incorrect";
     nextQuestionBtn.className = "feedback-incorrect";
+    addDdaks(-5); // Subtract 5 DDAKs for timeout
 
     const buttons = document.querySelectorAll(".answer-btn");
     buttons.forEach((btn, i) => {
