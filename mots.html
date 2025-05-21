@@ -537,9 +537,7 @@
     <!-- scripts javascript -->
     <script src="script.js"></script>
     <script>
-      // initialisation lorsque le dom est chargé
-      document.addEventListener('DOMContentLoaded', function() {
-        // liste des mots et catégories
+      document.addEventListener('DOMContentLoaded', () => {
         const words = [{
           word: "guerre",
           category: "histoire"
@@ -600,110 +598,57 @@
         }, {
           word: "hugo",
           category: "littérature"
-        }, {
-          word: "réforme",
-          category: "histoire"
-        }, {
-          word: "japon",
-          category: "géographie"
-        }, {
-          word: "allergie",
-          category: "santé"
-        }, {
-          word: "zola",
-          category: "littérature"
-        }, {
-          word: "colonisation",
-          category: "histoire"
-        }, {
-          word: "himalaya",
-          category: "géographie"
-        }, {
-          word: "hygiène",
-          category: "santé"
-        }, {
-          word: "camus",
-          category: "littérature"
-        }, {
-          word: "traité",
-          category: "histoire"
-        }, {
-          word: "désert",
-          category: "géographie"
-        }, {
-          word: "fatigue",
-          category: "santé"
-        }, {
-          word: "voltaire",
-          category: "littérature"
         }];
-        // variables du jeu
-        let currentWord = {}; // mot actuel à deviner
-        const scrambledElement = document.getElementById("scrambled"); // élément du mot brouillé
-        const categoryElement = document.getElementById("categorie"); // élément de la catégorie
-        const answerInput = document.getElementById("answer"); // champ de réponse
-        const messageElement = document.getElementById("message"); // zone de message
-        const pointsElement = document.getElementById("points"); // affichage des points
-        const submitBtn = document.getElementById("submitBtn"); // bouton de soumission
-        // initialisation du jeu
-        chooseNewWord();
-        // fonction pour brouiller un mot
-        function scramble(word) {
-          return word.split('').sort(() => Math.random() - 0.5).join('');
+        let currentWord, scrambled, score = 100;
+        const scrambledEl = document.getElementById("scrambled");
+        const categoryEl = document.getElementById("categorie");
+        const answerEl = document.getElementById("answer");
+        const messageEl = document.getElementById("message");
+        const pointsEl = document.getElementById("points");
+        const navScoreEl = document.getElementById("nav-score");
+        const submitBtn = document.getElementById("submitBtn");
+
+        function shuffleWord(word) {
+          const letters = word.replace(/\s/g, '').split('');
+          let shuffled;
+          do {
+            shuffled = letters.sort(() => 0.5 - Math.random()).join('');
+          } while (shuffled === word.replace(/\s/g, ''));
+          return shuffled;
         }
-        // choisir un nouveau mot aléatoire
-        function chooseNewWord() {
-          // sélection aléatoire dans la liste
-          currentWord = words[Math.floor(Math.random() * words.length)];
-          // affichage du mot brouillé
-          scrambledElement.textContent = scramble(currentWord.word);
-          // affichage de la catégorie
-          categoryElement.textContent = `catégorie: ${currentWord.category}`;
-          // réinitialisation du champ de réponse
-          answerInput.value = "";
-          // effacement des messages
-          messageElement.textContent = "";
-          // focus sur le champ de réponse
-          answerInput.focus();
-          // activation du bouton
-          submitBtn.disabled = false;
+
+        function pickNewWord() {
+          const random = words[Math.floor(Math.random() * words.length)];
+          currentWord = random.word.toLowerCase();
+          scrambled = shuffleWord(currentWord);
+          scrambledEl.textContent = scrambled;
+          categoryEl.textContent = "Catégorie : " + random.category;
+          answerEl.value = "";
+          messageEl.textContent = "";
         }
-        // vérification de la réponse
-        function checkAnswer() {
-          // désactivation du bouton pendant le traitement
-          submitBtn.disabled = true;
-          // récupération et nettoyage de la réponse
-          const answer = answerInput.value.toLowerCase().trim();
-          // vérification si le champ est vide
-          if (!answer) {
-            messageElement.textContent = "veuillez entrer une réponse";
-            messageElement.className = "incorrect";
-            return;
-          }
-          // vérification si la réponse est correcte
-          if (answer === currentWord.word) {
-            // ajout de points
-            addDdaks(50);
-            messageElement.textContent = "correct! +50 ddaks";
-            messageElement.className = "correct";
+
+        function updateScore(change) {
+          score += change;
+          navScoreEl.textContent = score;
+          pointsEl.textContent = "ddaks: " + score;
+          navScoreEl.classList.add("grow");
+          setTimeout(() => navScoreEl.classList.remove("grow"), 300);
+        }
+        submitBtn.addEventListener("click", () => {
+          const userAnswer = answerEl.value.trim().toLowerCase();
+          if (!userAnswer) return;
+          if (userAnswer === currentWord.replace(/\s/g, '')) {
+            messageEl.textContent = "Bravo ! C'est correct.";
+            messageEl.className = "correct";
+            updateScore(10);
           } else {
-            // retrait de points
-            addDdaks(-10);
-            messageElement.textContent = `incorrect! -10 ddaks (le mot était: ${currentWord.word})`;
-            messageElement.className = "incorrect";
+            messageEl.textContent = "Incorrect. Réessaie.";
+            messageEl.className = "incorrect";
+            updateScore(-5);
           }
-          // choix d'un nouveau mot après 2 secondes
-          setTimeout(chooseNewWord, 2000);
-        }
-        // écouteurs d'événements
-        // clic sur le bouton
-        submitBtn.addEventListener('click', checkAnswer);
-        // touche entrée dans le champ de texte
-        answerInput.addEventListener('keypress', function(e) {
-          if (e.key === 'Enter') {
-            checkAnswer();
-          }
+          setTimeout(pickNewWord, 1500);
         });
+        pickNewWord();
       });
     </script>
   </body>
