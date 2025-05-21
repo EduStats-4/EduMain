@@ -17,30 +17,30 @@
     padding-top: 80px;
   }
   .site-footer {
-    width: 90%;
-    max-width: 900px;
-    margin: 40px auto 0 auto;
-    background: #1a1a1a;
-    color: #aaa;
-    padding: 24px 0;
-    border-radius: 8px;
-    box-shadow: 0 8px 24px rgba(0,0,0,0.5);
-    text-align: center;
-    font-size: 1.05rem;
-  }
-  .site-footer a {
-    color: #e74c3c;
-    text-decoration: underline;
-    transition: color 0.2s;
-  }
-  .site-footer a:hover {
-    color: #c0392b;
-  }
+  width: 90%;
+  max-width: 900px;
+  margin: 40px auto 32px auto; /* auto left/right, space from content and bottom */
+  background: #1a1a1a;
+  color: #aaa;
+  padding: 24px 0;
+  border-radius: 8px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.5);
+  text-align: center;
+  font-size: 1.05rem;
+}
+.site-footer a {
+  color: #e74c3c;
+  text-decoration: underline;
+  transition: color 0.2s;
+}
+.site-footer a:hover {
+  color: #c0392b;
+}
 </style>
   </head>
-  <body>
+  <body style="min-height: 100vh; display: flex; flex-direction: column; margin: 0;">
     <!-- conteneur principal du contenu -->
-    <div class="content">
+    <div class="content"style="flex: 1 0 auto;">
       <!-- en-tête avec le logo -->
       <header class="game-header">
         <div class="logo">
@@ -103,7 +103,7 @@
     </div>
     <!-- inclusion du script principal de gestion des ddak -->
     <script src="script.js"></script>
-     <footer class="site-footer">
+     <footer class="site-footer" style="flex-shrink: 0;">
   <a href="propos.html">À propos de nous</a>
 </footer>
   </body>
