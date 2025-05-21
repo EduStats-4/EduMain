@@ -1,4 +1,4 @@
-// animation d'écriture pour le titre
+// Typing animation
 function typeWord() {
     const element = document.getElementById('animated-name');
     const cursor = document.querySelector('.typing-cursor');
@@ -20,7 +20,7 @@ function typeWord() {
 }
 window.addEventListener('load', typeWord);
 
-// données et logique du quiz
+// Quiz data and logic
 const topics = {
     chemistry: [{
             question: "Quelle est la formule chimique de l'eau ?",
@@ -553,7 +553,6 @@ const topics = {
 };
 
 
-// variables pour suivre l'état du quiz
 let selectedTopics = [];
 let quizQuestions = [];
 let currentQuestionIndex = 0;
@@ -566,7 +565,7 @@ let answered = false;
 let ddakAtStart = 0;
 let totalTimeSpent = 0;
 
-// éléments du dom
+// DOM Elements
 const topicCards = document.querySelectorAll(".nav-card");
 const startQuizBtn = document.getElementById("start-quiz-btn");
 const quizContainer = document.getElementById("quiz-container");
@@ -585,7 +584,7 @@ const possibleScoreElement = document.getElementById("possible-score");
 const restartBtn = document.getElementById("restart-btn");
 const pointsEarnedElement = document.getElementById("points-earned");
 
-// logique de sélection des thèmes
+// Topic selection logic
 topicCards.forEach(card => {
     card.addEventListener("click", () => {
         card.classList.toggle("selected");
@@ -595,7 +594,7 @@ topicCards.forEach(card => {
     });
 });
 
-// bouton pour démarrer le quiz
+// Start quiz button
 startQuizBtn.addEventListener("click", () => {
     if (selectedTopics.length > 0) {
         startQuiz();
@@ -603,7 +602,6 @@ startQuizBtn.addEventListener("click", () => {
 });
 
 function startQuiz() {
-    // initialisation des questions du quiz
     quizQuestions = [];
     selectedTopics.forEach(topic => {
         if (topics[topic]) {
@@ -615,24 +613,23 @@ function startQuiz() {
     });
 
     if (quizQuestions.length === 0) {
-        alert("veuillez sélectionner au moins un thème avec des questions");
+        alert("Please select at least one topic with questions");
         return;
     }
     shuffleArray(quizQuestions);
 
-    // réinitialisation des compteurs
     currentQuestionIndex = 0;
     correctAnswers = 0;
     wrongAnswers = 0;
     timedOutQuestions = 0;
     totalTimeSpent = 0;
 
-    // enregistrement du solde initial de ddaks
+    // Record starting DDAK balance
     ddakAtStart = parseInt(sessionStorage.getItem("ddaks"), 10);
     if (isNaN(ddakAtStart)) ddakAtStart = 100;
     updateAllScoreDisplays(ddakAtStart);
 
-    // mise à jour de l'interface
+    // Update UI as before...
     topicSelection.style.display = "none";
     quizContainer.style.display = "block";
     resultsContainer.style.display = "none";
@@ -648,7 +645,6 @@ function startQuiz() {
 }
 
 function showQuestion() {
-    // affichage de la question actuelle
     const currentQuestion = quizQuestions[currentQuestionIndex];
     answered = false;
     questionElement.textContent = currentQuestion.question;
@@ -658,7 +654,6 @@ function showQuestion() {
     nextQuestionBtn.style.display = "none";
     questionNumberElement.textContent = currentQuestionIndex + 1;
 
-    // création des boutons de réponse
     currentQuestion.answers.forEach((answer, index) => {
         const button = document.createElement("button");
         button.textContent = answer;
@@ -669,12 +664,11 @@ function showQuestion() {
 }
 
 function selectAnswer(index) {
-    // gestion de la sélection d'une réponse
     if (answered) return;
     answered = true;
     clearInterval(timerInterval);
 
-    // enregistrement du temps passé
+    // Record time spent for this question
     totalTimeSpent += (10 - timeLeft);
 
     const currentQuestion = quizQuestions[currentQuestionIndex];
@@ -688,47 +682,47 @@ function selectAnswer(index) {
         }
     });
 
-    // feedback selon la réponse
     if (index === currentQuestion.correct) {
         feedbackElement.innerHTML = `
-            <div class="feedback-line">correct! <span class="points-badge">+10 ddaks</span></div>
+            <div class="feedback-line">Correct! <span class="points-badge">+10 DDAKs</span></div>
         `;
         feedbackElement.className = "feedback-correct";
         nextQuestionBtn.style.borderLeft = "none";
         nextQuestionBtn.style.background = "linear-gradient(135deg, #e8f5e9, #c8e6c9)";
-        addDdaks(10);
+        addDdaks(10); // Add 10 DDAKs for correct answer
         correctAnswers++;
     } else {
         feedbackElement.innerHTML = `
-            <div class="feedback-line">incorrect! <span class="points-badge">-5 ddaks</span></div>
-            <div class="correct-answer">réponse correcte: ${currentQuestion.answers[currentQuestion.correct]}</div>
+            <div class="feedback-line">Incorrect! <span class="points-badge">-5 DDAKs</span></div>
+            <div class="correct-answer">Correct answer: ${currentQuestion.answers[currentQuestion.correct]}</div>
         `;
         feedbackElement.className = "feedback-incorrect";
         nextQuestionBtn.style.borderLeft = "none";
         nextQuestionBtn.style.background = "linear-gradient(135deg, #ffebee, #ffcdd2)";
-        addDdaks(-5);
+        addDdaks(-5); // Subtract 5 DDAKs for wrong answer
         wrongAnswers++;
     }
+    // Update score displays to show new DDAK total
     updateAllScoreDisplays(parseInt(sessionStorage.getItem("ddaks"), 10));
     nextQuestionBtn.style.display = "block";
 }
 
 function timeUp() {
-    // gestion du temps écoulé
     if (answered) return;
     answered = true;
 
+    // Record time spent for this question (max 10s if timed out)
     totalTimeSpent += 10;
 
     const currentQuestion = quizQuestions[currentQuestionIndex];
 
     feedbackElement.innerHTML = `
-        <div class="feedback-line">temps écoulé! <span class="points-badge">-5 ddaks</span></div>
-        <div class="correct-answer">réponse correcte: ${currentQuestion.answers[currentQuestion.correct]}</div>
+        <div class="feedback-line">Time's up! <span class="points-badge">-5 DDAKs</span></div>
+        <div class="correct-answer">Correct answer: ${currentQuestion.answers[currentQuestion.correct]}</div>
     `;
     feedbackElement.className = "feedback-incorrect";
     nextQuestionBtn.className = "feedback-incorrect";
-    addDdaks(-5);
+    addDdaks(-5); // Subtract 5 DDAKs for timeout
 
     const buttons = document.querySelectorAll(".answer-btn");
     buttons.forEach((btn, i) => {
@@ -744,7 +738,6 @@ function timeUp() {
 }
 
 function startTimer() {
-    // initialisation du timer
     timeLeft = 10;
     progressBar.style.width = "100%";
     progressBar.className = "";
@@ -766,7 +759,7 @@ function startTimer() {
 }
 
 function goToNextQuestion() {
-    // passage à la question suivante
+    // If last question, also add time spent (either answered or timed out)
     if (!answered) totalTimeSpent += (10 - timeLeft);
 
     currentQuestionIndex++;
@@ -780,14 +773,15 @@ function goToNextQuestion() {
 }
 
 function showResults() {
-    // affichage des résultats finaux
     quizContainer.style.display = "none";
     resultsContainer.style.display = "block";
 
+    // DDAK logic
     let currentDdaks = parseInt(sessionStorage.getItem("ddaks"), 10);
     if (isNaN(currentDdaks)) currentDdaks = 100;
     let pointsEarned = currentDdaks - ddakAtStart;
 
+    // Correct stats, based on quiz session
     finalScoreElement.textContent = currentDdaks;
     possibleScoreElement.textContent = quizQuestions.length * 10;
     pointsEarnedElement.textContent = pointsEarned;
@@ -803,12 +797,12 @@ function showResults() {
     document.getElementById("accuracy").textContent = accuracy;
     document.getElementById("avg-time").textContent = avgTime;
 
-    // animation de confetti pour les bons scores
+    // Confetti logic unchanged
     if (accuracy >= 90) {
         const resultsTop = resultsContainer.getBoundingClientRect().top;
         confetti.start(resultsTop);
         const congrats = document.createElement('div');
-        congrats.innerHTML = '🎉 excellent ! 🎉';
+        congrats.innerHTML = '🎉 Excellent! 🎉';
         congrats.style.cssText = `
             font-size: 2em;
             color: #4CAF50;
@@ -820,14 +814,15 @@ function showResults() {
     }
 }
 
-// écouteur pour le bouton suivant
+// Event listener for next question button
 nextQuestionBtn.addEventListener("click", goToNextQuestion);
 
-// bouton pour recommencer
+// Restart quiz button
 restartBtn.addEventListener("click", () => {
     resultsContainer.style.display = "none";
     topicSelection.style.display = "block";
 
+    // Reset topic selections
     topicCards.forEach(card => {
         card.classList.remove("selected");
     });
@@ -835,7 +830,7 @@ restartBtn.addEventListener("click", () => {
     startQuizBtn.disabled = true;
 });
 
-// algorithme de mélange fisher-yates
+// Fisher-Yates shuffle algorithm
 function shuffleArray(array) {
     for (let i = array.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
