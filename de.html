@@ -444,55 +444,76 @@
     <script>
       /* initialisation du jeu lorsque le document est chargé */
       document.addEventListener('DOMContentLoaded', function() {
-      /* images des dés */
-      const diceImages = ["https://assets.onecompiler.app/43aeytn9j/43hkbnrr9/dice-six-faces-one.png", "https://assets.onecompiler.app/43aeytn9j/43hkbnrr9/dice-six-faces-two.png", "https://assets.onecompiler.app/43aeytn9j/43hkbnrr9/dice-six-faces-three.png", "https://assets.onecompiler.app/43aeytn9j/43hkbnrr9/dice-six-faces-four.png", "https://assets.onecompiler.app/43aeytn9j/43hkbnrr9/dice-six-faces-five.png", "https://assets.onecompiler.app/43aeytn9j/43hkbnrr9/dice-six-faces-six.png"];
-      /* multiplicateurs pour chaque somme possible */
-      const multipliers = {
-        2: 4.0,
-        3: 3.5,
-        4: 3.0,
-        5: 2.5,
-        6: 2.0,
-        7: 1.5,
-        8: 2.0,
-        9: 2.5,
-        10: 3.0,
-        11: 3.5,
-        12: 4.0
-      };
-      /* éléments du dom */
-      const dice1Value = Math.floor(Math.random() * 6) + 1;
-      const dice2Value = Math.floor(Math.random() * 6) + 1;
-      const sum = dice1Value + dice2Value;
-      // Affichage final des dés
-      dice1.src = diceImages[dice1Value - 1];
-      dice2.src = diceImages[dice2Value - 1];
-      // Calcul du résultat
-      if (sum === guess) {
-        const gain = Math.floor(bet * multipliers[sum]);
-        const newTotal = currentDdaks + gain;
-        sessionStorage.setItem("ddaks", newTotal);
-        document.getElementById("nav-score").textContent = newTotal;
-        resultDiv.innerHTML = `Bravo ! La somme était 
-								<strong>${sum}</strong>. Vous avez gagné 
-								<strong>${gain} ddaks</strong> ! 🎉`;
-        resultDiv.classList.add("win-message");
-      } else {
-        const newTotal = currentDdaks - bet;
-        sessionStorage.setItem("ddaks", newTotal);
-        document.getElementById("nav-score").textContent = newTotal;
-        resultDiv.innerHTML = `Dommage... La somme était 
-								<strong>${sum}</strong>. Vous avez perdu 
-								<strong>${bet} ddaks</strong>.`;
-      }
-      // Réactivation du bouton
-      rollButton.disabled = false;
-      }
-      }, 100);
+        /* images des dés */
+        const diceImages = ["https://assets.onecompiler.app/43aeytn9j/43hkbnrr9/dice-six-faces-one.png", "https://assets.onecompiler.app/43aeytn9j/43hkbnrr9/dice-six-faces-two.png", "https://assets.onecompiler.app/43aeytn9j/43hkbnrr9/dice-six-faces-three.png", "https://assets.onecompiler.app/43aeytn9j/43hkbnrr9/dice-six-faces-four.png", "https://assets.onecompiler.app/43aeytn9j/43hkbnrr9/dice-six-faces-five.png", "https://assets.onecompiler.app/43aeytn9j/43hkbnrr9/dice-six-faces-six.png"];
+        /* multiplicateurs pour chaque somme possible */
+        const multipliers = {
+          2: 4.0,
+          3: 3.5,
+          4: 3.0,
+          5: 2.5,
+          6: 2.0,
+          7: 1.5,
+          8: 2.0,
+          9: 2.5,
+          10: 3.0,
+          11: 3.5,
+          12: 4.0
+        };
+        /* éléments du dom */
+        let currentWord = {};
+        let points = 100;
+        const scrambledDisplay = document.getElementById('scrambled');
+        const categoryDisplay = document.getElementById('categorie');
+        const message = document.getElementById('message');
+        const input = document.getElementById('answer');
+        const submitBtn = document.getElementById('submitBtn');
+        const pointsDisplay = document.getElementById('points');
+        const navScore = document.getElementById('nav-score');
+
+        function shuffleWord(word) {
+          const letters = word.split('');
+          let shuffled = word;
+          while (shuffled === word || shuffled.includes(' ')) {
+            shuffled = letters.sort(() => 0.5 - Math.random()).join('');
+          }
+          return shuffled.toUpperCase();
+        }
+
+        function getRandomWord() {
+          const index = Math.floor(Math.random() * words.length);
+          return words[index];
+        }
+
+        function loadNewWord() {
+          currentWord = getRandomWord();
+          scrambledDisplay.textContent = shuffleWord(currentWord.word);
+          categoryDisplay.textContent = `Catégorie : ${currentWord.category}`;
+          input.value = '';
+          message.textContent = '';
+        }
+
+        function updatePoints(change) {
+          points += change;
+          pointsDisplay.textContent = `ddaks: ${points}`;
+          navScore.textContent = points;
+          document.querySelector('.ddak-chip').classList.add('grow');
+          setTimeout(() => {
+            document.querySelector('.ddak-chip').classList.remove('grow');
+          }, 300);
+        }
+        submitBtn.addEventListener('click', () => {
+          const answer = input.value.trim().toLowerCase();
+          if (answer === currentWord.word.toLowerCase()) {
+            message.textContent = 'Bravo !';
+            message.className = 'correct';
+            updatePoints(10);
+          } else {
+            message.textContent = 'Incorrect...';
+            message.className = 'incorrect';
+            updatePoints(-5);
+          }
+          setTimeout(loadNewWord, 1500);
+        });
+        loadNewWord();
       });
-      // Mettre à jour l'affichage du score initial
-      document.getElementById("nav-score").textContent = sessionStorage.getItem("ddaks") || 100;
-      });
-    </script>
-  </body>
-</html>
