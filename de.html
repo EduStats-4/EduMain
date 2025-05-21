@@ -442,81 +442,70 @@
     </section>
     <script src="script.js"></script>
     <script>
-      /* initialisation du jeu lorsque le document est chargé */
       document.addEventListener('DOMContentLoaded', function() {
-      /* images des dés */
-      const diceImages = ["https://assets.onecompiler.app/43aeytn9j/43hkbnrr9/dice-six-faces-one.png", "https://assets.onecompiler.app/43aeytn9j/43hkbnrr9/dice-six-faces-two.png", "https://assets.onecompiler.app/43aeytn9j/43hkbnrr9/dice-six-faces-three.png", "https://assets.onecompiler.app/43aeytn9j/43hkbnrr9/dice-six-faces-four.png", "https://assets.onecompiler.app/43aeytn9j/43hkbnrr9/dice-six-faces-five.png", "https://assets.onecompiler.app/43aeytn9j/43hkbnrr9/dice-six-faces-six.png"];
-      /* multiplicateurs pour chaque somme possible */
-      const multipliers = {
-        2: 4.0,
-        3: 3.5,
-        4: 3.0,
-        5: 2.5,
-        6: 2.0,
-        7: 1.5,
-        8: 2.0,
-        9: 2.5,
-        10: 3.0,
-        11: 3.5,
-        12: 4.0
-      };
-      /* éléments du dom */
-let currentWord = {};
-  let points = 100;
+        const diceImages = ["https://assets.onecompiler.app/43aeytn9j/43hkbnrr9/dice-six-faces-one.png", "https://assets.onecompiler.app/43aeytn9j/43hkbnrr9/dice-six-faces-two.png", "https://assets.onecompiler.app/43aeytn9j/43hkbnrr9/dice-six-faces-three.png", "https://assets.onecompiler.app/43aeytn9j/43hkbnrr9/dice-six-faces-four.png", "https://assets.onecompiler.app/43aeytn9j/43hkbnrr9/dice-six-faces-five.png", "https://assets.onecompiler.app/43aeytn9j/43hkbnrr9/dice-six-faces-six.png"];
+        const multipliers = {
+          2: 4.0,
+          3: 3.5,
+          4: 3.0,
+          5: 2.5,
+          6: 2.0,
+          7: 1.5,
+          8: 2.0,
+          9: 2.5,
+          10: 3.0,
+          11: 3.5,
+          12: 4.0
+        };
+        let points = 100;
+        const rollButton = document.getElementById('rollButton');
+        const miseInput = document.getElementById('mise');
+        const devineInput = document.getElementById('deviner');
+        const dice1 = document.getElementById('dice1');
+        const dice2 = document.getElementById('dice2');
+        const result = document.getElementById('result');
+        const navScore = document.getElementById('nav-score');
 
-  const scrambledDisplay = document.getElementById('scrambled');
-  const categoryDisplay = document.getElementById('categorie');
-  const message = document.getElementById('message');
-  const input = document.getElementById('answer');
-  const submitBtn = document.getElementById('submitBtn');
-  const pointsDisplay = document.getElementById('points');
-  const navScore = document.getElementById('nav-score');
-
-  function shuffleWord(word) {
-    const letters = word.split('');
-    let shuffled = word;
-    while (shuffled === word || shuffled.includes(' ')) {
-      shuffled = letters.sort(() => 0.5 - Math.random()).join('');
-    }
-    return shuffled.toUpperCase();
-  }
-
-  function getRandomWord() {
-    const index = Math.floor(Math.random() * words.length);
-    return words[index];
-  }
-
-  function loadNewWord() {
-    currentWord = getRandomWord();
-    scrambledDisplay.textContent = shuffleWord(currentWord.word);
-    categoryDisplay.textContent = `Catégorie : ${currentWord.category}`;
-    input.value = '';
-    message.textContent = '';
-  }
-
-  function updatePoints(change) {
-    points += change;
-    pointsDisplay.textContent = `ddaks: ${points}`;
-    navScore.textContent = points;
-    document.querySelector('.ddak-chip').classList.add('grow');
-    setTimeout(() => {
-      document.querySelector('.ddak-chip').classList.remove('grow');
-    }, 300);
-  }
-
-  submitBtn.addEventListener('click', () => {
-    const answer = input.value.trim().toLowerCase();
-    if (answer === currentWord.word.toLowerCase()) {
-      message.textContent = 'Bravo !';
-      message.className = 'correct';
-      updatePoints(10);
-    } else {
-      message.textContent = 'Incorrect...';
-      message.className = 'incorrect';
-      updatePoints(-5);
-    }
-    setTimeout(loadNewWord, 1500);
-  });
-
-  loadNewWord();
-});
+        function updateScoreDisplay() {
+          navScore.textContent = points;
+          document.querySelector('.ddak-chip').classList.add('grow');
+          setTimeout(() => {
+            document.querySelector('.ddak-chip').classList.remove('grow');
+          }, 300);
+        }
+        rollButton.addEventListener('click', function() {
+          const mise = parseInt(miseInput.value);
+          const guess = parseInt(devineInput.value);
+          if (isNaN(mise) || isNaN(guess) || mise <= 0 || guess < 2 || guess > 12) {
+            result.textContent = "Veuillez entrer une mise et une devinette valides.";
+            result.className = "";
+            return;
+          }
+          if (mise > points) {
+            result.textContent = "Vous n'avez pas assez de ddaks !";
+            result.className = "";
+            return;
+          }
+          // Lancer les dés
+          const die1 = Math.floor(Math.random() * 6) + 1;
+          const die2 = Math.floor(Math.random() * 6) + 1;
+          const sum = die1 + die2;
+          // Mettre à jour les images
+          dice1.src = diceImages[die1 - 1];
+          dice2.src = diceImages[die2 - 1];
+          // Vérifier le résultat
+          if (guess === sum) {
+            const gain = Math.floor(mise * multipliers[sum]);
+            result.textContent = `Bravo ! La somme est ${sum}. Vous gagnez ${gain} ddaks.`;
+            result.className = "win-message";
+            points += gain;
+          } else {
+            result.textContent = `Raté... La somme était ${sum}. Vous perdez ${mise} ddaks.`;
+            result.className = "";
+            points -= mise;
+          }
+          updateScoreDisplay();
+        });
+        updateScoreDisplay(); // initialise l'affichage
+      });
+    </script>
