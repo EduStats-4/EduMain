@@ -1,122 +1,150 @@
 <!DOCTYPE html>
 <html lang="fr">
   <head>
+    <!-- métadonnées de base -->
     <meta charset="UTF-8">
+    <!-- configuration pour le responsive -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quiz de Sciences</title>
+    <!-- titre de la page -->
+    <title>quiz de sciences</title>
+    <!-- liens vers les feuilles de style -->
     <link rel="stylesheet" href="quiz.css">
+    <!-- icônes font awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
   </head>
   <body>
+    <!-- barre de navigation -->
     <nav class="game-navbar">
       <div class="nav-content">
+        <!-- logo et nom du site -->
         <div class="nav-brand">
           <a href="index.html" class="nav-home-link" style="display: flex; align-items: center; gap: 12px; text-decoration: none;">
             <i class="fas fa-dice logo-icon"></i>
-            <h1 class="logo-text">Édu <span>Stats</span>
-            </h1>
+            <h1 class="logo-text">édu <span>stats</span></h1>
           </a>
         </div>
+        <!-- liens vers les différents jeux -->
         <div class="nav-games">
           <a href="de.html" class="nav-link">
             <i class="fas fa-dice-six"></i>
-            <span class="link-text">Dés</span>
+            <span class="link-text">dés</span>
           </a>
           <a href="quiz.html" class="nav-link">
             <i class="fas fa-question"></i>
-            <span class="link-text">Quiz</span>
+            <span class="link-text">quiz</span>
           </a>
           <a href="mots.html" class="nav-link">
             <i class="fas fa-font"></i>
-            <span class="link-text">Mots</span>
+            <span class="link-text">mots</span>
           </a>
           <a href="math.html" class="nav-link">
             <i class="fas fa-square-root-alt"></i>
-            <span class="link-text">Maths</span>
+            <span class="link-text">maths</span>
           </a>
         </div>
+        <!-- affichage du score -->
         <div class="ddak-display">
           <div class="ddak-chip">
             <i class="fas fa-coins chip-icon"></i>
             <span id="nav-score" class="ddak-amount">100</span>
           </div>
-          <span class="ddak-label">DDAKs</span>
+          <span class="ddak-label">ddaks</span>
         </div>
       </div>
     </nav>
+
+    <!-- contenu principal -->
     <div class="container-home">
+      <!-- en-tête -->
       <header class="hero">
         <h1>
           <i>" <span id="animated-name">quiz</span>" </i>
           <span class="typing-cursor">|</span>
         </h1>
-        <a href="index.html" class="home-link">Retour à l'accueil</a>
-        <p>Testez vos connaissances scientifiques</p>
+        <!-- lien de retour -->
+        <a href="index.html" class="home-link">retour à l'accueil</a>
+        <p>testez vos connaissances scientifiques</p>
       </header>
+
+      <!-- section de sélection des thèmes -->
       <section id="topic-selection">
-        <h2 class="section-title">Choisissez une ou plusieurs matières</h2>
+        <h2 class="section-title">choisissez une ou plusieurs matières</h2>
+        <!-- cartes des thèmes disponibles -->
         <div class="nav-cards">
+          <!-- carte chimie -->
           <div class="nav-card" data-topic="chemistry">
             <div class="card-image" style="background-image: url('https://media.istockphoto.com/id/94076561/zh/%E5%90%91%E9%87%8F/chemistry-laboratory-black-and-white-clipart.jpg?s=170667a&w=0&k=20&c=2uDGQprVxqKfaXrUegXqc2hDJK_Uz5E4c-p-ddmpvbA=');"></div>
             <div class="card-content">
-              <h2>Chimie</h2>
+              <h2>chimie</h2>
             </div>
           </div>
+          <!-- carte biologie -->
           <div class="nav-card" data-topic="biology">
             <div class="card-image" style="background-image: url('https://cdn.vectorstock.com/i/500p/17/49/dna-molecule-on-white-background-image-vector-10431749.jpg');"></div>
             <div class="card-content">
-              <h2>Biologie</h2>
+              <h2>biologie</h2>
             </div>
           </div>
+          <!-- carte physique -->
           <div class="nav-card" data-topic="physics">
             <div class="card-image" style="background-image: url('https://as1.ftcdn.net/jpg/02/33/31/64/1000_F_233316404_fM6q83TwSGPBaqx0HsM8PcOJK7ptvWDQ.jpg');"></div>
             <div class="card-content">
-              <h2>Physique</h2>
+              <h2>physique</h2>
             </div>
           </div>
         </div>
-        <button id="start-quiz-btn" class="start-quiz-btn" disabled>Commencer le Quiz</button>
+        <!-- bouton de démarrage du quiz -->
+        <button id="start-quiz-btn" class="start-quiz-btn" disabled>commencer le quiz</button>
       </section>
+
+      <!-- section du quiz (masquée au départ) -->
       <section id="quiz-container" style="display: none;">
+        <!-- affichage du score et du numéro de question -->
         <div class="score-container">
-          <div class="question-counter">Question: <span id="question-number">1</span>/ <span id="total-questions">0</span>
-          </div>
-          <div class="score-display">DDAKs: <span id="score">0</span>
-          </div>
+          <div class="question-counter">question: <span id="question-number">1</span>/ <span id="total-questions">0</span></div>
+          <div class="score-display">ddaks: <span id="score">0</span></div>
         </div>
+        <!-- barre de temps -->
         <div id="timer-bar-container">
           <div id="progress-bar"></div>
         </div>
+        <!-- contenu du quiz -->
         <div class="quiz-content">
-          <h2 class="section-title" id="question">Loading question...</h2>
+          <h2 class="section-title" id="question">chargement de la question...</h2>
+          <!-- conteneur des réponses -->
           <div id="answers"></div>
+          <!-- zone de feedback -->
           <div class="feedback-area">
             <div id="feedback"></div>
-            <div id="next-question-btn" style="display: none;">Question Suivante</div>
+            <!-- bouton question suivante (masqué au départ) -->
+            <div id="next-question-btn" style="display: none;">question suivante</div>
           </div>
         </div>
       </section>
+
+      <!-- section des résultats (masquée au départ) -->
       <section id="results-container" style="display: none;">
-        <h2 class="results-title">Quiz Terminé!</h2>
-        <div class="results-score">Votre score final: <span id="final-score">0</span> DDAKs </div>
+        <h2 class="results-title">quiz terminé!</h2>
+        <!-- score final -->
+        <div class="results-score">votre score final: <span id="final-score">0</span> ddaks</div>
+        <!-- statistiques -->
         <div class="stats-container">
-          <h3>Vos Statistiques</h3>
+          <h3>vos statistiques</h3>
           <ul>
-            <li>Points gagnés: <span id="points-earned">0</span>
-            </li>
-            <li>Réponses correctes: <span id="correct-answers">0</span>/ <span id="total-questions">0</span>
-            </li>
-            <li>Précision: <span id="accuracy">0</span>% </li>
-            <li>Réponses incorrectes: <span id="wrong-answers">0</span>
-            </li>
-            <li>Questions expirées: <span id="timed-out">0</span>
-            </li>
-            <li>Temps moyen par question: <span id="avg-time">0</span>s </li>
+            <li>points gagnés: <span id="points-earned">0</span></li>
+            <li>réponses correctes: <span id="correct-answers">0</span>/ <span id="total-questions">0</span></li>
+            <li>précision: <span id="accuracy">0</span>%</li>
+            <li>réponses incorrectes: <span id="wrong-answers">0</span></li>
+            <li>questions expirées: <span id="timed-out">0</span></li>
+            <li>temps moyen par question: <span id="avg-time">0</span>s</li>
           </ul>
         </div>
-        <button id="restart-btn" class="restart-btn">Rejouer</button>
+        <!-- bouton de rejouer -->
+        <button id="restart-btn" class="restart-btn">rejouer</button>
       </section>
     </div>
+
+    <!-- scripts javascript -->
     <script src="script.js"></script>
     <script src="quiz.js"></script>
   </body>
