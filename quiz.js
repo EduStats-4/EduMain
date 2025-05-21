@@ -605,7 +605,10 @@ function startQuiz() {
     quizQuestions = [];
     selectedTopics.forEach(topic => {
         if (topics[topic]) {
-            quizQuestions.push(...topics[topic].map(q => ({ ...q, topic })));
+            quizQuestions.push(...topics[topic].map(q => ({
+                ...q,
+                topic
+            })));
         }
     });
 
@@ -688,7 +691,7 @@ function selectAnswer(index) {
         nextQuestionBtn.style.background = "linear-gradient(135deg, #e8f5e9, #c8e6c9)";
         addDdaks(10); // Add 10 DDAKs for correct answer
         correctAnswers++;
-       } else {
+    } else {
         feedbackElement.innerHTML = `
             <div class="feedback-line">Incorrect! <span class="points-badge">-5 DDAKs</span></div>
             <div class="correct-answer">Correct answer: ${currentQuestion.answers[currentQuestion.correct]}</div>
@@ -713,7 +716,7 @@ function timeUp() {
 
     const currentQuestion = quizQuestions[currentQuestionIndex];
 
-  feedbackElement.innerHTML = `
+    feedbackElement.innerHTML = `
         <div class="feedback-line">Time's up! <span class="points-badge">-5 DDAKs</span></div>
         <div class="correct-answer">Correct answer: ${currentQuestion.answers[currentQuestion.correct]}</div>
     `;
