@@ -343,6 +343,44 @@
           height: 60px;
         }
       }
+      .distribution-info {
+        background-color: rgba(255, 255, 255, 0.03);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: var(--border-radius);
+        padding: 25px;
+        margin-top: 40px;
+        margin-left: 25px;
+        height: 50%;
+        width: 90%;
+        max-width: 600px;
+        color: var(--text-color);
+        font-family: var(--font-primary);
+        box-shadow: var(--shadow-soft);
+      }
+      
+      .distribution-info h3 {
+        font-family: var(--font-accent);
+        color: var(--accent-color);
+        font-size: 1.4rem;
+        margin-bottom: 15px;
+        text-transform: uppercase;
+      }
+      
+      .distribution-info p {
+        margin-bottom: 12px;
+        font-size: 1rem;
+        color: var(--text-muted);
+      }
+      
+      .distribution-image {
+        display: block;
+        max-width: 100%;
+        height: auto;
+        margin: 0 auto;
+        border-radius: 8px;
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+      }
+
     </style>
   </head>
   <body>
@@ -397,6 +435,16 @@
       <div id="result"></div>
       <button id="rollButton">lancer les dés</button>
     </div>
+    <section class="distribution-info">
+      <h3>Probabilité et distribution normale</h3>
+      <p>
+        Lorsque deux dés sont lancés, certaines sommes sont plus probables que d'autres. Par exemple, 7 est la somme la plus fréquente car il existe plusieurs combinaisons (1+6, 2+5, 3+4, etc.) qui donnent ce total. À l'inverse, 2 et 12 sont les moins probables car une seule combinaison les produit.
+      </p>
+      <p>
+        Cela crée une distribution en cloche (distribution normale discrète), comme illustré ci-dessous :
+      </p>
+      <img src="https://assets.onecompiler.app/43aeytn9j/43jca9cgk/DNhaf-removebg-preview.jpg" alt="Distribution des sommes de deux dés" class="distribution-image">
+    </section>
     <script src="script.js"></script>
     <script>
       /* initialisation du jeu lorsque le document est chargé */
