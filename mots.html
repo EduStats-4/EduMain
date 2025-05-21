@@ -537,10 +537,18 @@
     <!-- scripts javascript -->
     <script src="script.js"></script>
     <script>
-      // initialisation lorsque le dom est chargé
-      document.addEventListener('DOMContentLoaded', function() {
-        // liste des mots et catégories
-        const words = [{
+  document.addEventListener('DOMContentLoaded', function () {
+    const submitBtn = document.getElementById('submitBtn');
+    const answerInput = document.getElementById('answer');
+    const messageDiv = document.getElementById('message');
+    const scrambled = document.getElementById('scrambled');
+    const categorie = document.getElementById('categorie');
+    const pointsDisplay = document.getElementById('points');
+
+    let score = 100;
+    let currentWordObj = null;
+
+    const words = [{
           word: "guerre",
           category: "histoire"
         }, {
@@ -637,74 +645,44 @@
           word: "voltaire",
           category: "littérature"
         }];
-        // variables du jeu
-        let currentWord = {}; // mot actuel à deviner
-        const scrambledElement = document.getElementById("scrambled"); // élément du mot brouillé
-        const categoryElement = document.getElementById("categorie"); // élément de la catégorie
-        const answerInput = document.getElementById("answer"); // champ de réponse
-        const messageElement = document.getElementById("message"); // zone de message
-        const pointsElement = document.getElementById("points"); // affichage des points
-        const submitBtn = document.getElementById("submitBtn"); // bouton de soumission
-        // initialisation du jeu
-        chooseNewWord();
-        // fonction pour brouiller un mot
-        function scramble(word) {
-          return word.split('').sort(() => Math.random() - 0.5).join('');
-        }
-        // choisir un nouveau mot aléatoire
-        function chooseNewWord() {
-          // sélection aléatoire dans la liste
-          currentWord = words[Math.floor(Math.random() * words.length)];
-          // affichage du mot brouillé
-          scrambledElement.textContent = scramble(currentWord.word);
-          // affichage de la catégorie
-          categoryElement.textContent = `catégorie: ${currentWord.category}`;
-          // réinitialisation du champ de réponse
-          answerInput.value = "";
-          // effacement des messages
-          messageElement.textContent = "";
-          // focus sur le champ de réponse
-          answerInput.focus();
-          // activation du bouton
-          submitBtn.disabled = false;
-        }
-        // vérification de la réponse
-        function checkAnswer() {
-          // désactivation du bouton pendant le traitement
-          submitBtn.disabled = true;
-          // récupération et nettoyage de la réponse
-          const answer = answerInput.value.toLowerCase().trim();
-          // vérification si le champ est vide
-          if (!answer) {
-            messageElement.textContent = "veuillez entrer une réponse";
-            messageElement.className = "incorrect";
-            return;
-          }
-          // vérification si la réponse est correcte
-          if (answer === currentWord.word) {
-            // ajout de points
-            addDdaks(50);
-            messageElement.textContent = "correct! +50 ddaks";
-            messageElement.className = "correct";
-          } else {
-            // retrait de points
-            addDdaks(-50);
-            messageElement.textContent = `incorrect! -50 ddaks (le mot était: ${currentWord.word})`;
-            messageElement.className = "incorrect";
-          }
-          // choix d'un nouveau mot après 2 secondes
-          setTimeout(chooseNewWord, 2000);
-        }
-        // écouteurs d'événements
-        // clic sur le bouton
-        submitBtn.addEventListener('click', checkAnswer);
-        // touche entrée dans le champ de texte
-        answerInput.addEventListener('keypress', function(e) {
-          if (e.key === 'Enter') {
-            checkAnswer();
-          }
-        });
-      });
+
+    function shuffleWord(word) {
+      return word
+        .split('')
+        .sort(() => 0.5 - Math.random())
+        .join('');
+    }
+
+    function loadNewWord() {
+      currentWordObj = words[Math.floor(Math.random() * words.length)];
+      scrambled.textContent = shuffleWord(currentWordObj.word.toUpperCase());
+      categorie.textContent = "catégorie : " + currentWordObj.category;
+      answerInput.value = "";
+      messageDiv.textContent = "";
+    }
+
+    submitBtn.addEventListener('click', function () {
+      const userAnswer = answerInput.value.trim().toLowerCase();
+      const correctAnswer = currentWordObj.word.toLowerCase();
+
+      if (userAnswer === correctAnswer) {
+        messageDiv.textContent = "Bravo !";
+        messageDiv.className = "correct";
+        score += 10;
+        loadNewWord();
+      } else {
+        messageDiv.textContent = "Incorrect.";
+        messageDiv.className = "incorrect";
+        score -= 5;
+      }
+
+      pointsDisplay.textContent = `ddaks: ${score}`;
+    });
+
+    // Charger le premier mot
+    loadNewWord();
+  });
+
     </script>
   </body>
 </html>
