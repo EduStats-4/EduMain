@@ -1,0 +1,373 @@
+/* barre de navigation fixe en haut de page */
+.game-navbar {
+  position: fixed; /* position fixe */
+  top: 0; /* collée en haut */
+  left: 0; /* alignée à gauche */
+  right: 0; /* étendue à droite */
+  height: 70px; /* hauteur fixe */
+  /* dégradé de fond */
+  background: linear-gradient(135deg, #1a1a1a 0%, #111 100%);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.4); /* ombre portée */
+  border-bottom: 1px solid rgba(231, 76, 60, 0.3); /* bordure inférieure */
+  z-index: 1000; /* au-dessus des autres éléments */
+  display: flex; /* disposition flex */
+  align-items: center; /* centrage vertical */
+}
+
+/* conteneur du contenu de la nav */
+.nav-content {
+  width: 100%; /* pleine largeur */
+  max-width: 1200px; /* largeur maximale */
+  margin: 0 auto; /* centrage horizontal */
+  padding: 0 20px; /* espacement latéral */
+  display: flex; /* disposition flex */
+  justify-content: space-between; /* espacement entre éléments */
+  align-items: center; /* centrage vertical */
+}
+
+/* conteneur du logo */
+.nav-brand {
+  display: flex; /* disposition flex */
+  align-items: center; /* centrage vertical */
+  gap: 12px; /* espacement entre éléments */
+}
+
+/* icône du logo */
+.logo-icon {
+  color: #e74c3c; /* couleur rouge */
+  font-size: 1.8rem; /* taille de l'icône */
+}
+
+/* texte du logo */
+.logo-text {
+  font-family: 'Arial Black', sans-serif; /* police spécifique */
+  font-size: 1.5rem; /* taille du texte */
+  color: white; /* couleur blanche */
+  margin: 0; /* pas de marge */
+}
+
+/* partie colorée du texte du logo */
+.logo-text span {
+  color: #e74c3c; /* couleur rouge */
+}
+
+/* conteneur des liens de jeux */
+.nav-games {
+  display: flex; /* disposition flex */
+  gap: 15px; /* espacement entre liens */
+}
+
+/* style des liens de navigation */
+.nav-link {
+  color: #aaa; /* couleur grise */
+  text-decoration: none; /* pas de soulignement */
+  display: flex; /* disposition flex */
+  flex-direction: column; /* disposition en colonne */
+  align-items: center; /* centrage horizontal */
+  font-size: 0.9rem; /* taille du texte */
+  transition: all 0.3s ease; /* transition douce */
+  padding: 8px 12px; /* espacement intérieur */
+  border-radius: 6px; /* coins arrondis */
+}
+
+/* effet au survol des liens */
+.nav-link:hover {
+  background: rgba(231, 76, 60, 0.1); /* fond légèrement rouge */
+  color: white; /* texte blanc */
+}
+
+/* icônes des liens */
+.nav-link i {
+  font-size: 1.2rem; /* taille des icônes */
+  margin-bottom: 3px; /* marge sous l'icône */
+}
+
+/* texte des liens */
+.link-text {
+  font-family: 'Arial', sans-serif; /* police standard */
+}
+
+/* conteneur du score */
+.ddak-display {
+  display: flex; /* disposition flex */
+  align-items: center; /* centrage vertical */
+  gap: 10px; /* espacement entre éléments */
+}
+
+/* style du jeton de score */
+.ddak-chip {
+  /* dégradé de fond */
+  background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+  width: 60px; /* largeur légèrement augmentée */
+  height: 50px; /* hauteur fixe */
+  border-radius: 25px; /* forme de pilule */
+  display: flex; /* disposition flex */
+  align-items: center; /* centrage vertical */
+  justify-content: space-between; /* espacement interne */
+  padding: 0 12px; /* espacement intérieur */
+  box-shadow: 0 3px 6px rgba(0,0,0,0.2); /* ombre portée */
+  position: relative; /* position relative */
+  border: 2px solid #f1c40f; /* bordure dorée */
+}
+
+/* icône du jeton */
+.chip-icon {
+  color: rgba(255,255,255,0.9); /* blanc légèrement transparent */
+  font-size: 1.2rem; /* taille de l'icône */
+  margin-right: 5px; /* espace à droite */
+}
+
+/* montant du score */
+.ddak-amount {
+  color: white; /* texte blanc */
+  font-weight: bold; /* gras */
+  font-size: 1.1rem; /* taille du texte */
+}
+
+/* libellé du score */
+.ddak-label {
+  color: #aaa; /* texte gris */
+  font-size: 0.9rem; /* petite taille */
+  font-family: 'Arial', sans-serif; /* police standard */
+}
+
+/* animation pour les mises à jour de score */
+@keyframes pulse {
+  0% { transform: scale(1); } /* taille normale */
+  50% { transform: scale(1.1); } /* légèrement agrandi */
+  100% { transform: scale(1); } /* retour à la normale */
+}
+
+/* classe pour l'animation */
+.grow {
+  animation: pulse 0.3s ease; /* application de l'animation */
+}
+
+/* ajustement pour la navbar fixe */
+body {
+  padding-top: 80px; /* espace en haut */
+}
+
+/* adaptations pour tablettes */
+@media (max-width: 768px) {
+  .nav-games {
+    gap: 8px; /* espacement réduit */
+  }
+  
+  .nav-link {
+    padding: 6px 8px; /* espacement réduit */
+    font-size: 0.8rem; /* texte plus petit */
+  }
+  
+  .ddak-chip {
+    width: 40px; /* largeur réduite */
+    height: 40px; /* hauteur réduite */
+  }
+  
+  .ddak-label {
+    display: none; /* masquage du libellé */
+  }
+}
+
+/* variables css globales */
+:root {
+    --primary-color: #000000; /* noir */
+    --secondary-color: #333333; /* gris foncé */
+    --accent-color: #e74c3c; /* rouge */
+    --accent-dark: #c0392b; /* rouge foncé */
+    --background-color: #111111; /* fond très sombre */
+    --container-background: #1a1a1a; /* fond sombre */
+    --text-color: #ffffff; /* texte blanc */
+    --text-muted: #aaaaaa; /* texte gris */
+    --shadow-soft: 0 8px 24px rgba(0, 0, 0, 0.5); /* ombre douce */
+    --shadow-glow: 0 0 15px rgba(231, 76, 60, 0.5); /* lueur rouge */
+    --border-radius: 8px; /* coins arrondis */
+    --transition-default: all 0.3s ease; /* transition par défaut */
+    --font-primary: 'Georgia', serif; /* police principale */
+    --font-accent: 'Arial Black', sans-serif; /* police d'accent */
+}
+
+/* styles de base */
+body {
+    font-family: var(--font-primary); /* police principale */
+    background-color: var(--background-color); /* couleur de fond */
+    color: var(--text-color); /* couleur du texte */
+    line-height: 1.6; /* interligne */
+    margin: 0; /* pas de marge */
+    padding: 20px; /* espacement */
+    min-height: 100vh; /* hauteur minimale */
+    display: flex; /* disposition flex */
+    justify-content: center; /* centrage horizontal */
+    align-items: center; /* centrage vertical */
+    /* dégradés radiaux décoratifs */
+    background-image: 
+        radial-gradient(circle at 10% 20%, rgba(231, 76, 60, 0.1) 0%, transparent 20%),
+        radial-gradient(circle at 90% 80%, rgba(231, 76, 60, 0.1) 0%, transparent 20%);
+}
+
+/* conteneur principal du jeu */
+.game-container {
+    width: 90%; /* largeur relative */
+    max-width: 900px; /* largeur maximale */
+    margin: auto; /* centrage */
+    background: var(--container-background); /* couleur de fond */
+    padding: 30px; /* espacement intérieur */
+    border-radius: var(--border-radius); /* coins arrondis */
+    box-shadow: var(--shadow-soft); /* ombre portée */
+    border: 1px solid rgba(255,255,255,0.1); /* bordure subtile */
+    display: grid; /* disposition en grille */
+    grid-template-columns: 1fr 1fr; /* 2 colonnes égales */
+    gap: 30px; /* espacement entre colonnes */
+}
+
+/* bordure supérieure colorée */
+.game-container::before {
+    content: ''; /* contenu vide */
+    position: absolute; /* position absolue */
+    top: 0; /* alignée en haut */
+    left: 0; /* alignée à gauche */
+    right: 0; /* étendue à droite */
+    height: 4px; /* hauteur fine */
+    /* dégradé linéaire */
+    background: linear-gradient(90deg, var(--accent-color), var(--accent-dark));
+}
+
+/* styles des titres */
+h1, h2 {
+    font-family: var(--font-accent); /* police d'accent */
+    color: var(--accent-color); /* couleur rouge */
+    margin-top: 0; /* pas de marge en haut */
+}
+
+h1 {
+    font-size: 2rem; /* grande taille */
+    text-align: center; /* centrage */
+    margin-bottom: 20px; /* marge en bas */
+    text-transform: uppercase; /* majuscules */
+}
+
+h2 {
+    font-size: 1.5rem; /* taille moyenne */
+    border-bottom: 2px solid var(--accent-color); /* bordure inférieure */
+    padding-bottom: 10px; /* espacement sous le titre */
+    margin-bottom: 15px; /* marge en bas */
+}
+
+/* styles des champs de formulaire */
+input[type="number"], input[type="button"] {
+    font-family: var(--font-primary); /* police principale */
+    padding: 10px 15px; /* espacement intérieur */
+    border-radius: var(--border-radius); /* coins arrondis */
+    border: none; /* pas de bordure */
+    margin: 5px 0; /* petites marges */
+    transition: var(--transition-default); /* transition */
+}
+
+/* styles spécifiques aux champs numériques */
+input[type="number"] {
+    background: rgba(255,255,255,0.1); /* fond semi-transparent */
+    color: var(--text-color); /* texte blanc */
+    border: 1px solid rgba(231, 76, 60, 0.3); /* bordure subtile */
+    width: 100px; /* largeur fixe */
+}
+
+/* effet de focus */
+input[type="number"]:focus {
+    outline: none; /* pas de contour */
+    border-color: var(--accent-color); /* bordure rouge */
+    box-shadow: var(--shadow-glow); /* lueur rouge */
+}
+
+/* styles des boutons */
+input[type="button"] {
+    background: var(--accent-color); /* fond rouge */
+    color: white; /* texte blanc */
+    font-weight: bold; /* gras */
+    cursor: pointer; /* curseur pointeur */
+    margin-left: 10px; /* marge à gauche */
+}
+
+/* effet au survol */
+input[type="button"]:hover {
+    background: var(--accent-dark); /* fond rouge foncé */
+    transform: translateY(-2px); /* léger déplacement */
+    box-shadow: var(--shadow-glow); /* lueur rouge */
+}
+
+/* styles des messages */
+#message, #indice {
+    font-size: 1.1rem; /* taille du texte */
+    margin: 15px 0; /* marges */
+    padding: 10px; /* espacement intérieur */
+    border-radius: var(--border-radius); /* coins arrondis */
+}
+
+/* message principal */
+#message {
+    background: rgba(231, 76, 60, 0.2); /* fond rouge clair */
+    border-left: 4px solid var(--accent-color); /* bordure gauche */
+}
+
+/* message d'indice */
+#indice {
+    background: rgba(52, 152, 219, 0.2); /* fond bleu clair */
+    border-left: 4px solid #3498db; /* bordure gauche bleue */
+}
+
+/* historique des parties */
+#history {
+    background: rgba(0,0,0,0.3); /* fond sombre */
+    padding: 20px; /* espacement intérieur */
+    border-radius: var(--border-radius); /* coins arrondis */
+}
+
+/* styles du tableau */
+table {
+    width: 100%; /* pleine largeur */
+    border-collapse: collapse; /* bordures fusionnées */
+    margin-top: 15px; /* marge en haut */
+}
+
+/* en-têtes de tableau */
+th {
+    background: rgba(231, 76, 60, 0.3); /* fond rouge clair */
+    padding: 10px; /* espacement intérieur */
+    text-align: left; /* alignement à gauche */
+    font-family: var(--font-accent); /* police d'accent */
+    font-size: 0.9rem; /* petite taille */
+}
+
+/* cellules du tableau */
+td {
+    padding: 10px; /* espacement intérieur */
+    border-bottom: 1px solid rgba(255,255,255,0.1); /* bordure subtile */
+}
+
+/* lignes paires */
+tr:nth-child(even) {
+    background: rgba(255,255,255,0.05); /* fond très clair */
+}
+
+/* adaptations pour tablettes */
+@media (max-width: 768px) {
+    .game-container {
+        grid-template-columns: 1fr; /* une seule colonne */
+    }
+    
+    #history {
+        margin-top: 30px; /* marge en haut */
+    }
+}
+
+/* adaptations pour mobiles */
+@media (max-width: 480px) {
+    .game-container {
+        padding: 20px; /* espacement réduit */
+    }
+    
+    input[type="button"] {
+        display: block; /* disposition en bloc */
+        width: 100%; /* pleine largeur */
+        margin: 10px 0; /* marges */
+    }
+}
