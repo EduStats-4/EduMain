@@ -1,3 +1,4 @@
+window.updateAllScoreDisplays = mettreAJourAffichageScore;
 // Typing animation
 function typeWord() {
     const element = document.getElementById('animated-name');
