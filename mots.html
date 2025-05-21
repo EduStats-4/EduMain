@@ -538,127 +538,133 @@
     <script src="script.js"></script>
     <script>
       document.addEventListener('DOMContentLoaded', () => {
-        const words = [{
-          word: "guerre",
-          category: "histoire"
+        // Liste des mots avec leurs catégories
+        motsListe = [{
+          mot: "guerre",
+          categorie: "histoire"
         }, {
-          word: "canada",
-          category: "géographie"
+          mot: "canada",
+          categorie: "géographie"
         }, {
-          word: "puberté",
-          category: "santé"
+          mot: "puberté",
+          categorie: "santé"
         }, {
-          word: "shakespeare",
-          category: "littérature"
+          mot: "shakespeare",
+          categorie: "littérature"
         }, {
-          word: "napoléon",
-          category: "histoire"
+          mot: "napoléon",
+          categorie: "histoire"
         }, {
-          word: "amazonie",
-          category: "géographie"
+          mot: "amazonie",
+          categorie: "géographie"
         }, {
-          word: "vaccin",
-          category: "santé"
+          mot: "vaccin",
+          categorie: "santé"
         }, {
-          word: "baudelaire",
-          category: "littérature"
+          mot: "baudelaire",
+          categorie: "littérature"
         }, {
-          word: "révolution",
-          category: "histoire"
+          mot: "révolution",
+          categorie: "histoire"
         }, {
-          word: "sahara",
-          category: "géographie"
+          mot: "sahara",
+          categorie: "géographie"
         }, {
-          word: "diabète",
-          category: "santé"
+          mot: "diabète",
+          categorie: "santé"
         }, {
-          word: "molière",
-          category: "littérature"
+          mot: "molière",
+          categorie: "littérature"
         }, {
-          word: "moyen âge",
-          category: "histoire"
+          mot: "moyen âge",
+          categorie: "histoire"
         }, {
-          word: "everest",
-          category: "géographie"
+          mot: "everest",
+          categorie: "géographie"
         }, {
-          word: "antibiotique",
-          category: "santé"
+          mot: "antibiotique",
+          categorie: "santé"
         }, {
-          word: "dante",
-          category: "littérature"
+          mot: "dante",
+          categorie: "littérature"
         }, {
-          word: "renaissance",
-          category: "histoire"
+          mot: "renaissance",
+          categorie: "histoire"
         }, {
-          word: "italie",
-          category: "géographie"
+          mot: "italie",
+          categorie: "géographie"
         }, {
-          word: "stress",
-          category: "santé"
+          mot: "stress",
+          categorie: "santé"
         }, {
-          word: "hugo",
-          category: "littérature"
-        }];
-        let currentWord, scrambled, score = 100;
-        const scrambledEl = document.getElementById("scrambled");
-        const categoryEl = document.getElementById("categorie");
-        const answerEl = document.getElementById("answer");
-        const messageEl = document.getElementById("message");
-        const pointsEl = document.getElementById("points");
-        const navScoreEl = document.getElementById("nav-score");
-        const submitBtn = document.getElementById("submitBtn");
-
-        function shuffleWord(word) {
-          const letters = word.replace(/\s/g, '').split('');
-          let shuffled;
+          mot: "hugo",
+          categorie: "littérature"
+        }]
+        motActuel = null
+        motBrouillé = null
+        pointsScore = 100
+        // Références aux éléments DOM
+        elementMotBrouillé = document.getElementById("scrambled")
+        elementCategorie = document.getElementById("categorie")
+        elementRéponse = document.getElementById("answer")
+        elementMessage = document.getElementById("message")
+        elementPoints = document.getElementById("points")
+        elementScoreNav = document.getElementById("nav-score")
+        boutonSoumettre = document.getElementById("submitBtn")
+        // Fonction pour mélanger les lettres d'un mot
+        mélangerMot = function(mot) {
+          lettresMot = mot.replace(/\s/g, '').split('')
+          motMélangé = null
           do {
-            shuffled = letters.sort(() => 0.5 - Math.random()).join('');
-          } while (shuffled === word.replace(/\s/g, ''));
-          return shuffled;
+            motMélangé = lettresMot.sort(() => 0.5 - Math.random()).join('')
+          } while (motMélangé === mot.replace(/\s/g, ''))
+          return motMélangé
         }
-
-        function pickNewWord() {
-          const random = words[Math.floor(Math.random() * words.length)];
-          currentWord = random.word.toLowerCase();
-          scrambled = shuffleWord(currentWord);
-          scrambledEl.textContent = scrambled;
-          categoryEl.textContent = "Catégorie : " + random.category;
-          answerEl.value = "";
-          messageEl.textContent = "";
-          submitBtn.disabled = false; // réactiver le bouton pour le nouveau mot
+        // Fonction pour choisir un nouveau mot aléatoire
+        choisirNouveauMot = function() {
+          choixAléatoire = motsListe[Math.floor(Math.random() * motsListe.length)]
+          motActuel = choixAléatoire.mot.toLowerCase()
+          motBrouillé = mélangerMot(motActuel)
+          elementMotBrouillé.textContent = motBrouillé
+          elementCategorie.textContent = "Catégorie : " + choixAléatoire.categorie
+          elementRéponse.value = ""
+          elementMessage.textContent = ""
+          boutonSoumettre.disabled = false // réactiver le bouton pour le nouveau mot
         }
-
-        function updateScore(change) {
-          score += change;
-          if (score < 0) score = 0; // ne pas descendre en dessous de 0
-          navScoreEl.textContent = score;
-          pointsEl.textContent = "ddaks: " + score;
-          navScoreEl.classList.add("grow");
-          setTimeout(() => navScoreEl.classList.remove("grow"), 300);
+        // Fonction pour mettre à jour le score
+        mettreÀJourScore = function(changement) {
+          pointsScore += changement
+          if (pointsScore < 0) pointsScore = 0 // ne pas descendre en dessous de 0
+          elementScoreNav.textContent = pointsScore
+          elementPoints.textContent = "ddaks: " + pointsScore
+          elementScoreNav.classList.add("grow")
+          setTimeout(() => elementScoreNav.classList.remove("grow"), 300)
         }
-        submitBtn.addEventListener("click", () => {
-          if (submitBtn.disabled) return; // ignore clics si déjà traité
-          submitBtn.disabled = true; // désactive bouton pour éviter spam
-          const userAnswer = answerEl.value.trim().toLowerCase();
-          if (!userAnswer) {
-            messageEl.textContent = "Veuillez entrer une réponse.";
-            messageEl.className = "incorrect";
-            submitBtn.disabled = false; // on peut resoumettre si vide
-            return;
+        // Gestionnaire d'événement pour le bouton de soumission
+        boutonSoumettre.addEventListener("click", () => {
+          if (boutonSoumettre.disabled) return // ignore clics si déjà traité
+          boutonSoumettre.disabled = true // désactive bouton pour éviter spam
+          réponseUtilisateur = elementRéponse.value.trim().toLowerCase()
+          if (!réponseUtilisateur) {
+            elementMessage.textContent = "Veuillez entrer une réponse."
+            elementMessage.className = "incorrect"
+            boutonSoumettre.disabled = false // on peut resoumettre si vide
+            return
           }
-          if (userAnswer === currentWord.replace(/\s/g, '')) {
-            messageEl.textContent = "Bravo ! C'est correct.";
-            messageEl.className = "correct";
-            updateScore(10);
+          if (réponseUtilisateur === motActuel.replace(/\s/g, '')) {
+            elementMessage.textContent = "Bravo ! C'est correct."
+            elementMessage.className = "correct"
+            mettreÀJourScore(10)
           } else {
-            messageEl.textContent = "Incorrect. Réessaie.";
-            messageEl.className = "incorrect";
-            updateScore(-5);
+            elementMessage.textContent = "Incorrect. Réessaie."
+            elementMessage.className = "incorrect"
+            mettreÀJourScore(-5)
           }
-          setTimeout(pickNewWord, 1500);
-        });
-        pickNewWord();
-      });
+          setTimeout(choisirNouveauMot, 1500)
+        })
+        // Démarrer le jeu avec un premier mot
+        choisirNouveauMot()
+      })
     </script>
   </body>
 </html>
