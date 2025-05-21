@@ -1,17 +1,24 @@
+/* ===== styles de la barre de navigation ===== */
 .game-navbar {
+  /* position fixe en haut de page */
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   height: 70px;
+  /* dégradé de fond */
   background: linear-gradient(135deg, #1a1a1a 0%, #111 100%);
+  /* ombre portée */
   box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+  /* bordure inférieure */
   border-bottom: 1px solid rgba(231, 76, 60, 0.3);
+  /* au-dessus des autres éléments */
   z-index: 1000;
   display: flex;
   align-items: center;
 }
 
+/* conteneur du contenu de navigation */
 .nav-content {
   width: 100%;
   max-width: 1200px;
@@ -22,17 +29,20 @@
   align-items: center;
 }
 
+/* conteneur du logo */
 .nav-brand {
   display: flex;
   align-items: center;
   gap: 12px;
 }
 
+/* icône du logo */
 .logo-icon {
   color: #e74c3c;
   font-size: 1.8rem;
 }
 
+/* texte du logo */
 .logo-text {
   font-family: 'Arial Black', sans-serif;
   font-size: 1.5rem;
@@ -40,15 +50,18 @@
   margin: 0;
 }
 
+/* partie colorée du logo */
 .logo-text span {
   color: #e74c3c;
 }
 
+/* conteneur des liens de jeux */
 .nav-games {
   display: flex;
   gap: 15px;
 }
 
+/* style des liens de navigation */
 .nav-link {
   color: #aaa;
   text-decoration: none;
@@ -61,76 +74,85 @@
   border-radius: 6px;
 }
 
+/* effet au survol des liens */
 .nav-link:hover {
   background: rgba(231, 76, 60, 0.1);
   color: white;
 }
 
+/* style des icônes dans les liens */
 .nav-link i {
   font-size: 1.2rem;
   margin-bottom: 3px;
 }
 
+/* texte des liens */
 .link-text {
   font-family: 'Arial', sans-serif;
 }
 
+/* conteneur d'affichage des ddaks */
 .ddak-display {
   display: flex;
   align-items: center;
   gap: 10px;
 }
 
+/* style du jeton de ddak */
 .ddak-chip {
+  /* dégradé de fond */
   background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
-  width: 60px;  /* Slightly wider */
+  width: 60px;
   height: 50px;
-  border-radius: 25px;  /* Now pill-shaped instead of circle */
+  border-radius: 25px;
   display: flex;
   align-items: center;
-  justify-content: space-between;  /* Better spacing */
-  padding: 0 12px;  /* Internal padding */
+  justify-content: space-between;
+  padding: 0 12px;
   box-shadow: 0 3px 6px rgba(0,0,0,0.2);
   position: relative;
   border: 2px solid #f1c40f;
 }
 
+/* icône du jeton */
 .chip-icon {
   color: rgba(255,255,255,0.9);
   font-size: 1.2rem;
-  margin-right: 5px;  /* Added spacing between icon and number */
+  margin-right: 5px;
 }
 
+/* montant des ddaks */
 .ddak-amount {
   color: white;
   font-weight: bold;
   font-size: 1.1rem;
-  /* Removed absolute positioning */
 }
 
+/* libellé des ddaks */
 .ddak-label {
   color: #aaa;
   font-size: 0.9rem;
   font-family: 'Arial', sans-serif;
 }
 
-/* Animation for DDAK updates */
+/* animation pour les mises à jour de ddak */
 @keyframes pulse {
   0% { transform: scale(1); }
   50% { transform: scale(1.1); }
   100% { transform: scale(1); }
 }
 
+/* classe pour l'animation */
 .grow {
   animation: pulse 0.3s ease;
 }
 
-/* Add body padding to prevent content hiding */
+/* espace pour la navbar fixe */
 body {
   padding-top: 80px;
 }
 
-/* Responsive adjustments */
+/* adaptations pour tablettes */
 @media (max-width: 768px) {
   .nav-games {
     gap: 8px;
@@ -149,7 +171,9 @@ body {
   .ddak-label {
     display: none;
   }
-}/* ===== MODERN THEME VARIABLES ===== */
+}
+
+/* ===== variables css globales ===== */
 :root {
     --primary-color: #1a1a1a;
     --secondary-color: #333333;
@@ -167,7 +191,7 @@ body {
     --font-accent: 'Arial Black', sans-serif;
 }
 
-/* ===== BASE STYLES ===== */
+/* ===== styles de base ===== */
 body {
     font-family: var(--font-primary);
     background-color: var(--background-color);
@@ -184,7 +208,7 @@ body {
         radial-gradient(circle at 90% 80%, rgba(231, 76, 60, 0.1) 0%, transparent 20%);
 }
 
-/* ===== CONTAINER STYLES ===== */
+/* ===== styles du conteneur principal ===== */
 .container-home {
     width: 90%;
     max-width: 900px;
@@ -197,6 +221,7 @@ body {
     overflow: hidden;
 }
 
+/* bordure supérieure colorée */
 .container-home::before {
     content: '';
     position: absolute;
@@ -207,7 +232,7 @@ body {
     background: linear-gradient(90deg, var(--accent-color), var(--accent-dark));
 }
 
-/* ===== NAVIGATION LINK ===== */
+/* ===== lien de navigation ===== */
 .home-link {
     position: absolute;
     top: 20px;
@@ -221,22 +246,25 @@ body {
     gap: 8px;
 }
 
+/* effet au survol du lien */
 .home-link:hover {
     color: white;
     text-decoration: none;
 }
 
+/* style de l'icône du lien */
 .home-link i {
     font-size: 1.2rem;
 }
 
-/* ===== HERO SECTION ===== */
+/* ===== section hero ===== */
 .hero {
     text-align: center;
     margin-bottom: 40px;
     position: relative;
 }
 
+/* titre principal */
 .hero h1 {
     font-family: var(--font-accent);
     font-size: 2.2rem;
@@ -246,6 +274,7 @@ body {
     letter-spacing: 1px;
 }
 
+/* texte du hero */
 .hero p {
     font-size: 1.1rem;
     color: var(--text-muted);
@@ -253,22 +282,24 @@ body {
     margin: 0 auto 30px;
 }
 
-/* Typing animation cursor */
+/* curseur de saisie */
 .typing-cursor {
     opacity: 0;
     animation: blink 0.7s infinite;
 }
 
+/* animation du curseur */
 @keyframes blink {
     0%, 100% { opacity: 1; }
     50% { opacity: 0; }
 }
 
+/* curseur visible */
 .typing-cursor.visible {
     opacity: 1;
 }
 
-/* ===== SECTION TITLES ===== */
+/* ===== titres de section ===== */
 .section-title {
     font-family: var(--font-accent);
     color: var(--accent-color);
@@ -279,6 +310,7 @@ body {
     text-transform: uppercase;
 }
 
+/* ligne sous les titres */
 .section-title::after {
     content: "";
     display: block;
@@ -288,7 +320,7 @@ body {
     margin: 10px auto 0;
 }
 
-/* ===== NAVIGATION CARDS ===== */
+/* ===== cartes de navigation ===== */
 .nav-cards {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -296,6 +328,7 @@ body {
     margin: 30px auto;
 }
 
+/* style des cartes */
 .nav-card {
     background: rgba(0,0,0,0.3);
     border-radius: var(--border-radius);
@@ -308,17 +341,20 @@ body {
     cursor: pointer;
 }
 
+/* effet au survol des cartes */
 .nav-card:hover {
     transform: translateY(-5px);
     box-shadow: var(--shadow-glow);
     border-color: var(--accent-color);
 }
 
+/* carte sélectionnée */
 .nav-card.selected {
     border: 2px solid var(--accent-color);
     box-shadow: 0 0 20px rgba(231, 76, 60, 0.4);
 }
 
+/* image des cartes */
 .nav-card .card-image {
     height: 120px;
     background-size: cover;
@@ -326,6 +362,7 @@ body {
     position: relative;
 }
 
+/* indicateur de sélection */
 .nav-card .card-image::before {
     content: "";
     position: absolute;
@@ -339,6 +376,7 @@ body {
     display: none;
 }
 
+/* indicateur de sélection visible */
 .nav-card.selected .card-image::before {
     display: block;
     background-color: var(--accent-color);
@@ -349,11 +387,13 @@ body {
     font-size: 12px;
 }
 
+/* contenu des cartes */
 .nav-card .card-content {
     padding: 20px;
     text-align: center;
 }
 
+/* titre des cartes */
 .card-content h2 {
     color: white;
     margin-top: 0;
@@ -362,7 +402,7 @@ body {
     font-size: 1.2rem;
 }
 
-/* ===== BUTTON STYLES ===== */
+/* ===== styles des boutons ===== */
 .btn {
     padding: 15px 30px;
     background: var(--accent-color);
@@ -379,12 +419,14 @@ body {
     text-align: center;
 }
 
+/* effet au survol des boutons */
 .btn:hover {
     background: var(--accent-dark);
     transform: translateY(-3px);
     box-shadow: var(--shadow-glow);
 }
 
+/* bouton désactivé */
 .btn:disabled {
     background: #666;
     cursor: not-allowed;
@@ -392,26 +434,84 @@ body {
     box-shadow: none;
 }
 
+/* effet au survol désactivé */
 .btn:disabled:hover {
     background: #666;
 }
 
+/* bouton en bloc */
 .btn-block {
     display: block;
     width: 100%;
 }
 
+/* bouton de démarrage du quiz */
 .start-quiz-btn {
-    margin: 30px auto;
-    max-width: 300px;
+    margin: 20px auto;
+    max-width: 250px;
+    padding: 12px 25px;
+    background: linear-gradient(135deg, var(--accent-color) 0%, var(--accent-dark) 100%);
+    color: white;
+    border: none;
+    border-radius: var(--border-radius);
+    font-family: var(--font-accent);
+    font-size: 1rem;
+    cursor: pointer;
+    transition: var(--transition-default);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    display: inline-block;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(231, 76, 60, 0.3);
 }
 
-/* ===== QUIZ CONTAINER ===== */
+/* Effet de survol avec animation */
+.start-quiz-btn:hover {
+    background: linear-gradient(135deg, var(--accent-dark) 0%, var(--accent-color) 100%);
+    transform: translateY(-4px);
+    box-shadow: 0 6px 20px rgba(231, 76, 60, 0.4);
+}
+
+/* Animation d'ondulation sur hover */
+.start-quiz-btn:hover::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(255,255,255,0.2) 0%, transparent 70%);
+    animation: ripple 1s infinite;
+}
+
+/* Animation de l'effet d'ondulation */
+@keyframes ripple {
+    0% {
+        transform: scale(1);
+        opacity: 0.8;
+    }
+    100% {
+        transform: scale(1.5);
+        opacity: 0;
+    }
+}
+
+/* Adaptation pour les écrans mobiles */
+@media (max-width: 480px) {
+    .start-quiz-btn {
+        padding: 15px 25px;
+        font-size: 1rem;
+        max-width: 250px;
+    }
+}
+/* ===== conteneur du quiz ===== */
 #quiz-container {
     width: 100%;
 }
 
-/* ===== SCORE DISPLAY ===== */
+/* ===== affichage du score ===== */
 .score-container {
     display: flex;
     justify-content: space-between;
@@ -421,26 +521,29 @@ body {
     border-radius: var(--border-radius);
 }
 
+/* élément de score */
 .score-item {
     font-family: var(--font-accent);
 }
 
+/* valeur du score */
 .score-value {
     color: var(--accent-color);
 }
 
-/* ===== QUESTION STYLES ===== */
+/* ===== styles des questions ===== */
 .question-container {
     margin-bottom: 30px;
 }
 
+/* texte de la question */
 .question-text {
     font-size: 1.3rem;
     margin-bottom: 20px;
     line-height: 1.4;
 }
 
-/* ===== TIMER BAR ===== */
+/* ===== barre de temps ===== */
 #timer-bar-container {
     width: 100%;
     height: 8px;
@@ -450,6 +553,7 @@ body {
     overflow: hidden;
 }
 
+/* barre de progression */
 #progress-bar {
     height: 100%;
     width: 100%;
@@ -457,21 +561,24 @@ body {
     transition: width 0.1s linear;
 }
 
+/* avertissement de temps */
 #progress-bar.warning {
     background: linear-gradient(90deg, #FF9800, #FF5722);
 }
 
+/* danger de temps écoulé */
 #progress-bar.danger {
     background: linear-gradient(90deg, #F44336, #E91E63);
     animation: pulse 0.5s infinite alternate;
 }
 
+/* animation de pulsation */
 @keyframes pulse {
     from { opacity: 1; }
     to { opacity: 0.8; }
 }
 
-/* ===== ANSWER BUTTONS ===== */
+/* ===== boutons de réponse ===== */
 #answers {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -479,6 +586,7 @@ body {
     margin: 30px 0;
 }
 
+/* style des boutons de réponse */
 .answer-btn {
     padding: 15px;
     background: rgba(0,0,0,0.3);
@@ -496,28 +604,32 @@ body {
     justify-content: center;
 }
 
+/* effet au survol des réponses */
 .answer-btn:hover {
     background: rgba(231, 76, 60, 0.1);
     border-color: var(--accent-color);
 }
 
+/* réponse correcte */
 .answer-btn.correct {
     background: rgba(46, 204, 113, 0.2);
     border-color: #2ecc71;
     color: #2ecc71;
 }
 
+/* réponse incorrecte */
 .answer-btn.incorrect {
     background: rgba(231, 76, 60, 0.2);
     border-color: var(--accent-color);
     color: var(--accent-color);
 }
 
+/* réponse désactivée */
 .answer-btn:disabled {
     cursor: not-allowed;
 }
 
-/* ===== FEEDBACK MESSAGE ===== */
+/* ===== message de feedback ===== */
 #feedback {
     margin: 20px 0;
     padding: 15px;
@@ -526,16 +638,19 @@ body {
     border-left: 4px solid var(--accent-color);
 }
 
+/* feedback correct */
 .feedback-correct {
     border-left-color: #2ecc71;
     background: rgba(46, 204, 113, 0.1);
 }
 
+/* feedback incorrect */
 .feedback-incorrect {
     border-left-color: var(--accent-color);
     background: rgba(231, 76, 60, 0.1);
 }
 
+/* ligne de feedback */
 .feedback-line {
     font-weight: bold;
     margin-bottom: 8px;
@@ -544,11 +659,13 @@ body {
     gap: 10px;
 }
 
+/* réponse correcte */
 .correct-answer {
     color: var(--text-muted);
     font-style: italic;
 }
 
+/* badge de points */
 .points-badge {
     display: inline-block;
     padding: 3px 8px;
@@ -557,17 +674,19 @@ body {
     font-weight: bold;
 }
 
+/* badge correct */
 .feedback-correct .points-badge {
     background-color: #2ecc71;
     color: white;
 }
 
+/* badge incorrect */
 .feedback-incorrect .points-badge {
     background-color: var(--accent-color);
     color: white;
 }
 
-/* ===== NEXT QUESTION BUTTON ===== */
+/* ===== bouton question suivante ===== */
 #next-question-btn {
     margin: 20px auto;
     padding: 15px 30px;
@@ -585,18 +704,20 @@ body {
     text-align: center;
 }
 
+/* effet au survol */
 #next-question-btn:hover {
     background: var(--accent-dark);
     transform: translateY(-3px);
     box-shadow: var(--shadow-glow);
 }
 
-/* ===== RESULTS CONTAINER ===== */
+/* ===== conteneur des résultats ===== */
 #results-container {
     text-align: center;
     padding: 20px;
 }
 
+/* titre des résultats */
 .results-title {
     font-family: var(--font-accent);
     color: var(--accent-color);
@@ -605,6 +726,7 @@ body {
     text-transform: uppercase;
 }
 
+/* score final */
 .final-score {
     font-size: 3rem;
     color: white;
@@ -612,13 +734,14 @@ body {
     font-family: var(--font-accent);
 }
 
+/* message du score */
 .score-message {
     font-size: 1.2rem;
     margin-bottom: 30px;
     color: var(--text-muted);
 }
 
-/* ===== STATS CONTAINER ===== */
+/* ===== conteneur des stats ===== */
 .stats-container {
     background: rgba(0,0,0,0.3);
     padding: 20px;
@@ -627,6 +750,7 @@ body {
     text-align: left;
 }
 
+/* titre des stats */
 .stats-container h3 {
     color: var(--accent-color);
     font-family: var(--font-accent);
@@ -634,12 +758,14 @@ body {
     text-align: center;
 }
 
+/* liste des stats */
 .stats-container ul {
     list-style-type: none;
     padding: 0;
     margin: 0;
 }
 
+/* éléments des stats */
 .stats-container li {
     margin: 10px 0;
     display: flex;
@@ -648,12 +774,13 @@ body {
     padding-bottom: 8px;
 }
 
+/* valeurs des stats */
 .stats-container li span:last-child {
     color: var(--accent-color);
     font-weight: bold;
 }
 
-/* ===== RESTART BUTTON ===== */
+/* ===== bouton de redémarrage ===== */
 #restart-btn {
     padding: 15px 30px;
     background: var(--accent-color);
@@ -669,24 +796,26 @@ body {
     display: block;
 }
 
+/* effet au survol */
 #restart-btn:hover {
     background: var(--accent-dark);
     transform: translateY(-3px);
     box-shadow: var(--shadow-glow);
 }
 
-/* ===== ANIMATIONS ===== */
+/* ===== animations ===== */
 @keyframes pulse {
     0% { transform: scale(1); }
     50% { transform: scale(1.05); }
     100% { transform: scale(1); }
 }
 
+/* classe de pulsation */
 .pulse {
     animation: pulse 0.5s;
 }
 
-/* ===== CONFETTI ANIMATION ===== */
+/* message de félicitations */
 .congrats-message {
     font-size: 2em;
     color: #2ecc71;
@@ -695,7 +824,7 @@ body {
     animation: pulse 1s infinite;
 }
 
-/* ===== RESPONSIVE ADJUSTMENTS ===== */
+/* ===== adaptations pour tablettes ===== */
 @media (max-width: 768px) {
     .nav-cards {
         grid-template-columns: 1fr 1fr;
@@ -714,6 +843,7 @@ body {
     }
 }
 
+/* ===== adaptations pour mobiles ===== */
 @media (max-width: 480px) {
     .nav-cards {
         grid-template-columns: 1fr;
