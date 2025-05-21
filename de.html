@@ -505,9 +505,10 @@
             message += `Dommage ! Vous perdez ${mise} ddaks.`;
             result.className = "";
           }
+          
+          // Save updated points in localStorage
+          localStorage.setItem('ddaks', points);
           updateScoreDisplay();
-          result.textContent = message;
-        });
-        updateScoreDisplay(); // initialise l'affichage
+result.textContent = message;
       });
     </script>
