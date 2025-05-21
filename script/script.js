@@ -820,7 +820,7 @@ function showResults() {
     }
 }
 
-// écouteur pour le bouton suivant
+//  pour le bouton suivant
 nextQuestionBtn.addEventListener("click", goToNextQuestion);
 
 // bouton pour recommencer
