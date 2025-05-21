@@ -494,17 +494,19 @@
           dice1.src = diceImages[die1 - 1];
           dice2.src = diceImages[die2 - 1];
           // Vérifier le résultat
+          let message = `Vous avez deviné ${guess}, la somme est ${sum}. `;
           if (guess === sum) {
-            const gain = Math.floor(mise * multipliers[sum]);
-            result.textContent = `Bravo ! La somme est ${sum}. Vous gagnez ${gain} ddaks.`;
-            result.className = "win-message";
+            const gain = Math.round(mise * multipliers[sum]);
             points += gain;
+            message += `Bravo ! Vous gagnez ${gain} ddaks.`;
+            result.className = "win-message";
           } else {
-            result.textContent = `Raté... La somme était ${sum}. Vous perdez ${mise} ddaks.`;
-            result.className = "";
             points -= mise;
+            message += `Dommage ! Vous perdez ${mise} ddaks.`;
+            result.className = "";
           }
           updateScoreDisplay();
+          result.textContent = message;
         });
         updateScoreDisplay(); // initialise l'affichage
       });
