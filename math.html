@@ -1,476 +1,18 @@
 <!DOCTYPE html>
+<!-- déclaration du type de document -->
 <html lang="fr">
+  <!-- langue française -->
   <head>
-    <!-- métadonnées de base -->
+    <!-- encodage des caractères en utf-8 -->
     <meta charset="UTF-8" />
+    <!-- configuration du viewport pour le responsive -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>mot brouillé - casino pédagogique</title>
-    <!-- inclusion des icônes font awesome -->
+    <!-- titre de la page dans l'onglet -->
+    <title>jeu de devinette</title>
+    <!-- lien vers la feuille de style -->
+    <link rel="stylesheet" href="math.css" />
+    <!-- lien vers les icônes font awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-    <style>
-      /* ===== styles modernes de la barre de navigation ===== */
-      .game-navbar {
-        position: fixed;
-        /* position fixe en haut */
-        top: 0;
-        left: 0;
-        right: 0;
-        height: 70px;
-        /* hauteur fixe */
-        /* dégradé de fond */
-        background: linear-gradient(135deg, #1a1a1a 0%, #111 100%);
-        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
-        /* ombre portée */
-        border-bottom: 1px solid rgba(231, 76, 60, 0.3);
-        /* bordure colorée */
-        z-index: 1000;
-        /* au-dessus des autres éléments */
-        display: flex;
-        align-items: center;
-        /* centrage vertical */
-      }
-
-      /* conteneur du contenu de la nav */
-      .nav-content {
-        width: 100%;
-        max-width: 1200px;
-        /* largeur maximale */
-        margin: 0 auto;
-        /* centrage horizontal */
-        padding: 0 20px;
-        /* espacement latéral */
-        display: flex;
-        justify-content: space-between;
-        /* espacement entre éléments */
-        align-items: center;
-      }
-
-      /* conteneur du logo */
-      .nav-brand {
-        display: flex;
-        align-items: center;
-        gap: 12px;
-        /* espacement entre éléments */
-      }
-
-      /* icône du logo */
-      .logo-icon {
-        color: #e74c3c;
-        /* couleur rouge */
-        font-size: 1.8rem;
-      }
-
-      /* texte du logo */
-      .logo-text {
-        font-family: 'Arial Black', sans-serif;
-        font-size: 1.5rem;
-        color: white;
-        margin: 0;
-      }
-
-      /* partie colorée du logo */
-      .logo-text span {
-        color: #e74c3c;
-      }
-
-      /* conteneur des liens de jeux */
-      .nav-games {
-        display: flex;
-        gap: 15px;
-        /* espacement entre liens */
-      }
-
-      /* style des liens */
-      .nav-link {
-        color: #aaa;
-        /* couleur grise */
-        text-decoration: none;
-        /* pas de soulignement */
-        display: flex;
-        flex-direction: column;
-        /* disposition verticale */
-        align-items: center;
-        font-size: 0.9rem;
-        transition: all 0.3s ease;
-        /* transition fluide */
-        padding: 8px 12px;
-        border-radius: 6px;
-        /* coins arrondis */
-      }
-
-      /* effet au survol */
-      .nav-link:hover {
-        background: rgba(231, 76, 60, 0.1);
-        /* fond légèrement rouge */
-        color: white;
-      }
-
-      /* style des icônes */
-      .nav-link i {
-        font-size: 1.2rem;
-        margin-bottom: 3px;
-        /* espace sous l'icône */
-      }
-
-      /* texte des liens */
-      .link-text {
-        font-family: 'Arial', sans-serif;
-      }
-
-      /* conteneur du score */
-      .ddak-display {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        /* espacement entre éléments */
-      }
-
-      /* style du jeton de score */
-      .ddak-chip {
-        /* dégradé de fond */
-        background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
-        width: 60px;
-        /* largeur */
-        height: 50px;
-        /* hauteur */
-        border-radius: 25px;
-        /* forme de pilule */
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        /* espacement interne */
-        padding: 0 12px;
-        box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
-        /* ombre portée */
-        position: relative;
-        border: 2px solid #f1c40f;
-        /* bordure dorée */
-      }
-
-      /* icône du jeton */
-      .chip-icon {
-        color: rgba(255, 255, 255, 0.9);
-        /* blanc légèrement transparent */
-        font-size: 1.2rem;
-        margin-right: 5px;
-        /* espace à droite */
-      }
-
-      /* montant du score */
-      .ddak-amount {
-        color: white;
-        font-weight: bold;
-        font-size: 1.1rem;
-      }
-
-      /* libellé du score */
-      .ddak-label {
-        color: #aaa;
-        font-size: 0.9rem;
-        font-family: 'Arial', sans-serif;
-      }
-
-      /* animation pour les mises à jour de score */
-      @keyframes pulse {
-        0% {
-          transform: scale(1);
-        }
-
-        50% {
-          transform: scale(1.1);
-        }
-
-        100% {
-          transform: scale(1);
-        }
-      }
-
-      /* classe pour l'animation */
-      .grow {
-        animation: pulse 0.3s ease;
-      }
-
-      /* espace pour la navbar fixe */
-      body {
-        padding-top: 80px;
-      }
-
-      /* adaptations pour tablettes */
-      @media (max-width: 768px) {
-        .nav-games {
-          gap: 8px;
-          /* espacement réduit */
-        }
-
-        .nav-link {
-          padding: 6px 8px;
-          /* espacement réduit */
-          font-size: 0.8rem;
-          /* texte plus petit */
-        }
-
-        .ddak-chip {
-          width: 40px;
-          /* largeur réduite */
-          height: 40px;
-          /* hauteur réduite */
-        }
-
-        .ddak-label {
-          display: none;
-          /* masquage du libellé */
-        }
-      }
-
-      /* variables css */
-      :root {
-        --primary-color: #000000;
-        --secondary-color: #333333;
-        --accent-color: #e74c3c;
-        /* rouge */
-        --accent-dark: #c0392b;
-        /* rouge foncé */
-        --background-color: #111111;
-        /* fond très sombre */
-        --container-background: #1a1a1a;
-        /* fond sombre */
-        --text-color: #ffffff;
-        /* texte blanc */
-        --text-muted: #aaaaaa;
-        /* texte gris */
-        --shadow-soft: 0 8px 24px rgba(0, 0, 0, 0.5);
-        /* ombre douce */
-        --shadow-glow: 0 0 15px rgba(231, 76, 60, 0.5);
-        /* lueur rouge */
-        --border-radius: 8px;
-        /* coins arrondis */
-        --transition-default: all 0.3s ease;
-        /* transition par défaut */
-        --font-primary: 'Georgia', serif;
-        /* police principale */
-        --font-accent: 'Arial Black', sans-serif;
-        /* police d'accent */
-      }
-
-      /* styles de base */
-      body {
-        font-family: var(--font-primary);
-        background-color: var(--background-color);
-        color: var(--text-color);
-        line-height: 1.6;
-        /* interligne */
-        margin: 0;
-        padding: 20px;
-        min-height: 100vh;
-        /* hauteur minimale */
-        display: flex;
-        justify-content: center;
-        /* centrage horizontal */
-        align-items: center;
-        /* centrage vertical */
-        /* dégradés radiaux décoratifs */
-        background-image:
-          radial-gradient(circle at 10% 20%, rgba(231, 76, 60, 0.1) 0%, transparent 20%),
-          radial-gradient(circle at 90% 80%, rgba(231, 76, 60, 0.1) 0%, transparent 20%);
-      }
-
-      /* conteneur principal du jeu */
-      .game-container {
-        width: 90%;
-        max-width: 600px;
-        /* largeur maximale */
-        background: var(--container-background);
-        padding: 30px;
-        border-radius: var(--border-radius);
-        box-shadow: var(--shadow-soft);
-        border: 1px solid rgba(255, 255, 255, 0.1);
-        /* bordure subtile */
-        position: relative;
-        overflow: hidden;
-        text-align: center;
-        /* centrage du texte */
-      }
-
-      /* bordure supérieure colorée */
-      .game-container::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        height: 4px;
-        /* dégradé linéaire */
-        background: linear-gradient(90deg, var(--accent-color), var(--accent-dark));
-      }
-
-      /* style du titre */
-      .title {
-        font-family: var(--font-accent);
-        color: var(--accent-color);
-        font-size: 2rem;
-        margin-bottom: 20px;
-        text-transform: uppercase;
-        /* majuscules */
-        letter-spacing: 2px;
-        /* espacement des lettres */
-      }
-
-      /* style de la catégorie */
-      #categorie {
-        font-size: 1.2rem;
-        color: var(--text-muted);
-        /* texte gris */
-        margin-bottom: 10px;
-      }
-
-      /* style du mot brouillé */
-      .scrambled-word {
-        font-size: 2.5rem;
-        letter-spacing: 10px;
-        /* grand espacement */
-        margin: 30px 0;
-        padding: 20px;
-        background: rgba(0, 0, 0, 0.3);
-        /* fond semi-transparent */
-        border-radius: var(--border-radius);
-        font-family: var(--font-accent);
-        text-transform: uppercase;
-        min-height: 80px;
-        /* hauteur minimale */
-        display: flex;
-        align-items: center;
-        justify-content: center;
-      }
-
-      /* style du champ de réponse */
-      input[type="text"] {
-        width: 80%;
-        padding: 15px;
-        margin: 20px 0;
-        background: rgba(0, 0, 0, 0.5);
-        /* fond sombre */
-        border: 1px solid var(--accent-color);
-        /* bordure rouge */
-        border-radius: var(--border-radius);
-        color: white;
-        font-size: 1.2rem;
-        text-align: center;
-        transition: var(--transition-default);
-      }
-
-      /* effet de focus */
-      input[type="text"]:focus {
-        outline: none;
-        border-color: var(--accent-dark);
-        /* bordure rouge foncé */
-        box-shadow: var(--shadow-glow);
-        /* lueur rouge */
-      }
-
-      /* style du bouton */
-      button {
-        width: 80%;
-        padding: 15px;
-        background: var(--accent-color);
-        /* fond rouge */
-        color: white;
-        border: none;
-        border-radius: var(--border-radius);
-        font-family: var(--font-accent);
-        font-size: 1.2rem;
-        text-transform: uppercase;
-        cursor: pointer;
-        /* curseur main */
-        transition: var(--transition-default);
-        margin: 20px 0;
-      }
-
-      /* effet au survol */
-      button:hover {
-        background: var(--accent-dark);
-        /* fond rouge foncé */
-        transform: translateY(-3px);
-        /* léger déplacement */
-        box-shadow: var(--shadow-glow);
-        /* lueur rouge */
-      }
-
-      /* style des messages */
-      #message {
-        font-size: 1.2rem;
-        margin: 20px 0;
-        min-height: 30px;
-        /* hauteur minimale */
-        padding: 10px;
-        border-radius: var(--border-radius);
-      }
-
-      /* style des messages corrects */
-      .correct {
-        color: #2ecc71;
-        /* vert */
-        animation: pulse 0.5s;
-        /* animation */
-      }
-
-      /* style des messages incorrects */
-      .incorrect {
-        color: #e74c3c;
-        /* rouge */
-      }
-
-      /* style des points */
-      .points {
-        font-size: 1.3rem;
-        font-family: var(--font-accent);
-        margin-top: 20px;
-        color: var(--accent-color);
-        /* rouge */
-      }
-
-      /* animation de pulsation */
-      @keyframes pulse {
-        0% {
-          transform: scale(1);
-        }
-
-        50% {
-          transform: scale(1.1);
-        }
-
-        100% {
-          transform: scale(1);
-        }
-      }
-
-      /* adaptations pour mobiles */
-      @media (max-width: 480px) {
-        .game-container {
-          padding: 20px;
-          /* espacement réduit */
-        }
-
-        .title {
-          font-size: 1.5rem;
-          /* texte plus petit */
-        }
-
-        .scrambled-word {
-          font-size: 1.8rem;
-          /* texte plus petit */
-          letter-spacing: 5px;
-          /* espacement réduit */
-          padding: 15px;
-          /* espacement réduit */
-        }
-
-        input[type="text"],
-        button {
-          width: 90%;
-          /* largeur augmentée */
-        }
-      }
-    </style>
   </head>
   <body>
     <!-- barre de navigation -->
@@ -479,29 +21,31 @@
         <!-- logo et nom du site -->
         <div class="nav-brand">
           <a href="index.html" class="nav-home-link" style="display: flex; align-items: center; gap: 12px; text-decoration: none;">
+            <!-- icône du logo -->
             <i class="fas fa-dice logo-icon"></i>
+            <!-- texte du logo -->
             <h1 class="logo-text">édu <span>stats</span>
             </h1>
           </a>
         </div>
         <!-- liens vers les différents jeux -->
         <div class="nav-games">
-          <!-- jeu de dés -->
+          <!-- lien vers le jeu de dés -->
           <a href="de.html" class="nav-link">
             <i class="fas fa-dice-six"></i>
             <span class="link-text">dés</span>
           </a>
-          <!-- quiz -->
+          <!-- lien vers le quiz -->
           <a href="quiz.html" class="nav-link">
             <i class="fas fa-question"></i>
             <span class="link-text">quiz</span>
           </a>
-          <!-- jeu de mots -->
+          <!-- lien vers le jeu de mots -->
           <a href="mots.html" class="nav-link">
             <i class="fas fa-font"></i>
             <span class="link-text">mots</span>
           </a>
-          <!-- jeu de maths -->
+          <!-- lien vers le jeu de maths -->
           <a href="math.html" class="nav-link">
             <i class="fas fa-square-root-alt"></i>
             <span class="link-text">maths</span>
@@ -510,224 +54,56 @@
         <!-- affichage du score -->
         <div class="ddak-display">
           <div class="ddak-chip">
+            <!-- icône des points -->
             <i class="fas fa-coins chip-icon"></i>
+            <!-- montant des points -->
             <span id="nav-score" class="ddak-amount">100</span>
           </div>
+          <!-- libellé des points -->
           <span class="ddak-label">ddaks</span>
         </div>
       </div>
     </nav>
     <!-- contenu principal du jeu -->
-    <div class="game-container">
+    <div id="game">
       <!-- titre du jeu -->
-      <div class="title">mot brouillé</div>
-      <!-- affichage de la catégorie -->
-      <div id="categorie"></div>
-      <!-- mot brouillé à deviner -->
-      <div id="scrambled" class="scrambled-word"></div>
-      <!-- champ de saisie de la réponse -->
-      <input type="text" id="answer" placeholder="votre réponse..." autocomplete="off" />
-      <!-- bouton de soumission -->
-      <button id="submitBtn">soumettre</button>
-      <!-- zone de message -->
-      <div id="message"></div>
-      <!-- affichage des points -->
-      <div class="points" id="points">ddaks: 100</div>
+      <h1>jeu de devinette</h1>
+      <!-- bouton pour générer un nouveau nombre -->
+      <input type="button" onclick="numRandom()" value="nouveau nombre">
+      <!-- formulaire de devinette -->
+      <p>
+        <label for="guess">devine un nombre (1-100):</label>
+        <!-- champ de saisie -->
+        <input type="number" id="guess" min="1" max="100">
+        <!-- bouton de validation -->
+        <input type="button" onclick="checkGuess()" value="devine">
+      </p>
+      <!-- message de résultat -->
+      <p id="message"></p>
+      <!-- message d'indice -->
+      <p id="indice"></p>
+    </div>
+    <!-- section historique des tentatives -->
+    <div id="history">
+      <h2>historique</h2>
+      <!-- tableau des essais -->
+      <table id="guessTable">
+        <thead>
+          <tr>
+            <!-- en-tête des colonnes -->
+            <th>essai</th>
+            <th>nombre</th>
+            <th>indice</th>
+          </tr>
+        </thead>
+        <!-- corps du tableau (rempli par javascript) -->
+        <tbody></tbody>
+      </table>
     </div>
     <!-- scripts javascript -->
+    <!-- script spécifique au jeu de maths -->
+    <script src="math.js"></script>
+    <!-- script général -->
     <script src="script.js"></script>
-    <script>
-      document.addEventListener('DOMContentLoaded', function () {
-        const submitBtn = document.getElementById('submitBtn');
-        const navScore = document.getElementById('nav-score');
-    
-        function updateButtonState() {
-          const currentDdaks = parseInt(navScore.textContent);
-          if (currentDdaks <= 0) {
-            submitBtn.disabled = true;
-            submitBtn.style.opacity = 0.5;
-            submitBtn.style.cursor = 'not-allowed';
-          } else {
-            submitBtn.disabled = false;
-            submitBtn.style.opacity = 1;
-            submitBtn.style.cursor = 'pointer';
-          }
-      }
-
-    // Appeler au chargement initial
-    updateButtonState();
-
-    // Exporte cette fonction si d'autres scripts modifient les ddaks
-    window.updateButtonState = updateButtonState;
-
-    // Exemple : si tu soustrais des ddaks ailleurs, tu peux appeler `updateButtonState()` après
-      // initialisation lorsque le dom est chargé
-        // liste des mots et catégories
-        const words = [{
-          word: "guerre",
-          category: "histoire"
-        }, {
-          word: "canada",
-          category: "géographie"
-        }, {
-          word: "puberté",
-          category: "santé"
-        }, {
-          word: "shakespeare",
-          category: "littérature"
-        }, {
-          word: "napoléon",
-          category: "histoire"
-        }, {
-          word: "amazonie",
-          category: "géographie"
-        }, {
-          word: "vaccin",
-          category: "santé"
-        }, {
-          word: "baudelaire",
-          category: "littérature"
-        }, {
-          word: "révolution",
-          category: "histoire"
-        }, {
-          word: "sahara",
-          category: "géographie"
-        }, {
-          word: "diabète",
-          category: "santé"
-        }, {
-          word: "molière",
-          category: "littérature"
-        }, {
-          word: "moyen âge",
-          category: "histoire"
-        }, {
-          word: "everest",
-          category: "géographie"
-        }, {
-          word: "antibiotique",
-          category: "santé"
-        }, {
-          word: "dante",
-          category: "littérature"
-        }, {
-          word: "renaissance",
-          category: "histoire"
-        }, {
-          word: "italie",
-          category: "géographie"
-        }, {
-          word: "stress",
-          category: "santé"
-        }, {
-          word: "hugo",
-          category: "littérature"
-        }, {
-          word: "réforme",
-          category: "histoire"
-        }, {
-          word: "japon",
-          category: "géographie"
-        }, {
-          word: "allergie",
-          category: "santé"
-        }, {
-          word: "zola",
-          category: "littérature"
-        }, {
-          word: "colonisation",
-          category: "histoire"
-        }, {
-          word: "himalaya",
-          category: "géographie"
-        }, {
-          word: "hygiène",
-          category: "santé"
-        }, {
-          word: "camus",
-          category: "littérature"
-        }, {
-          word: "traité",
-          category: "histoire"
-        }, {
-          word: "désert",
-          category: "géographie"
-        }, {
-          word: "fatigue",
-          category: "santé"
-        }, {
-          word: "voltaire",
-          category: "littérature"
-        }];
-        // variables du jeu
-        let currentWord = {}; // mot actuel à deviner
-        const scrambledElement = document.getElementById("scrambled"); // élément du mot brouillé
-        const categoryElement = document.getElementById("categorie"); // élément de la catégorie
-        const answerInput = document.getElementById("answer"); // champ de réponse
-        const messageElement = document.getElementById("message"); // zone de message
-        const pointsElement = document.getElementById("points"); // affichage des points
-        const submitBtn = document.getElementById("submitBtn"); // bouton de soumission
-        // initialisation du jeu
-        chooseNewWord();
-        // fonction pour brouiller un mot
-        function scramble(word) {
-          return word.split('').sort(() => Math.random() - 0.5).join('');
-        }
-        // choisir un nouveau mot aléatoire
-        function chooseNewWord() {
-          // sélection aléatoire dans la liste
-          currentWord = words[Math.floor(Math.random() * words.length)];
-          // affichage du mot brouillé
-          scrambledElement.textContent = scramble(currentWord.word);
-          // affichage de la catégorie
-          categoryElement.textContent = `catégorie: ${currentWord.category}`;
-          // réinitialisation du champ de réponse
-          answerInput.value = "";
-          // effacement des messages
-          messageElement.textContent = "";
-          // focus sur le champ de réponse
-          answerInput.focus();
-          // activation du bouton
-          submitBtn.disabled = false;
-        }
-        // vérification de la réponse
-        function checkAnswer() {
-          // désactivation du bouton pendant le traitement
-          submitBtn.disabled = true;
-          // récupération et nettoyage de la réponse
-          const answer = answerInput.value.toLowerCase().trim();
-          // vérification si le champ est vide
-          if (!answer) {
-            messageElement.textContent = "veuillez entrer une réponse";
-            messageElement.className = "incorrect";
-            return;
-          }
-          // vérification si la réponse est correcte
-          if (answer === currentWord.word) {
-            // ajout de points
-            addDdaks(50);
-            messageElement.textContent = "correct! +50 ddaks";
-            messageElement.className = "correct";
-          } else {
-            // retrait de points
-            addDdaks(-25);
-            messageElement.textContent = `incorrect! -50 ddaks (le mot était: ${currentWord.word})`;
-            messageElement.className = "incorrect";
-          }
-          // choix d'un nouveau mot après 2 secondes
-          setTimeout(chooseNewWord, 2000);
-        }
-        // écouteurs d'événements
-        // clic sur le bouton
-        submitBtn.addEventListener('click', checkAnswer);
-        // touche entrée dans le champ de texte
-        answerInput.addEventListener('keypress', function(e) {
-          if (e.key === 'Enter') {
-            checkAnswer();
-          }
-        });
-      });
-    </script>
   </body>
 </html>
