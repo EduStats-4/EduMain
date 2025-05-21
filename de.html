@@ -457,7 +457,7 @@
           11: 3.5,
           12: 4.0
         };
-        let points = 100;
+        let points = localStorage.getItem('ddaks') ? parseInt(localStorage.getItem('ddaks')) : 100;
         const rollButton = document.getElementById('rollButton');
         const miseInput = document.getElementById('mise');
         const devineInput = document.getElementById('deviner');
