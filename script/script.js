@@ -1,41 +1,58 @@
-// Enhanced DDAK System
+// Système DDAK amélioré
 document.addEventListener("DOMContentLoaded", function() {
-  // Initialize DDAKs
-  const storedDdaks = sessionStorage.getItem("ddaks");
-  let currentDdaks = storedDdaks ? parseInt(storedDdaks, 10) : 100;
-  if (isNaN(currentDdaks)) currentDdaks = 100;
-  sessionStorage.setItem("ddaks", currentDdaks);
-  
-  // Update all score displays on page load
-  updateAllScoreDisplays(currentDdaks);
-  
-  // Add event listeners for any DDAK-related buttons
-  setupDdakEventListeners();
-});
+  // On récupère le score DDAK ou on met 100 si c’est vide
+  ddaksStocké = sessionStorage.getItem("ddaks")
+  if (ddaksStocké !== null) {
+    ddaksActuel = parseInt(ddaksStocké, 10)
+  } else {
+    ddaksActuel = 100
+  }
 
-function updateAllScoreDisplays(score) {
-  const displays = document.querySelectorAll('#score, #nav-score, .ddak-amount, #points');
-  displays.forEach(display => {
-    if (display) {
-      display.textContent = score;
-      display.classList.add('grow');
-      setTimeout(() => display.classList.remove('grow'), 300);
+  if (isNaN(ddaksActuel)) ddaksActuel = 100
+
+  sessionStorage.setItem("ddaks", ddaksActuel)
+
+  // On met à jour les zones de score
+  mettreAJourAffichageScore(ddaksActuel)
+
+  // On prépare les boutons (s’il y en a)
+  preparerBoutonsDdak()
+})
+
+// Fonction pour afficher le score dans toutes les zones
+function mettreAJourAffichageScore(score) {
+  zonesAffichage = document.querySelectorAll('#score, #nav-score, .ddak-amount, #points')
+  zonesAffichage.forEach(zone => {
+    if (zone) {
+      zone.textContent = score
+      zone.classList.add('grandir')
+      setTimeout(() => zone.classList.remove('grandir'), 300)
     }
-  });
+  })
 }
 
-function addDdaks(points) {
-  const current = parseInt(sessionStorage.getItem("ddaks"), 10) || 100;
-  const newTotal = Math.max(0, current + points);
-  sessionStorage.setItem("ddaks", newTotal);
-  updateAllScoreDisplays(newTotal);
-  return newTotal;
+// Fonction pour ajouter ou enlever des DDAKs
+function ajouterDdaks(nombre) {
+  ddaksSauvegardé = sessionStorage.getItem("ddaks")
+  if (ddaksSauvegardé !== null) {
+    ddaksActuel = parseInt(ddaksSauvegardé, 10)
+  } else {
+    ddaksActuel = 100
+  }
+
+  if (isNaN(ddaksActuel)) ddaksActuel = 100
+
+  totalNouveau = Math.max(0, ddaksActuel + nombre)
+  sessionStorage.setItem("ddaks", totalNouveau)
+  mettreAJourAffichageScore(totalNouveau)
+  return totalNouveau
 }
 
-function setupDdakEventListeners() {
-  // Add any event listeners for DDAK-related buttons here
+// Fonction vide pour ajouter des boutons plus tard
+function preparerBoutonsDdak() {
+  // Tu peux ajouter ici des événements pour les boutons
 }
 
-// Make functions available globally
-window.addDdaks = addDdaks;
-window.updateAllScoreDisplays = updateAllScoreDisplays;
+// On rend les fonctions utilisables partout
+window.ajouterDdaks = ajouterDdaks
+window.mettreAJourAffichageScore = mettreAJourAffichageScore
