@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="fr">
   <head>
@@ -429,7 +430,7 @@
           const guess = parseInt(guessInput.value);
           const currentDdaks = parseInt(sessionStorage.getItem("ddaks")) || 100;
           /* validation de la mise */
-          if (isNaN(bet)) {
+          if (isNaN(bet) || bet<=0) {
             resultDiv.textContent = "veuillez entrer une mise valide.";
             return;
           }
